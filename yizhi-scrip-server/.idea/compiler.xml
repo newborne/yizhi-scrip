@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="yizhi-user" />
+        <module name="yizhi-admin" />
+        <module name="yizhi-server" />
+        <module name="yizhi-dubbo-service" />
+        <module name="yizhi-common" />
+        <module name="yizhi-neo4j" />
+        <module name="yizhi-temp" />
+        <module name="yizhi-spark" />
+        <module name="yizhi-gateway" />
+        <module name="yizhi-dubbo-interface" />
+        <module name="yizhi-recommend" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="yizhi-admin" target="8" />
+      <module name="yizhi-common" target="8" />
+      <module name="yizhi-dubbo" target="8" />
+      <module name="yizhi-dubbo-interface" target="8" />
+      <module name="yizhi-dubbo-service" target="8" />
+      <module name="yizhi-gateway" target="8" />
+      <module name="yizhi-neo4j" target="8" />
+      <module name="yizhi-recommend" target="8" />
+      <module name="yizhi-scrip-server" target="8" />
+      <module name="yizhi-server" target="8" />
+      <module name="yizhi-spark" target="8" />
+      <module name="yizhi-temp" target="8" />
+      <module name="yizhi-user" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
