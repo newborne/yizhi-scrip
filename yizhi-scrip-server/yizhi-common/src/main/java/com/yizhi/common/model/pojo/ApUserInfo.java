@@ -1,5 +1,6 @@
 package com.yizhi.common.model.pojo;
 
+import com.yizhi.common.model.enums.SexEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -25,11 +26,11 @@ public class ApUserInfo implements Serializable {
 
   // 用户id
   @ApiModelProperty(value = "用户id")
-  private Integer user_id;
+  private Integer userId;
 
   // 昵称
   @ApiModelProperty(value = "昵称")
-  private String nick_name;
+  private String nickName;
 
   // 用户头像
   @ApiModelProperty(value = "用户头像")
@@ -41,7 +42,7 @@ public class ApUserInfo implements Serializable {
 
   // 性别，1-男，2-女，3-未知
   @ApiModelProperty(value = "性别，1-男，2-女，3-未知")
-  private Integer sex;
+  private SexEnum sex;
 
   // 用户年龄
   @ApiModelProperty(value = "用户年龄")
