@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * The type Ap user.
  */
@@ -15,9 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
-public class ApUser implements Serializable {
-
-  private static final long serialVersionUID = 1L;
+public class ApUser extends BasePojo {
 
   // id
   @ApiModelProperty(value = "id")
@@ -31,11 +27,4 @@ public class ApUser implements Serializable {
   @ApiModelProperty(value = "密码，需要加密")
   private String password;
 
-  // 创建日期
-  @ApiModelProperty(value = "创建日期")
-  private java.util.Date created;
-
-  // 更新日期
-  @ApiModelProperty(value = "更新日期")
-  private java.util.Date updated;
 }

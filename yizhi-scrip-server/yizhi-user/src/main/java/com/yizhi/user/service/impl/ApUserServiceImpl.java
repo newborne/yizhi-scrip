@@ -94,7 +94,7 @@ public class ApUserServiceImpl implements ApUserService {
             Map<String, Object> msg = new HashMap<>();
             msg.put("id", user.getId());
             msg.put("date", System.currentTimeMillis());
-            this.rocketMQTemplate.convertAndSend("tanhua-sso-login", msg);
+            this.rocketMQTemplate.convertAndSend("yizhi-user-login", msg);
         } catch (Exception e) {
             log.error("发送消息失败", e);
         }
@@ -114,7 +114,7 @@ public class ApUserServiceImpl implements ApUserService {
             user = new ApUser();
             user.setId(Math.toIntExact(id));
             //先从redis中取出手机号,如果没有的话再从mysql中获取
-            String redisKey = "TANHUA_USER_MOBILE_" + user.getId();
+            String redisKey = "YIZHI_USER_MOBILE_" + user.getId();
             //判断redis中是否有
             if (redisTemplate.hasKey(redisKey)) {
                 user.setMobile(this.redisTemplate.opsForValue().get(redisKey));

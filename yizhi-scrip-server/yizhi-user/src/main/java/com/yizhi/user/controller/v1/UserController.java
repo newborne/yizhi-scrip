@@ -1,12 +1,10 @@
 package com.yizhi.user.controller.v1;
 
 import com.yizhi.common.model.pojo.ApUser;
-import com.yizhi.common.model.vo.ErrorResult;
+import com.yizhi.common.model.vo.Result;
 import com.yizhi.user.service.ApUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -21,7 +19,7 @@ public class UserController {
     private ApUserService userService;
 
     @PostMapping("loginVerification")
-    public ResponseEntity<Object> login(@RequestBody Map<String, String> param) {
+    public Result login(@RequestBody Map<String, String> param) {
         //获取手机的value
         String phone = param.get("phone");
         //获取验证码
@@ -30,11 +28,12 @@ public class UserController {
         Map<String, Object> login = userService.login(phone, code);
         //如果login不为空说明登录成功
         if (login != null) {
-            return ResponseEntity.ok(login);
+            return Result.ok(login);
         }
         //利用builder注解进行链式编程,给出登录失败的错误码和错误信息
-        ErrorResult errorResult = ErrorResult.builder().errCode("000002").errMessage("登录失败").build();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResult);
+//        Result Result = Result.builder().errCode("000002").errMessage("登录失败").build();
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Result);
+        return Result.fail();
     }
 
     @GetMapping("{token}")

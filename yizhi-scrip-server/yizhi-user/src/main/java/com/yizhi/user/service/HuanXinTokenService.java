@@ -2,7 +2,7 @@ package com.yizhi.user.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yizhi.common.config.HuanXinConfig;
+import com.yizhi.common.config.huanxin.HuanXinConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

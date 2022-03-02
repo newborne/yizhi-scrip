@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * The type Ap user info.
  */
@@ -16,9 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
-public class ApUserInfo implements Serializable {
-
-  private static final long serialVersionUID = 1L;
+public class ApUserInfo extends BasePojo {
 
   // id
   @ApiModelProperty(value = "id")
@@ -62,19 +58,11 @@ public class ApUserInfo implements Serializable {
 
   // 封面图片
   @ApiModelProperty(value = "封面图片")
-  private String cover_pic;
+  private String coverPic;
 
   // 行业
   @ApiModelProperty(value = "行业")
   private String industry;
-
-  // 创建日期
-  @ApiModelProperty(value = "创建日期")
-  private java.util.Date created;
-
-  // 更新日期
-  @ApiModelProperty(value = "更新日期")
-  private java.util.Date updated;
 
   // 用户状态
   @ApiModelProperty(value = "用户状态")

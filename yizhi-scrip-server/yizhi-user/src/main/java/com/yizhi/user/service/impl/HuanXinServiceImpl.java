@@ -1,7 +1,7 @@
 package com.yizhi.user.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yizhi.common.config.HuanXinConfig;
+import com.yizhi.common.config.huanxin.HuanXinConfig;
 import com.yizhi.common.model.vo.HuanXinUser;
 import com.yizhi.user.service.HuanXinService;
 import com.yizhi.user.service.HuanXinTokenService;

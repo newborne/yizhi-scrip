@@ -23,14 +23,14 @@
     <bytecodeTargetLevel>
       <module name="yizhi-admin" target="8" />
       <module name="yizhi-common" target="1.8" />
-      <module name="yizhi-dubbo" target="8" />
+      <module name="yizhi-dubbo" target="1.8" />
       <module name="yizhi-dubbo-interface" target="8" />
-      <module name="yizhi-dubbo-service" target="8" />
+      <module name="yizhi-dubbo-service" target="1.8" />
       <module name="yizhi-gateway" target="8" />
       <module name="yizhi-neo4j" target="8" />
       <module name="yizhi-recommend" target="8" />
       <module name="yizhi-scrip-server" target="1.8" />
-      <module name="yizhi-server" target="8" />
+      <module name="yizhi-server" target="1.8" />
       <module name="yizhi-spark" target="8" />
       <module name="yizhi-temp" target="8" />
       <module name="yizhi-user" target="1.8" />

@@ -1,7 +1,7 @@
 package com.yizhi.user.service.impl;
 
 import com.aliyun.oss.OSSClient;
-import com.yizhi.common.config.AliyunConfig;
+import com.yizhi.common.config.aliyun.AliyunConfig;
 import com.yizhi.common.model.vo.PicUploadResult;
 import com.yizhi.user.service.PicUploadService;
 import org.apache.commons.lang3.RandomUtils;
