@@ -54,6 +54,4 @@ public class ApUser implements Serializable {
      */
     @TableField("updated")
     private LocalDateTime updated;
-
-
 }

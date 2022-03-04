@@ -26,8 +26,7 @@ public class ApUser extends Base implements Serializable {
     @ApiModelProperty(value = "手机号")
     private String mobile;
 
-  // 密码，需要加密
-  @ApiModelProperty(value = "密码，需要加密")
-  private String password;
-
+    // 密码，需要加密
+    @ApiModelProperty(value = "密码，需要加密")
+    private String password;
 }

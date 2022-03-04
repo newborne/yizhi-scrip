@@ -15,17 +15,17 @@ import java.io.Serializable;
 @ApiModel
 public class ApQuestion extends Base implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  // id
-  @ApiModelProperty(value = "id")
-  private Integer id;
+    // id
+    @ApiModelProperty(value = "id")
+    private Integer id;
 
-  // 用户id
-  @ApiModelProperty(value = "用户id")
-  private Integer userId;
+    // 用户id
+    @ApiModelProperty(value = "用户id")
+    private Integer userId;
 
-  // 问题内容
-  @ApiModelProperty(value = "问题内容")
-  private String txt;
+    // 问题内容
+    @ApiModelProperty(value = "问题内容")
+    private String txt;
 }

@@ -114,6 +114,4 @@ public class ApUserInfo implements Serializable {
      */
     @TableField("status")
     private Integer status;
-
-
 }
