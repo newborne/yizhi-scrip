@@ -7,13 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="yizhi-user" />
         <module name="yizhi-admin" />
         <module name="yizhi-server" />
         <module name="yizhi-dubbo-service" />
         <module name="yizhi-common" />
         <module name="yizhi-neo4j" />
         <module name="yizhi-temp" />
+        <module name="yizhi-login" />
         <module name="yizhi-spark" />
         <module name="yizhi-gateway" />
         <module name="yizhi-dubbo-interface" />
@@ -21,18 +21,19 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="yizhi-admin" target="8" />
+      <module name="yizhi-admin" target="1.8" />
       <module name="yizhi-common" target="1.8" />
       <module name="yizhi-dubbo" target="1.8" />
-      <module name="yizhi-dubbo-interface" target="8" />
+      <module name="yizhi-dubbo-interface" target="1.8" />
       <module name="yizhi-dubbo-service" target="1.8" />
-      <module name="yizhi-gateway" target="8" />
-      <module name="yizhi-neo4j" target="8" />
-      <module name="yizhi-recommend" target="8" />
+      <module name="yizhi-gateway" target="1.8" />
+      <module name="yizhi-login" target="1.8" />
+      <module name="yizhi-neo4j" target="1.8" />
+      <module name="yizhi-recommend" target="1.8" />
       <module name="yizhi-scrip-server" target="1.8" />
       <module name="yizhi-server" target="1.8" />
-      <module name="yizhi-spark" target="8" />
-      <module name="yizhi-temp" target="8" />
+      <module name="yizhi-spark" target="1.8" />
+      <module name="yizhi-temp" target="1.8" />
       <module name="yizhi-user" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -43,8 +44,10 @@
       <module name="yizhi-dubbo-interface" options="-parameters" />
       <module name="yizhi-dubbo-service" options="-parameters" />
       <module name="yizhi-gateway" options="-parameters" />
+      <module name="yizhi-login" options="-parameters" />
       <module name="yizhi-neo4j" options="-parameters" />
       <module name="yizhi-recommend" options="-parameters" />
+      <module name="yizhi-scrip-server" options="" />
       <module name="yizhi-server" options="-parameters" />
       <module name="yizhi-spark" options="-parameters" />
       <module name="yizhi-temp" options="-parameters" />

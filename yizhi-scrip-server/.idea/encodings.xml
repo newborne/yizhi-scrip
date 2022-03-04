@@ -5,13 +5,14 @@
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-admin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-common/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/yizhi-common/src/main/java/com/yizhi/common/model/pojo/ApUser.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yizhi-common/src/main/java/com/yizhi/common/model/pojo/mysql/ApUser.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-dubbo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-dubbo/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-dubbo/yizhi-dubbo-interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-dubbo/yizhi-dubbo-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yizhi-login/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-neo4j/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-recommend/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/yizhi-server/src/main/java" charset="UTF-8" />

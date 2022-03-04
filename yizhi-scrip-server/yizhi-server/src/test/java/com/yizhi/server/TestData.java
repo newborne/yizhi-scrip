@@ -14,7 +14,7 @@ public class TestData {
     public void testMongoDBData() {
         for (int i = 2; i < 100; i++) {
             int similarity = RandomUtils.nextInt(30, 99);
-            System.out.println("db.recommend_user.insert({\"userId\":" + i + " ,\"toUserId\":1,\"similarity\":" + similarity + " ,\"date\":\"2021/5/4\"})");
+            System.out.println("db.recommend_user.insert({\"friendId\":" + i + " ,\"userId\":1,\"similarity\":" + similarity + " ,\"date\":\"2021/5/4\"})");
         }
     }
 }

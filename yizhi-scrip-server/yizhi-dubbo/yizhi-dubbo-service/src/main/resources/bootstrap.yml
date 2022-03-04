@@ -16,6 +16,6 @@ dubbo:
   protocols:
     dubbo:
       name: dubbo # 服务协议
-      port: -1 # 服务端口
+      port: 20880 # 服务端口
   registry:
     address: spring-cloud://centos # 注册中心

@@ -11,7 +11,14 @@ spring:
   profiles:
     active: dev # 环境标识
 dubbo:
+  protocols:
+    dubbo:
+      name: dubbo # 服务协议
+      port: 20881 # 服务端口
   registry:
     address: spring-cloud://centos # 注册中心
   cloud:
     subscribed-services: yizhi-dubbo  # 订阅的提供者名称
+yizhi:
+  cache:
+    enable: true

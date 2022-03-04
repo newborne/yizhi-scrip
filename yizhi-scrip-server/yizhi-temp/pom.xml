@@ -24,22 +24,11 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.30</version>
         </dependency>
-
+        <!-- yizhi-common -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3.4</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
+            <groupId>com.yizhi</groupId>
+            <artifactId>yizhi-common</artifactId>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
 
 </project>
