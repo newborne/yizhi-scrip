@@ -17,7 +17,6 @@ public class AliyunConfig {
     private String accessKeySecret;
     private String bucketName;
     private String urlPrefix;
-
     @Bean
     public OSSClient oSSClient() {
         return new OSSClient(endpoint, accessKeyId, accessKeySecret);

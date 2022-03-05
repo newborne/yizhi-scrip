@@ -10,9 +10,7 @@ import org.springframework.web.server.ServerWebExchange;
 @Component
 public class SwaggerHeaderFilter extends AbstractGatewayFilterFactory {
     private static final String HEADER_NAME = "X-Forwarded-Prefix";
-
     private static final String URI = "/v2/api-docs";
-
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {

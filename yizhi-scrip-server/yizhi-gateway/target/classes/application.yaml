@@ -18,11 +18,11 @@ spring:
             - Path=/yizhi-login/**
           filters:
             - StripPrefix=1
-        #            - SwaggerHeaderFilter
         - id: yizhi-server
           uri: lb://yizhi-server # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
           predicates:
             - Path=/yizhi-server/**
           filters:
             - StripPrefix=1
-#            - SwaggerHeaderFilter
+  profiles:
+    active: dev # 环境标识

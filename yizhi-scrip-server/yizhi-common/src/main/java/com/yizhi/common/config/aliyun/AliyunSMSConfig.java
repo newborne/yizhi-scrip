@@ -10,7 +10,6 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "aliyun.sms")
 @Data
 public class AliyunSMSConfig {
-
     private String regionId;
     private String accessKeyId;
     private String accessKeySecret;

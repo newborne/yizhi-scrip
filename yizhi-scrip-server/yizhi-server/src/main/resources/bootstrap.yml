@@ -14,8 +14,12 @@ dubbo:
   protocols:
     dubbo:
       name: dubbo # 服务协议
-      port: 20881 # 服务端口
+      port: -1 # 服务端口
   registry:
     address: spring-cloud://centos # 注册中心
   cloud:
     subscribed-services: yizhi-dubbo  # 订阅的提供者名称
+  consumer:
+    timeout: 3000
+    check: false  # 默认true.服务启动时候检查是否可用,服务不可用时无法启动项目, false则不检查
+    retries: 2    # 服务重试次数

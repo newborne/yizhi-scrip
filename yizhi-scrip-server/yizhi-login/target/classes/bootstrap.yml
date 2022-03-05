@@ -10,10 +10,3 @@ spring:
         refreshable-dataids: all-service.yaml # 配置要实现动态配置刷新的配置
   profiles:
     active: dev # 环境标识
-dubbo:
-  protocols:
-    dubbo:
-      name: dubbo # 服务协议
-      port: 20882 # 服务端口
-  registry:
-    address: spring-cloud://centos # 注册中心
