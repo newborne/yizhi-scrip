@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.time.Duration;
@@ -71,18 +72,19 @@ public class LoginServiceImpl implements LoginService {
             isNew = true;
             //注册添加新用户到数据库
             this.userMapper.insert(user);
-            //注册环信用户
-            this.serverFeignClient.register(Long.valueOf(user.getId()));
         }
         //生成token
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("id", user.getId());
-        // 生成token
         String token = Jwts.builder()
                 .setClaims(claims) //payload，存放数据的位置，不能放置敏感数据，如：密码等
                 .signWith(SignatureAlgorithm.HS256, secret) //设置加密方法和加密盐
                 .setExpiration(new DateTime().plusHours(12).toDate()) //设置过期时间，12小时后过期
                 .compact();
+        if (isNew) {
+            //注册环信用户
+            this.serverFeignClient.register(Long.valueOf(user.getId()), token);
+        }
         //将token和是否为新用户的结果传给controller
         Map<String, Object> map = new HashMap<>();
         map.put("isNew", isNew);
@@ -128,5 +130,15 @@ public class LoginServiceImpl implements LoginService {
             e.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public ResponseResult saveUserInfo(Map<String, String> param, String token) {
+        return this.serverFeignClient.saveUserInfo(param, token);
+    }
+
+    @Override
+    public ResponseResult saveUserLogo(MultipartFile file, String token) {
+        return this.serverFeignClient.saveUserLogo(file, token);
     }
 }

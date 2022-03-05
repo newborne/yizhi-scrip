@@ -3,8 +3,8 @@ package com.yizhi.server.controller.v1;
 import com.yizhi.common.model.vo.PicUploadResult;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.server.service.ApUserService;
-import com.yizhi.server.service.impl.HuanXinServiceImpl;
-import com.yizhi.server.service.impl.PicUploadServiceImpl;
+import com.yizhi.server.service.HuanXinService;
+import com.yizhi.server.service.PicUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,10 +16,10 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private PicUploadServiceImpl picUploadService;
+    private PicUploadService picUploadService;
 
     @Autowired
-    private HuanXinServiceImpl huanXinService;
+    private HuanXinService huanXinService;
 
     @Autowired
     private ApUserService apUserService;
@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @PostMapping("uploadPic")
-    public PicUploadResult upload(MultipartFile file) {
-        return this.picUploadService.upload(file);
+    public PicUploadResult uploadPic(@RequestParam("file") MultipartFile file) {
+        return this.picUploadService.uploadPic(file);
     }
 
     @PostMapping("saveUserInfo")
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("saveUserLogo")
-    public ResponseResult saveUserLogo(@RequestParam MultipartFile file) {
+    public ResponseResult saveUserLogo(@RequestParam("logo") MultipartFile file) {
         return (this.apUserService.saveUserLogo(file)) ? ResponseResult.ok() : ResponseResult.fail();
     }
 }

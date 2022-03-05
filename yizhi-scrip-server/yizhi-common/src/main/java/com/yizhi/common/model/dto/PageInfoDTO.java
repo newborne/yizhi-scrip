@@ -1,5 +1,6 @@
 package com.yizhi.common.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel
 public class PageInfoDTO<T> {
     private Integer total = 0;//总记录数
     private Integer size = 0;//页大小

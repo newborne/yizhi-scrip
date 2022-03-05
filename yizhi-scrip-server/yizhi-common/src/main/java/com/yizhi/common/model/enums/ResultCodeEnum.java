@@ -1,8 +1,10 @@
 package com.yizhi.common.model.enums;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 
 @Getter
+@ApiModel
 public enum ResultCodeEnum {
 
     // 成功段

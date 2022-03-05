@@ -2,8 +2,8 @@ package com.yizhi.server.interceptor;
 
 import com.yizhi.common.client.LoginFeignClient;
 import com.yizhi.common.model.pojo.mysql.ApUser;
-import com.yizhi.common.util.NoAuthorization;
 import com.yizhi.common.util.UserThreadLocal;
+import com.yizhi.server.annotation.NoAuthorization;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -2,6 +2,7 @@ package com.yizhi.server.controller.v1;
 
 import com.yizhi.common.model.request.RecommendUserRequest;
 import com.yizhi.common.model.vo.ResponseResult;
+import com.yizhi.server.annotation.Cache;
 import com.yizhi.server.service.RecommendUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,19 @@ public class RecommendUserController {
     @Autowired
     private RecommendUserService recommendUserService;
 
+    @Cache
     @GetMapping("todayBest")
     public ResponseResult queryTodayBest() {
         return this.recommendUserService.queryTodayBest();
     }
 
+    @Cache
     @GetMapping("{id}")
     public ResponseResult queryRecommendUser(@PathVariable("id") Long friendId) {
         return this.recommendUserService.queryRecommendUser(friendId);
     }
 
+    @Cache
     @GetMapping("recommendUserList")
     public ResponseResult queryRecommendUserList(RecommendUserRequest param) {
         return this.recommendUserService.queryRecommendUserList(param);

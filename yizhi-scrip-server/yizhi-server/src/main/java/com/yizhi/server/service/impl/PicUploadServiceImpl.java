@@ -27,7 +27,7 @@ public class PicUploadServiceImpl implements PicUploadService {
     private AliyunConfig aliyunConfig;
 
     @Override
-    public PicUploadResult upload(MultipartFile uploadFile) {
+    public PicUploadResult uploadPic(MultipartFile uploadFile) {
         PicUploadResult fileUploadResult = new PicUploadResult();
         //图片做校验，对后缀名
         boolean isLegal = false;

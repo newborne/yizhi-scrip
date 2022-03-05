@@ -1,8 +1,10 @@
 package com.yizhi.common.model.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
+@ApiModel
 public class PicUploadResult {
 
     // 文件唯一标识
@@ -13,5 +15,4 @@ public class PicUploadResult {
     private String status;
     // 服务端响应内容，如：'{"status": "success"}'
     private String response;
-
 }

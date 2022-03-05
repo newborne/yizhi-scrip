@@ -34,7 +34,6 @@
       <module name="yizhi-server" target="1.8" />
       <module name="yizhi-spark" target="1.8" />
       <module name="yizhi-temp" target="1.8" />
-      <module name="yizhi-user" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -51,7 +50,6 @@
       <module name="yizhi-server" options="-parameters" />
       <module name="yizhi-spark" options="-parameters" />
       <module name="yizhi-temp" options="-parameters" />
-      <module name="yizhi-user" options="-parameters" />
     </option>
   </component>
 </project>

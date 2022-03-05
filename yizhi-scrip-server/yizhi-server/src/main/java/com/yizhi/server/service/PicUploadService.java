@@ -5,5 +5,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface PicUploadService {
 
-    PicUploadResult upload(MultipartFile uploadFile);
+    PicUploadResult uploadPic(MultipartFile uploadFile);
 }

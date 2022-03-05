@@ -1,7 +1,7 @@
 package com.yizhi.server.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yizhi.common.util.Cache;
+import com.yizhi.server.annotation.Cache;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

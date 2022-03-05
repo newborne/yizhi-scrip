@@ -6,9 +6,10 @@ import com.yizhi.common.model.enums.SexEnum;
 import com.yizhi.common.model.mapper.ApUserInfoMapper;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
-import com.yizhi.common.model.vo.PicUploadResult;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.server.service.ApUserService;
+import com.yizhi.server.service.FaceEngineService;
+import com.yizhi.server.service.PicUploadService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,10 @@ public class ApUserServiceImpl implements ApUserService {
     private ApUserInfoMapper userInfoMapper;
 
     @Autowired
-    private FaceEngineServiceImpl faceEngineService;
+    private FaceEngineService faceEngineService;
 
     @Autowired
-    private PicUploadServiceImpl picUploadService;
+    private PicUploadService picUploadService;
 
     @Override
     public Boolean saveUserInfo(Map<String, String> param) {
@@ -37,7 +38,7 @@ public class ApUserServiceImpl implements ApUserService {
         ApUserInfo userInfo = new ApUserInfo();
         userInfo.setUserId(user.getId());
         userInfo.setSex(StringUtils.equalsIgnoreCase(param.get("sex"), "man") ? SexEnum.MAN : SexEnum.WOMAN);
-        userInfo.setNickName(param.get("nickname"));
+        userInfo.setNickName(param.get("nickName"));
         userInfo.setBirthday(param.get("birthday"));
         userInfo.setCity(param.get("city"));
         userInfo.setUserId(user.getId());
@@ -57,12 +58,13 @@ public class ApUserServiceImpl implements ApUserService {
             return false;
         }
         //是人像,上传阿里云
-        PicUploadResult upload = picUploadService.upload(file);
-        if (StringUtils.equalsIgnoreCase(upload.getStatus(), "done")) {
-            return false;
-        }
+//        PicUploadResult result = picUploadService.uploadPic(file);
+//        if (!StringUtils.equalsIgnoreCase(result.getStatus(), "done")) {
+//            return false;
+//        }
         ApUserInfo userInfo = new ApUserInfo();
-        userInfo.setLogo(upload.getName());
+//        userInfo.setLogo(result.getName());
+        userInfo.setLogo("https://z3.ax1x.com/2021/05/22/gqLnWq.png");
         //更新图片地址到userinfo
         LambdaQueryWrapper<ApUserInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ApUserInfo::getUserId, user.getId());

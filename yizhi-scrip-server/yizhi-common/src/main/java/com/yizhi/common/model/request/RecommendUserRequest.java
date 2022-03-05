@@ -1,5 +1,6 @@
 package com.yizhi.common.model.request;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel
 public class RecommendUserRequest {
     private Integer page = 1; //当前页数
     private Integer size = 10; //页尺寸

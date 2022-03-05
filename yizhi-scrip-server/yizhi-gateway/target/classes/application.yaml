@@ -1,0 +1,28 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: yizhi-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: centos:8848 # 将gateway注册到nacos
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 让gateway可以发现nacos中的微服务
+      routes:
+        - id: yizhi-login
+          uri: lb://yizhi-login # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
+          predicates:
+            - Path=/yizhi-login/**
+          filters:
+            - StripPrefix=1
+        #            - SwaggerHeaderFilter
+        - id: yizhi-server
+          uri: lb://yizhi-server # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
+          predicates:
+            - Path=/yizhi-server/**
+          filters:
+            - StripPrefix=1
+#            - SwaggerHeaderFilter

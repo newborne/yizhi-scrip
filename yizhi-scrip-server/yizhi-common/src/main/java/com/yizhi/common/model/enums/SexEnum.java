@@ -1,12 +1,14 @@
 package com.yizhi.common.model.enums;
 
 import com.baomidou.mybatisplus.core.enums.IEnum;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel
 public enum SexEnum implements IEnum<Integer> {
 
-    MAN(1,"男"),
-    WOMAN(2,"女"),
-    UNKNOWN(3,"未知");
+    MAN(1, "男"),
+    WOMAN(2, "女"),
+    UNKNOWN(3, "未知");
 
     private final int value;
     private final String desc;

@@ -1,7 +1,7 @@
 package com.yizhi.server.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yizhi.common.util.Cache;
+import com.yizhi.server.annotation.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
@@ -47,7 +47,7 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
             String redisKey = RedisCacheInterceptor.createRedisKey(((ServletServerHttpRequest) request).getServletRequest());
             Cache cache = returnType.getMethodAnnotation(Cache.class);
             //缓存的时间单位是秒
-            this.redisTemplate.opsForValue().set(redisKey, redisValue, Long.valueOf(cache.time()), TimeUnit.SECONDS);
+            this.redisTemplate.opsForValue().set(redisKey, redisValue, Long.parseLong(cache.time()), TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace();
         }

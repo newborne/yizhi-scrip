@@ -1,6 +1,5 @@
 package com.yizhi.login.controller.v1;
 
-import com.yizhi.common.client.ServerFeignClient;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.login.service.LoginService;
@@ -24,9 +23,6 @@ public class LoginController {
     @Autowired
     private SmsServiceImpl smsService;
 
-    @Autowired
-    private ServerFeignClient serverFeignClient;
-
     @PostMapping("send")
     public ResponseResult sendCheckCode(@RequestBody Map<String, String> param) {
         return smsService.sendCheckCode(param.get("phone"));
@@ -43,12 +39,12 @@ public class LoginController {
     }
 
     @PostMapping("saveUserInfo")
-    public ResponseResult saveUserInfo(@RequestBody Map<String, String> param) {
-        return this.serverFeignClient.saveUserInfo(param);
+    public ResponseResult saveUserInfo(@RequestBody Map<String, String> param, @RequestHeader("Authorization") String token) {
+        return this.loginService.saveUserInfo(param, token);
     }
 
     @PostMapping("saveUserLogo")
-    public ResponseResult saveUserLogo(@RequestParam MultipartFile file) {
-        return this.serverFeignClient.saveUserLogo(file);
+    public ResponseResult saveUserLogo(@RequestParam("logo") MultipartFile file, @RequestHeader("Authorization") String token) {
+        return this.loginService.saveUserLogo(file, token);
     }
 }
