@@ -55,6 +55,7 @@
         <dubbo.version>2.6.4</dubbo.version>
         <dubbo.spring.version>0.2.0</dubbo.spring.version>
         <knife4j.version>2.0.8</knife4j.version>
+        <fastdfs.version>1.26.7</fastdfs.version>
     </properties>
 
     <!-- 全局依赖 -->
@@ -198,6 +199,12 @@
                 <groupId>com.arcsoft.face</groupId>
                 <artifactId>arcsoft-sdk-face</artifactId>
                 <version>${arcsoft.version}</version>
+            </dependency>
+            <!-- 13 fastdfs -->
+            <dependency>
+                <groupId>com.github.tobato</groupId>
+                <artifactId>fastdfs-client</artifactId>
+                <version>${fastdfs.version}</version>
             </dependency>
             <!-- 弃用 -->
             <!-- swagger -->

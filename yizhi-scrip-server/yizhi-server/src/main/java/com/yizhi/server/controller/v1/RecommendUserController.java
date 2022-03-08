@@ -15,22 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/recommendUser")
 @Slf4j
 public class RecommendUserController {
-
     @Autowired
     private RecommendUserService recommendUserService;
-
     @Cache
     @GetMapping("todayBest")
     public ResponseResult queryTodayBest() {
         return this.recommendUserService.queryTodayBest();
     }
-
     @Cache
     @GetMapping("{id}")
     public ResponseResult queryRecommendUser(@PathVariable("id") Long friendId) {
         return this.recommendUserService.queryRecommendUser(friendId);
     }
-
     @Cache
     @GetMapping("recommendUserList")
     public ResponseResult queryRecommendUserList(RecommendUserRequest param) {
@@ -59,10 +55,10 @@ public class RecommendUserController {
 //    }
 //
 //    @GetMapping("search")
-//    public ResponseEntity<List<NearUserVo>> queryNearUser(@RequestParam(value = "sex", required = false) String gender,
+//    public ResponseEntity<List<NearUserVo>> queryNearUser(@RequestParam(value = "sex", required = false) String sex,
 //                                                          @RequestParam(value = "distance", defaultValue = "2000") String distance) {
 //        try {
-//            List<NearUserVo> list = this.todayBestService.queryNearUser(gender, distance);
+//            List<NearUserVo> list = this.todayBestService.queryNearUser(sex, distance);
 //            return ResponseEntity.ok(list);
 //        } catch (Exception e) {
 //            e.printStackTrace();

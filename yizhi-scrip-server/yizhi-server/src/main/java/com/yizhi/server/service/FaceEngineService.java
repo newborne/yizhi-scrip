@@ -5,11 +5,8 @@ import com.arcsoft.face.toolkit.ImageInfo;
 import java.io.File;
 
 public interface FaceEngineService {
-
-    boolean checkIsPortrait(ImageInfo imageInfo);
-
-    boolean checkIsPortrait(byte[] imageData);
-
-    boolean checkIsPortrait(File file);
+    Boolean checkIsPortrait(ImageInfo imageInfo);
+    Boolean checkIsPortrait(byte[] imageData);
+    Boolean checkIsPortrait(File file);
 }
 

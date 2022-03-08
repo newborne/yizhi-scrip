@@ -23,20 +23,14 @@ import java.util.List;
 
 @Service
 public class FaceEngineServiceImpl implements FaceEngineService {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(FaceEngineServiceImpl.class);
-
     @Value("${arcsoft.appid}")
     private String appid;
-
     @Value("${arcsoft.sdkKey}")
     private String sdkKey;
-
     @Value("${arcsoft.libPath}")
     private String libPath;
-
     private FaceEngine faceEngine;
-
     @PostConstruct
     public void init() {
         // 激活并且初始化引擎
@@ -70,22 +64,23 @@ public class FaceEngineServiceImpl implements FaceEngineService {
         }
         this.faceEngine = faceEngine;
     }
-
     @Override
-    public boolean checkIsPortrait(ImageInfo imageInfo) {
+    public Boolean checkIsPortrait(ImageInfo imageInfo) {
         // 定义人脸列表
         List<FaceInfo> faceInfoList = new ArrayList<FaceInfo>();
-        faceEngine.detectFaces(imageInfo.getImageData(), imageInfo.getWidth(), imageInfo.getHeight(), ImageFormat.CP_PAF_BGR24, faceInfoList);
+        faceEngine.detectFaces(imageInfo.getImageData(),
+                imageInfo.getWidth(),
+                imageInfo.getHeight(),
+                ImageFormat.CP_PAF_BGR24,
+                faceInfoList);
         return !faceInfoList.isEmpty();
     }
-
     @Override
-    public boolean checkIsPortrait(byte[] imageData) {
+    public Boolean checkIsPortrait(byte[] imageData) {
         return this.checkIsPortrait(ImageFactory.getRGBData(imageData));
     }
-
     @Override
-    public boolean checkIsPortrait(File file) {
+    public Boolean checkIsPortrait(File file) {
         return this.checkIsPortrait(ImageFactory.getRGBData(file));
     }
 }

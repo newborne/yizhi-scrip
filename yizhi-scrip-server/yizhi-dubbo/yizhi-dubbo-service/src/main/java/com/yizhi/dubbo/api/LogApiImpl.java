@@ -7,13 +7,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 @DubboService(version = "1.0.0")
 public class LogApiImpl implements LogApi {
-
     @Autowired
     private MongoTemplate mongoTemplate;
-
     @Override
-    public void save(Long id, String requestURI, String annotation) {
-        Log log = new Log(id, System.currentTimeMillis(), requestURI, annotation);
+    public void save(Long userId, String requestURI, String annotation) {
+        Log log = new Log(userId, System.currentTimeMillis(), requestURI, annotation);
         this.mongoTemplate.save(log);
     }
 }

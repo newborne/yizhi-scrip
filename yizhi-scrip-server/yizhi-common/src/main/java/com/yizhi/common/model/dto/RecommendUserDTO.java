@@ -5,16 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
-public class RecommendUserDTO {
-
+public class RecommendUserDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long friendId;
-    private String avatar;
-    private String nickname;
-    private String gender; //性别 man woman
+    private String logo;
+    private String nickName;
+    private String sex; //性别 man woman
     private Integer age;
     private String[] tags;
     private Long similarity; //相似度

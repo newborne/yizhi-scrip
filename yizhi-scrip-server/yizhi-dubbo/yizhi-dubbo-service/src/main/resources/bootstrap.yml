@@ -19,6 +19,8 @@ dubbo:
       port: -1 # 服务端口
   registry:
     address: spring-cloud://centos # 注册中心
+  cloud:
+    subscribed-services: yizhi-dubbo  # 订阅的提供者名称                                     的
   provider:
     retries: 0        # 服务提供者无需重试
     timeout: 6000     # 默认只有1s

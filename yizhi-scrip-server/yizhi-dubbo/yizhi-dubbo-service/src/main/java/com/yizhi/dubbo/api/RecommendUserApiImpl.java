@@ -1,5 +1,6 @@
 package com.yizhi.dubbo.api;
 
+import com.yizhi.common.model.dto.PageInfoDTO;
 import com.yizhi.common.model.pojo.mongodb.RecommendUser;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +15,26 @@ import java.util.List;
 // alibaba.dubbo
 @DubboService(version = "1.0.0")
 public class RecommendUserApiImpl implements RecommendUserApi {
-
     //注入mongodb
     @Autowired
     private MongoTemplate mongoTemplate;
-
     @Override
     public RecommendUser queryWithMaxSimilarity(Long userId) {
-        Query query = Query.query(Criteria.where("userId").is(userId)).with(Sort.by(Sort.Order.desc("similarity"))).limit(1);
+        Query query = Query.query(Criteria.where("userId").is(userId))
+                .with(Sort.by(Sort.Order.desc("similarity")))
+                .limit(1);
         return mongoTemplate.findOne(query, RecommendUser.class);
     }
-
     @Override
-    public List<RecommendUser> queryRecommendUserList(Long userId, Integer page, Integer size) {
+    public PageInfoDTO<RecommendUser> queryRecommendUserList(Long userId, Integer page, Integer size) {
         //先进行分页
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Order.desc("similarity")));
         //查询到最高分然后倒序
         Query query = Query.query(Criteria.where("userId").is(userId)).with(pageRequest);
         List<RecommendUser> recommendUserList = mongoTemplate.find(query, RecommendUser.class);
         //暂时不提供总数
-        return recommendUserList;
+        return new PageInfoDTO<>(0, page, size, recommendUserList);
     }
-
     @Override
     public double querySimilarity(Long friendId, Long userId) {
         Query query = Query.query(Criteria

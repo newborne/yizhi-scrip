@@ -22,16 +22,12 @@ import java.util.Map;
 
 @Service
 public class ApUserServiceImpl implements ApUserService {
-
     @Resource
     private ApUserInfoMapper userInfoMapper;
-
     @Autowired
     private FaceEngineService faceEngineService;
-
     @Autowired
     private PicUploadService picUploadService;
-
     @Override
     public Boolean saveUserInfo(Map<String, String> param) {
         ApUser user = UserThreadLocal.get();
@@ -44,13 +40,12 @@ public class ApUserServiceImpl implements ApUserService {
         userInfo.setUserId(user.getId());
         return this.userInfoMapper.insert(userInfo) == 1;
     }
-
     @Override
     public Boolean saveUserLogo(MultipartFile file) {
         ApUser user = UserThreadLocal.get();
         //如果不是人像就返回false
         try {
-            boolean b = faceEngineService.checkIsPortrait(file.getBytes());
+            Boolean b = faceEngineService.checkIsPortrait(file.getBytes());
             if (!b) {
                 return false;
             }
@@ -70,19 +65,16 @@ public class ApUserServiceImpl implements ApUserService {
         queryWrapper.eq(ApUserInfo::getUserId, user.getId());
         return userInfoMapper.update(userInfo, queryWrapper) == 1;
     }
-
     @Override
     public ApUserInfo queryUserInfoByUserId(Long id) {
         LambdaQueryWrapper<ApUserInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ApUserInfo::getUserId, id);
         return userInfoMapper.selectOne(queryWrapper);
     }
-
     @Override
     public List<ApUserInfo> queryUserInfoList(QueryWrapper queryWrapper) {
         return this.userInfoMapper.selectList(queryWrapper);
     }
-
     @Override
     public Boolean updateUserInfoByUserId(ApUserInfo userInfo) {
         QueryWrapper<ApUserInfo> queryWrapper = new QueryWrapper<>();

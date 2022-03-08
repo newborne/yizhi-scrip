@@ -27,22 +27,16 @@ import java.util.Map;
 @Service
 @Slf4j
 public class LoginServiceImpl implements LoginService {
-
     @Resource
     private ApUserMapper userMapper;
-
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
     @Value("${jwt.secret}")
     private String secret;
-
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
-
     @Autowired
     private ServerFeignClient serverFeignClient;
-
     @Override
     public ResponseResult login(String phone, String code) {
         String redisKey = "CHECK_CODE_" + phone;
@@ -79,7 +73,7 @@ public class LoginServiceImpl implements LoginService {
         String token = Jwts.builder()
                 .setClaims(claims) //payload，存放数据的位置，不能放置敏感数据，如：密码等
                 .signWith(SignatureAlgorithm.HS256, secret) //设置加密方法和加密盐
-                .setExpiration(new DateTime().plusHours(12).toDate()) //设置过期时间，12小时后过期
+                .setExpiration(new DateTime().plusHours(24).toDate()) //设置过期时间，12小时后过期
                 .compact();
         if (isNew) {
             //注册环信用户
@@ -94,13 +88,12 @@ public class LoginServiceImpl implements LoginService {
             Map<String, Object> msg = new HashMap<>();
             msg.put("id", user.getId());
             msg.put("date", System.currentTimeMillis());
-            this.rocketMQTemplate.convertAndSend("yizhi-user-login", msg);
+            this.rocketMQTemplate.convertAndSend("login", msg);
         } catch (Exception e) {
             log.error("发送消息失败", e);
         }
         return ResponseResult.ok(map);
     }
-
     @Override
     public ApUser queryUserByToken(String token) {
         ApUser user = null;
@@ -114,7 +107,7 @@ public class LoginServiceImpl implements LoginService {
             user = new ApUser();
             user.setId(Math.toIntExact(id));
             //先从redis中取出手机号,如果没有的话再从mysql中获取
-            String redisKey = "YIZHI_USER_MOBILE_" + user.getId();
+            String redisKey = "USER_MOBILE_" + user.getId();
             //判断redis中是否有
             if (redisTemplate.hasKey(redisKey)) {
                 user.setMobile(this.redisTemplate.opsForValue().get(redisKey));
@@ -123,7 +116,8 @@ public class LoginServiceImpl implements LoginService {
                 //不是每一次查询都要从mysql中获取,第一次查询出来后存入redis中
                 String exp = body.get("exp").toString();
                 Long expLong = Long.valueOf(exp) * 1000;
-                this.redisTemplate.opsForValue().set(redisKey, u.getMobile(), Duration.ofMillis(expLong - System.currentTimeMillis()));
+                this.redisTemplate.opsForValue()
+                        .set(redisKey, u.getMobile(), Duration.ofMillis(expLong - System.currentTimeMillis()));
                 user.setMobile(u.getMobile());
             }
         } catch (Exception e) {
@@ -131,12 +125,10 @@ public class LoginServiceImpl implements LoginService {
         }
         return user;
     }
-
     @Override
     public ResponseResult saveUserInfo(Map<String, String> param, String token) {
         return this.serverFeignClient.saveUserInfo(param, token);
     }
-
     @Override
     public ResponseResult saveUserLogo(MultipartFile file, String token) {
         return this.serverFeignClient.saveUserLogo(file, token);

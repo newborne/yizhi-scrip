@@ -1,5 +1,7 @@
 package com.yizhi.gateway.handler;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,14 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import springfox.documentation.swagger.web.*;
 
-import java.util.Optional;
-
 @RestController
 public class SwaggerHandler {
     private final SwaggerResourcesProvider swaggerResources;
-    @Autowired
+    @Autowired(required = false)
     private SecurityConfiguration securityConfiguration;
-    @Autowired
+    @Autowired(required = false)
     private UiConfiguration uiConfiguration;
     @Autowired
     public SwaggerHandler(SwaggerResourcesProvider swaggerResources) {

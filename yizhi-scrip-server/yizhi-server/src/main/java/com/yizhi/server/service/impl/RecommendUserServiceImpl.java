@@ -25,7 +25,6 @@ import java.util.*;
 
 @Service
 public class RecommendUserServiceImpl implements RecommendUserService {
-
     private static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
     private ApUserService apUserService;
@@ -47,7 +46,6 @@ public class RecommendUserServiceImpl implements RecommendUserService {
 //    @Autowired
 //    private IMService imService;
     private String defaultRecommendUsers = "2,3,4,5";
-
     @Override
     public ResponseResult queryTodayBest() {
         // 校验token是否有效,通过user的接口进行校验
@@ -61,9 +59,9 @@ public class RecommendUserServiceImpl implements RecommendUserService {
             ApUserInfo userInfo = this.apUserService.queryUserInfoByUserId(defaultRecommendUser);
             // 补全个人信息
             dto.setFriendId(defaultRecommendUser);
-            dto.setAvatar(userInfo.getLogo());
-            dto.setNickname(userInfo.getNickName());
-            dto.setGender(userInfo.getSex().getValue() == 1 ? "man" : "woman");
+            dto.setLogo(userInfo.getLogo());
+            dto.setNickName(userInfo.getNickName());
+            dto.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
             dto.setAge(userInfo.getAge());
             dto.setTags(StringUtils.split(userInfo.getTags(), ","));
             dto.setSimilarity(49L);
@@ -72,9 +70,9 @@ public class RecommendUserServiceImpl implements RecommendUserService {
             ApUserInfo userInfo = this.apUserService.queryUserInfoByUserId(recommendUser.getFriendId());
             // 补全个人信息
             dto.setFriendId(recommendUser.getFriendId());
-            dto.setAvatar(userInfo.getLogo());
-            dto.setNickname(userInfo.getNickName());
-            dto.setGender(userInfo.getSex().getValue() == 1 ? "man" : "woman");
+            dto.setLogo(userInfo.getLogo());
+            dto.setNickName(userInfo.getNickName());
+            dto.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
             dto.setAge(userInfo.getAge());
             dto.setTags(StringUtils.split(userInfo.getTags(), ","));
             // 获得相似度 取整
@@ -83,16 +81,15 @@ public class RecommendUserServiceImpl implements RecommendUserService {
         }
         return ResponseResult.ok(dto);
     }
-
     @Override
     public ResponseResult queryRecommendUser(Long friendId) {
         ApUser user = UserThreadLocal.get();
         ApUserInfo userInfo = this.apUserService.queryUserInfoByUserId(friendId);
         RecommendUserDTO dto = new RecommendUserDTO();
         dto.setFriendId(friendId);
-        dto.setAvatar(userInfo.getLogo());
-        dto.setNickname(userInfo.getNickName());
-        dto.setGender(userInfo.getSex().name().toLowerCase(Locale.ROOT));
+        dto.setLogo(userInfo.getLogo());
+        dto.setNickName(userInfo.getNickName());
+        dto.setSex(userInfo.getSex().name().toLowerCase(Locale.ROOT));
         dto.setAge(userInfo.getAge());
         dto.setTags(StringUtils.split(userInfo.getTags(), ","));
         double similarity = this.recommendUserApi.querySimilarity(friendId, Long.valueOf(user.getId()));
@@ -102,15 +99,14 @@ public class RecommendUserServiceImpl implements RecommendUserService {
         dto.setSimilarity((long) Math.floor(similarity));
         return ResponseResult.ok(dto);
     }
-
     @Override
     public ResponseResult queryRecommendUserList(RecommendUserRequest request) {
         //获得用户对象
         ApUser user = UserThreadLocal.get();
-        PageInfoDTO dto = new PageInfoDTO();
-        dto.setPage(request.getPage());
-        dto.setSize(request.getSize());
-        List<RecommendUser> records = this.recommendUserApi.queryRecommendUserList(Long.valueOf(user.getId()), request.getPage(), request.getSize());
+        PageInfoDTO dto = this.recommendUserApi.queryRecommendUserList(Long.valueOf(user.getId()),
+                request.getPage(),
+                request.getSize());
+        List<RecommendUser> records = dto.getRecords();
         //判断集合中是否有数据
         if (CollectionUtils.isEmpty(records)) {
             //进行切割
@@ -138,8 +134,8 @@ public class RecommendUserServiceImpl implements RecommendUserService {
         }
 
         //查询性别参数
-        if (StringUtils.isNotEmpty(param.getGender())) {
-            queryWrapper.eq("sex", StringUtils.equals(param.getGender(), "man") ? 1 : 2);
+        if (StringUtils.isNotEmpty(param.getSex())) {
+            queryWrapper.eq("sex", StringUtils.equals(param.getSex(), "man") ? 1 : 2);
         }
 
         //查询年龄参数
@@ -157,10 +153,10 @@ public class RecommendUserServiceImpl implements RecommendUserService {
             RecommendUserDTO dto2 = new RecommendUserDTO();
             //补全个人信息
             dto2.setFriendId(Long.valueOf(userInfo.getUserId()));
-            dto2.setAvatar(userInfo.getLogo());
+            dto2.setLogo(userInfo.getLogo());
             dto2.setAge(userInfo.getAge());
-            dto2.setNickname(userInfo.getNickName());
-            dto2.setGender(userInfo.getSex().getValue() == 1 ? "man" : "woman");
+            dto2.setNickName(userInfo.getNickName());
+            dto2.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
             dto2.setTags(StringUtils.split(userInfo.getTags(), ","));
             //设置相似度
             for (RecommendUser record : records) {
@@ -191,7 +187,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
 //        //构建消息内容
 //        Map<String, Object> msg = new HashMap<>();
 //        msg.put("usrId", user.getId().toString());
-//        msg.put("nickname", this.queryQuestion(userId));
+//        msg.put("nickName", this.queryQuestion(userId));
 //        msg.put("strangerQuestion", userInfo.getNickName());
 //        msg.put("reply", reply);
 //        try {
@@ -217,7 +213,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
 //        return false;
 //    }
 //
-//    public List<NearUserVo> queryNearUser(String gender, String distance) {
+//    public List<NearUserVo> queryNearUser(String sex, String distance) {
 //        ApUser user = UserThreadLocal.get();
 //        //查询当前用户位置
 //        UserLocationVo userLocationVo = this.userLocationApi.queryByUserId(user.getId());
@@ -240,7 +236,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
 //        QueryWrapper<ApUserInfo> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.in("user_id", userIds);
 //        //查询性别
-//        if (StringUtils.equalsIgnoreCase(gender, "man")) {
+//        if (StringUtils.equalsIgnoreCase(sex, "man")) {
 //            queryWrapper.eq("sex", SexEnum.MAN);
 //        } else {
 //            queryWrapper.eq("sex", SexEnum.WOMAN);
@@ -258,7 +254,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
 //                if (locationVo.getUserId().longValue() == userInfo.getUserId().longValue()) {
 //                    NearUserVo nearUserVo = new NearUserVo();
 //                    nearUserVo.setUserId(userInfo.getUserId());
-//                    nearUserVo.setAvatar(userInfo.getLogo());
+//                    nearUserVo.setLogo(userInfo.getLogo());
 //                    nearUserVo.setNickname(userInfo.getNickName());
 //                    nearUserVoList.add(nearUserVo);
 //                    break;
@@ -304,8 +300,8 @@ public class RecommendUserServiceImpl implements RecommendUserService {
 //            TodayBest dto = new TodayBest();
 //            dto.setId(Long.valueOf(userInfo.getUserId()));
 //            dto.setAge(userInfo.getAge());
-//            dto.setAvatar(userInfo.getLogo());
-//            dto.setGender(userInfo.getSex().name().toLowerCase());
+//            dto.setLogo(userInfo.getLogo());
+//            dto.setSex(userInfo.getSex().name().toLowerCase());
 //            dto.setNickname(userInfo.getNickName());
 //            dto.setTags(StringUtils.split(userInfo.getTags(), ','));
 //            dto.setSimilarity(0L);
