@@ -8,5 +8,5 @@ import java.util.List;
 public interface UsersApi {
     String saveUsers(Users users);
     List<Users> queryUsersList(Long userId);
-    PageInfoDTO<Users> queryUsersList(Long userId, Integer page, Integer size);
+    List<Users> queryUsersList(Long userId, Integer page, Integer size);
 }

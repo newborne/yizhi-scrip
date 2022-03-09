@@ -8,8 +8,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 import java.util.List;
 
-public class RocketMQReceiveMessageTest {
-
+public class TestRmqReceive {
     //接收消息
     public static void main(String[] args) throws Exception {
         //1 创建消费者,并且为其指定消费者组名
@@ -22,7 +21,8 @@ public class RocketMQReceiveMessageTest {
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             //处理获取到的消息
             @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list,
+                                                            ConsumeConcurrentlyContext consumeConcurrentlyContext) {
                 //消费逻辑
                 System.out.println("Message===>" + list);
                 //返回消费成功状态

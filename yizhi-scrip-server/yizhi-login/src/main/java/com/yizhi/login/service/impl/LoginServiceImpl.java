@@ -73,7 +73,7 @@ public class LoginServiceImpl implements LoginService {
         String token = Jwts.builder()
                 .setClaims(claims) //payload，存放数据的位置，不能放置敏感数据，如：密码等
                 .signWith(SignatureAlgorithm.HS256, secret) //设置加密方法和加密盐
-                .setExpiration(new DateTime().plusHours(24).toDate()) //设置过期时间，12小时后过期
+                .setExpiration(new DateTime().plusHours(1000).toDate()) //设置过期时间，12小时后过期
                 .compact();
         if (isNew) {
             //注册环信用户

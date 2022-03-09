@@ -9,19 +9,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 public class HuanXinServiceTest {
-
     @Autowired
     private HuanXinService huanxinService;
-
     @Test
     public void register() {
-        this.huanxinService.register(1l);
+        for (int i = 3; i < 11; i++) {
+            this.huanxinService.register((long) i);
+        }
     }
-
     @Test
     public void contactUsers() {
     }
-
     @Test
     public void sendMsg() {
     }

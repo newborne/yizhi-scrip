@@ -1,4 +1,4 @@
-package com.yizhi.server;
+package com.yizhi.temp;
 
 import com.alibaba.cloud.commons.io.FileUtils;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;

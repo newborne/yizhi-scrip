@@ -66,4 +66,13 @@ public class CommentApiImpl implements CommentApi {
                 .with(pageRequest);
         return this.mongoTemplate.find(query, Comment.class);
     }
+    @Override
+    public List<Comment> queryCommentListByPublishUserId(Long publishUserId, Integer type, Integer page, Integer size) {
+        System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + "方法:" + publishUserId + "," + type + "," + page + "," + size);
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Order.desc("created")));
+        Query query = Query.query(Criteria.where("publishUserId").is(publishUserId).and("commentType").is(type))
+                .with(pageRequest);
+        return this.mongoTemplate.find(query, Comment.class);
+    }
 }

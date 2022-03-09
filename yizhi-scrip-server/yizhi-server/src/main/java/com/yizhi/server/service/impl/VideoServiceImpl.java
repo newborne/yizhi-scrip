@@ -5,9 +5,7 @@ import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.yizhi.common.model.dto.PageInfoDTO;
 import com.yizhi.common.model.dto.VideoDTO;
-import com.yizhi.common.model.dto.VideoDTO;
 import com.yizhi.common.model.enums.MsgEnum;
-import com.yizhi.common.model.pojo.mongodb.Video;
 import com.yizhi.common.model.pojo.mongodb.Video;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
@@ -16,7 +14,7 @@ import com.yizhi.common.util.RelativeDateFormat;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.dubbo.api.CommentApi;
 import com.yizhi.dubbo.api.VideoApi;
-import com.yizhi.server.service.ApUserService;
+import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.MqService;
 import com.yizhi.server.service.PicUploadService;
 import com.yizhi.server.service.VideoService;
@@ -37,7 +35,7 @@ public class VideoServiceImpl implements VideoService {
     @DubboReference(version = "1.0.0")
     private VideoApi videoApi;
     @Autowired
-    private ApUserService userService;
+    private ApUserInfoService apUserInfoService;
     @Autowired
     private PicUploadService picUploadService;
     @Autowired
@@ -123,7 +121,7 @@ public class VideoServiceImpl implements VideoService {
         dto.setVideoUrl(video.getVideoUrl());
         dto.setUserId(video.getUserId());
         // 填充UserInfo
-        ApUserInfo userInfo = this.userService.queryUserInfoByUserId(dto.getUserId());
+        ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(dto.getUserId());
         dto.setLogo(userInfo.getLogo());
         dto.setNickName(userInfo.getNickName());
         dto.setSignature("");

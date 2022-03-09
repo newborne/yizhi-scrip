@@ -2,17 +2,14 @@ package com.yizhi.server.service.impl;
 
 import com.yizhi.common.model.dto.CommentDTO;
 import com.yizhi.common.model.dto.PageInfoDTO;
-import com.yizhi.common.model.dto.PostDTO;
 import com.yizhi.common.model.enums.MsgEnum;
 import com.yizhi.common.model.pojo.mongodb.Comment;
-import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
 import com.yizhi.common.model.vo.ResponseResult;
-import com.yizhi.common.util.RelativeDateFormat;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.dubbo.api.CommentApi;
 import com.yizhi.dubbo.api.UsersApi;
-import com.yizhi.server.service.ApUserService;
+import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.CommentService;
 import com.yizhi.server.service.MqService;
 import org.apache.commons.lang3.StringUtils;
@@ -23,9 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -36,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private MqService mqService;
     @Autowired
-    private ApUserService userService;
+    private ApUserInfoService userService;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Override
@@ -127,7 +122,7 @@ public class CommentServiceImpl implements CommentService {
             // 填充评论信息
             dto.setId(comment.getId().toHexString());
             dto.setText(comment.getText());
-            dto.setCreated(new DateTime(comment.getCreated()).toString("yyyy年MM月dd日 HH:mm"));
+            dto.setCreated(new DateTime(comment.getCreated()).toString("yyyy-MM-dd HH:m:s"));
             // 填充用户信息
             ApUserInfo userInfo = this.userService.queryUserInfoByUserId(comment.getUserId());
             dto.setLogo(userInfo.getLogo());

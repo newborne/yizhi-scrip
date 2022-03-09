@@ -7,7 +7,7 @@ import com.yizhi.common.model.mapper.ApUserInfoMapper;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
 import com.yizhi.common.util.UserThreadLocal;
-import com.yizhi.server.service.ApUserService;
+import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.FaceEngineService;
 import com.yizhi.server.service.PicUploadService;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ApUserServiceImpl implements ApUserService {
+public class ApUserInfoServiceImpl implements ApUserInfoService {
     @Resource
     private ApUserInfoMapper userInfoMapper;
     @Autowired
@@ -66,9 +66,9 @@ public class ApUserServiceImpl implements ApUserService {
         return userInfoMapper.update(userInfo, queryWrapper) == 1;
     }
     @Override
-    public ApUserInfo queryUserInfoByUserId(Long id) {
+    public ApUserInfo queryUserInfoByUserId(Long userId) {
         LambdaQueryWrapper<ApUserInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ApUserInfo::getUserId, id);
+        queryWrapper.eq(ApUserInfo::getUserId, userId);
         return userInfoMapper.selectOne(queryWrapper);
     }
     @Override
@@ -76,7 +76,7 @@ public class ApUserServiceImpl implements ApUserService {
         return this.userInfoMapper.selectList(queryWrapper);
     }
     @Override
-    public Boolean updateUserInfoByUserId(ApUserInfo userInfo) {
+    public Boolean updateUserInfo(ApUserInfo userInfo) {
         QueryWrapper<ApUserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userInfo.getUserId());
         return this.userInfoMapper.update(userInfo, queryWrapper) > 0;

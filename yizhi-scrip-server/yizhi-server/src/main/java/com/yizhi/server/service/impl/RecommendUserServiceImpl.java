@@ -11,7 +11,7 @@ import com.yizhi.common.model.request.RecommendUserRequest;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.dubbo.api.RecommendUserApi;
-import com.yizhi.server.service.ApUserService;
+import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.RecommendUserService;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +27,7 @@ import java.util.*;
 public class RecommendUserServiceImpl implements RecommendUserService {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
-    private ApUserService apUserService;
+    private ApUserInfoService apUserInfoService;
     @DubboReference(version = "1.0.0")
     private RecommendUserApi recommendUserApi;
     private Long defaultRecommendUser = Long.valueOf("2");
@@ -56,7 +56,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
         if (null == recommendUser) {
             // 给出默认的推荐用户 在配置文件中有设置默认用户直接注入
             // 获取推荐用户个人信息
-            ApUserInfo userInfo = this.apUserService.queryUserInfoByUserId(defaultRecommendUser);
+            ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(defaultRecommendUser);
             // 补全个人信息
             dto.setFriendId(defaultRecommendUser);
             dto.setLogo(userInfo.getLogo());
@@ -67,7 +67,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
             dto.setSimilarity(49L);
         } else {
             // 获取推荐用户个人信息
-            ApUserInfo userInfo = this.apUserService.queryUserInfoByUserId(recommendUser.getFriendId());
+            ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(recommendUser.getFriendId());
             // 补全个人信息
             dto.setFriendId(recommendUser.getFriendId());
             dto.setLogo(userInfo.getLogo());
@@ -84,7 +84,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
     @Override
     public ResponseResult queryRecommendUser(Long friendId) {
         ApUser user = UserThreadLocal.get();
-        ApUserInfo userInfo = this.apUserService.queryUserInfoByUserId(friendId);
+        ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(friendId);
         RecommendUserDTO dto = new RecommendUserDTO();
         dto.setFriendId(friendId);
         dto.setLogo(userInfo.getLogo());
@@ -143,7 +143,7 @@ public class RecommendUserServiceImpl implements RecommendUserService {
             queryWrapper.le("age", param.getAge());
         }*/
         //
-        List<ApUserInfo> userInfoList = this.apUserService.queryUserInfoList(queryWrapper);
+        List<ApUserInfo> userInfoList = this.apUserInfoService.queryUserInfoList(queryWrapper);
         if (CollectionUtils.isEmpty(userInfoList)) {
             //没有查到用户基本信息
             return ResponseResult.fail(dto);

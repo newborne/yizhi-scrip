@@ -14,4 +14,5 @@ public interface CommentApi {
     Long queryCommentCount(String publishId, Integer type);
     // 查看评论列表
     List<Comment> queryTextCommentList(String publishId, Integer page, Integer size);
+    List<Comment> queryCommentListByPublishUserId(Long publishUserId, Integer type, Integer page, Integer size);
 }

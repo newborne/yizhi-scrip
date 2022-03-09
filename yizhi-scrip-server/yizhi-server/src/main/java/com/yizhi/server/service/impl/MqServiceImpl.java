@@ -44,7 +44,7 @@ public class MqServiceImpl implements MqService {
                 break;
         }
         msg.put("userId", user.getId());
-        msg.put("type", type);
+        msg.put("type", type.getValue());
         msg.put("publishId", publishId);
         msg.put("date", System.currentTimeMillis());
         try {

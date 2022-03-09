@@ -1,7 +1,5 @@
 package com.yizhi.server.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.yizhi.common.client.LoginFeignClient;
 import com.yizhi.common.model.dto.PageInfoDTO;
 import com.yizhi.common.model.dto.PostDTO;
 import com.yizhi.common.model.enums.MsgEnum;
@@ -13,8 +11,7 @@ import com.yizhi.common.util.RelativeDateFormat;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.dubbo.api.CommentApi;
 import com.yizhi.dubbo.api.PostApi;
-import com.yizhi.dubbo.api.UsersApi;
-import com.yizhi.server.service.ApUserService;
+import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.MqService;
 import com.yizhi.server.service.PicUploadService;
 import com.yizhi.server.service.PostService;
@@ -41,7 +38,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Autowired
-    private ApUserService userService;
+    private ApUserInfoService userService;
     @DubboReference(version = "1.0.0")
     private CommentApi commentApi;
     @Override

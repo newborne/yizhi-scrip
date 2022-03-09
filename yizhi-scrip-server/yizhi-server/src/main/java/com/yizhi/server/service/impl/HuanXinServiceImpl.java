@@ -3,7 +3,9 @@ package com.yizhi.server.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yizhi.common.config.huanxin.HuanXinConfig;
 import com.yizhi.common.model.dto.HuanXinUserDTO;
+import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.vo.ResponseResult;
+import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.server.service.HuanXinService;
 import com.yizhi.server.service.HuanXinTokenService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,7 +20,6 @@ import java.util.*;
 
 @Service
 public class HuanXinServiceImpl implements HuanXinService {
-
     private static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
     private HuanXinConfig huanXinConfig;
@@ -26,7 +27,14 @@ public class HuanXinServiceImpl implements HuanXinService {
     private RestTemplate restTemplate;
     @Autowired
     private HuanXinTokenService huanXinTokenService;
-
+    @Override
+    public ResponseResult user() {
+        ApUser user = UserThreadLocal.get();
+        HuanXinUserDTO dto = new HuanXinUserDTO();
+        dto.setUsername(user.getId().toString());
+        dto.setPassword(DigestUtils.md5Hex(user.getId() + "_newborne_yizhi"));
+        return ResponseResult.ok(dto);
+    }
     @Override
     public ResponseResult register(Long userId) {
         String url = this.huanXinConfig.getUrl()
@@ -49,7 +57,6 @@ public class HuanXinServiceImpl implements HuanXinService {
         }
         return ResponseResult.fail();
     }
-
     @Override
     public ResponseResult contactUsers(Long userId, Long friendId) {
         String targetUrl = this.huanXinConfig.getUrl()
@@ -63,7 +70,9 @@ public class HuanXinServiceImpl implements HuanXinService {
             headers.add("Content-Type", "application/json ");
             headers.add("Authorization", "Bearer " + token);
             HttpEntity<String> httpEntity = new HttpEntity<>(headers);
-            ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(targetUrl, httpEntity, String.class);
+            ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(targetUrl,
+                    httpEntity,
+                    String.class);
             return (responseEntity.getStatusCodeValue() == 200) ? ResponseResult.ok() : ResponseResult.fail();
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +80,6 @@ public class HuanXinServiceImpl implements HuanXinService {
         // 添加失败
         return ResponseResult.fail();
     }
-
     @Override
     public ResponseResult sendMsg(String target, String msg, String type) {
         String targetUrl = this.huanXinConfig.getUrl()
@@ -93,7 +101,9 @@ public class HuanXinServiceImpl implements HuanXinService {
             //表示消息发送者;无此字段Server会默认设置为“from”:“admin”，有from字段但值为空串(“”)时请求失败
 //        requestParam.put("from", null);
             HttpEntity<String> httpEntity = new HttpEntity<>(MAPPER.writeValueAsString(requestParam), headers);
-            ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(targetUrl, httpEntity, String.class);
+            ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(targetUrl,
+                    httpEntity,
+                    String.class);
             return (responseEntity.getStatusCodeValue() == 200) ? ResponseResult.ok() : ResponseResult.fail();
         } catch (Exception e) {
             e.printStackTrace();

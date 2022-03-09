@@ -39,15 +39,9 @@ public class UsersApiImpl implements UsersApi {
         return this.mongoTemplate.find(query, Users.class);
     }
     @Override
-    public PageInfoDTO<Users> queryUsersList(Long userId, Integer page, Integer size) {
+    public List<Users> queryUsersList(Long userId, Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Order.desc("created")));
         Query query = Query.query(Criteria.where("userId").is(userId)).with(pageRequest);
-        List<Users> usersList = this.mongoTemplate.find(query, Users.class);
-        PageInfoDTO<Users> dto = new PageInfoDTO<>();
-        dto.setPage(page);
-        dto.setSize(size);
-        dto.setRecords(usersList);
-        dto.setTotal(0); //不提供总数
-        return dto;
+        return this.mongoTemplate.find(query, Users.class);
     }
 }
