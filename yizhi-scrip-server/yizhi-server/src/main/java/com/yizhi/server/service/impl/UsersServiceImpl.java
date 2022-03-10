@@ -1,15 +1,14 @@
 package com.yizhi.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.yizhi.common.model.dto.PageInfoDTO;
-import com.yizhi.common.model.dto.UserInfoDTO;
-import com.yizhi.common.model.dto.UsersDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yizhi.common.model.dto.*;
 import com.yizhi.common.model.enums.SexEnum;
-import com.yizhi.common.model.pojo.mongodb.TimeLine;
+import com.yizhi.common.model.pojo.mongodb.RecommendUser;
 import com.yizhi.common.model.pojo.mongodb.Users;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
-import com.yizhi.common.model.vo.PicUploadResult;
+import com.yizhi.common.model.request.RecommendUserRequest;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.dubbo.api.UsersApi;
@@ -17,20 +16,21 @@ import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.HuanXinService;
 import com.yizhi.server.service.PicUploadService;
 import com.yizhi.server.service.UsersService;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UsersServiceImpl implements UsersService {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
     private PicUploadService picUploadService;
     @Autowired
@@ -39,6 +39,8 @@ public class UsersServiceImpl implements UsersService {
     private ApUserInfoService apUserInfoService;
     @DubboReference(version = "1.0.0")
     private UsersApi usersApi;
+    private Long defaultRecommendUser = Long.valueOf("2");
+    private String defaultRecommendUsers = "2,3,4,5";
     @Override
     public ResponseResult user() {
         return this.huanXinService.user();
@@ -139,5 +141,230 @@ public class UsersServiceImpl implements UsersService {
             size = 0;
         }
         return ResponseResult.ok(new PageInfoDTO<>(0, page, size, dtos));
+    }
+    @Override
+    public ResponseResult queryFollowCounts() {
+        ApUser user = UserThreadLocal.get();
+        return ResponseResult.ok(this.usersApi.queryFollowCounts(Long.valueOf(user.getId())));
+    }
+    @Override
+    public ResponseResult queryFollowList(String type, Integer page, Integer size) {
+        // 查找关注列表FriendId
+        ApUser user = UserThreadLocal.get();
+        List<Long> userIds = new ArrayList<>();
+        switch (type) {
+            case "mutualFollow":
+                this.usersApi.queryMutualFollowList(Long.valueOf(user.getId()), page, size)
+                        .forEach(users -> userIds.add(users.getFriendId()));
+                break;
+            case "follow":
+                this.usersApi.queryFollowList(Long.valueOf(user.getId()), page, size)
+                        .forEach(users -> userIds.add(users.getFriendId()));
+                break;
+            case "fans":
+                this.usersApi.queryFansList(Long.valueOf(user.getId()), page, size)
+                        .forEach(users -> userIds.add(users.getUserId()));
+                break;
+            default:
+                break;
+        }
+        // 填充UserInfo
+        List<FollowUserDTO> dtos = new ArrayList<>();
+        QueryWrapper<ApUserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("user_id", userIds);
+        List<ApUserInfo> userInfoList = this.apUserInfoService.queryUserInfoList(queryWrapper);
+        for (ApUserInfo userInfo : userInfoList) {
+            FollowUserDTO dto = new FollowUserDTO();
+            dto.setId(Long.valueOf(userInfo.getUserId()));
+            dto.setLogo(userInfo.getLogo());
+            dto.setNickName(userInfo.getNickName());
+            dto.setSex(userInfo.getSex().name().toLowerCase());
+            dto.setAge(userInfo.getAge());
+            dto.setCity(userInfo.getCity());
+            dto.setEdu(userInfo.getEdu());
+            dto.setSimilarity(Math.round(this.usersApi.querySimilarity(Long.valueOf(user.getId()),
+                    Long.valueOf(userInfo.getUserId()))));
+            dtos.add(dto);
+        }
+        return ResponseResult.ok(new PageInfoDTO<>(0, page, size, dtos));
+    }
+    @Override
+    public ResponseResult follow(Long userId) {
+        return null;
+    }
+    @Override
+    public ResponseResult unFollow(Long userId) {
+        return null;
+    }
+    @Override
+    public ResponseResult queryTodayBest() {
+        // 校验token是否有效,通过user的接口进行校验
+        ApUser user = UserThreadLocal.get();
+        RecommendUserDTO dto = new RecommendUserDTO();
+        // 通过用户id寻找最佳推荐用户
+        RecommendUser recommendUser = this.usersApi.queryWithMaxSimilarity(Long.valueOf(user.getId()));
+        if (null == recommendUser) {
+            // 给出默认的推荐用户 在配置文件中有设置默认用户直接注入
+            // 获取推荐用户个人信息
+            ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(defaultRecommendUser);
+            // 补全个人信息
+            dto.setFriendId(defaultRecommendUser);
+            dto.setLogo(userInfo.getLogo());
+            dto.setNickName(userInfo.getNickName());
+            dto.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
+            dto.setAge(userInfo.getAge());
+            dto.setTags(StringUtils.split(userInfo.getTags(), ","));
+            dto.setSimilarity(49L);
+        } else {
+            // 获取推荐用户个人信息
+            ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(recommendUser.getFriendId());
+            // 补全个人信息
+            dto.setFriendId(recommendUser.getFriendId());
+            dto.setLogo(userInfo.getLogo());
+            dto.setNickName(userInfo.getNickName());
+            dto.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
+            dto.setAge(userInfo.getAge());
+            dto.setTags(StringUtils.split(userInfo.getTags(), ","));
+            // 获得相似度 取整
+            dto.setSimilarity(Math.round(recommendUser.getSimilarity()));
+        }
+        return ResponseResult.ok(dto);
+    }
+    @Override
+    public ResponseResult queryRecommendUser(Long friendId) {
+        ApUser user = UserThreadLocal.get();
+        ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(friendId);
+        RecommendUserDTO dto = new RecommendUserDTO();
+        dto.setFriendId(friendId);
+        dto.setLogo(userInfo.getLogo());
+        dto.setNickName(userInfo.getNickName());
+        dto.setSex(userInfo.getSex().name().toLowerCase(Locale.ROOT));
+        dto.setAge(userInfo.getAge());
+        dto.setTags(StringUtils.split(userInfo.getTags(), ","));
+        double similarity = this.usersApi.querySimilarity(friendId, Long.valueOf(user.getId()));
+        if (similarity == 0) {
+            similarity = 90;
+        }
+        dto.setSimilarity((long) Math.floor(similarity));
+        return ResponseResult.ok(dto);
+    }
+    @Override
+    public ResponseResult queryRecommendUserList(RecommendUserRequest request) {
+        //获得用户对象
+        ApUser user = UserThreadLocal.get();
+        PageInfoDTO dto = this.usersApi.queryRecommendUserList(Long.valueOf(user.getId()),
+                request.getPage(),
+                request.getSize());
+        List<RecommendUser> records = dto.getRecords();
+        //判断集合中是否有数据
+        if (CollectionUtils.isEmpty(records)) {
+            //进行切割
+            String[] friendIdsStr = StringUtils.split(defaultRecommendUsers, ",");
+            for (String s : friendIdsStr) {
+                RecommendUser recommendUser = new RecommendUser();
+                recommendUser.setFriendId(Long.valueOf(s));
+                recommendUser.setId(ObjectId.get());
+                recommendUser.setSimilarity(RandomUtils.nextDouble(70d, 90d));
+                records.add(recommendUser);
+            }
+        }
+        //收集推荐用户的id
+        Set<Long> friendIds = new HashSet<>();
+        for (RecommendUser record : records) {
+            friendIds.add(record.getFriendId());
+        }
+        QueryWrapper queryWrapper = new QueryWrapper();
+        //用户的id参数
+        queryWrapper.in("user_id", friendIds);
+
+        /*//查询城市参数
+        if (StringUtils.isNotEmpty(param.getCity())) {
+            queryWrapper.like("city", param.getCity());
+        }
+
+        //查询性别参数
+        if (StringUtils.isNotEmpty(param.getSex())) {
+            queryWrapper.eq("sex", StringUtils.equals(param.getSex(), "man") ? 1 : 2);
+        }
+
+        //查询年龄参数
+        if (param.getAge() != null) {
+            queryWrapper.le("age", param.getAge());
+        }*/
+        //
+        List<ApUserInfo> userInfoList = this.apUserInfoService.queryUserInfoList(queryWrapper);
+        if (CollectionUtils.isEmpty(userInfoList)) {
+            //没有查到用户基本信息
+            return ResponseResult.fail(dto);
+        }
+        List<RecommendUserDTO> dtos = new ArrayList<>();
+        for (ApUserInfo userInfo : userInfoList) {
+            RecommendUserDTO dto2 = new RecommendUserDTO();
+            //补全个人信息
+            dto2.setFriendId(Long.valueOf(userInfo.getUserId()));
+            dto2.setLogo(userInfo.getLogo());
+            dto2.setAge(userInfo.getAge());
+            dto2.setNickName(userInfo.getNickName());
+            dto2.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
+            dto2.setTags(StringUtils.split(userInfo.getTags(), ","));
+            //设置相似度
+            for (RecommendUser record : records) {
+                if (record.getFriendId().longValue() == userInfo.getUserId().longValue()) {
+                    double similarity = Math.floor(record.getSimilarity());
+                    dto2.setSimilarity(Double.valueOf(similarity).longValue());
+                    break;
+                }
+            }
+            dtos.add(dto2);
+        }
+        //相似度倒序排列
+        Collections.sort(dtos, (o1, o2) -> new Long(o2.getSimilarity() - o1.getSimilarity()).intValue());
+        dto.setRecords(dtos);
+        return ResponseResult.ok(dto);
+    }
+    @Override
+    public ResponseResult queryNearUser(String sex, String distance) {
+        ApUser user = UserThreadLocal.get();
+        // 我的位置
+        UserLocationDTO dto = this.usersApi.queryLocationByUserId(Long.valueOf(user.getId()));
+        Double longitude = dto.getLongitude();
+        Double latitude = dto.getLatitude();
+        // 查询附近的用户
+        List<UserLocationDTO> dtos = this.usersApi.queryUserFromLocation(longitude, latitude,
+                Integer.valueOf(distance));
+        List<Long> userIds = dtos.stream().map(UserLocationDTO::getUserId).collect(Collectors.toList());
+        // 查询用户信息
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.in("user_id", userIds);
+        if (StringUtils.equalsIgnoreCase(sex, "man")) {
+            queryWrapper.eq("sex", SexEnum.MAN);
+        } else {
+            queryWrapper.eq("sex", SexEnum.WOMAN);
+        }
+        List<ApUserInfo> userInfoList = this.apUserInfoService.queryUserInfoList(queryWrapper);
+        // 填充数据
+        List<NearUserDTO> dtos1 = new ArrayList<>();
+        for (ApUserInfo userInfo : userInfoList) {
+            if (userInfo.getUserId().equals(user.getId())) {
+                continue;
+            }
+            NearUserDTO dto1 = new NearUserDTO();
+            dto1.setUserId(Long.valueOf(userInfo.getUserId()));
+            dto1.setLogo(userInfo.getLogo());
+            dto1.setNickName(userInfo.getNickName());
+            dtos1.add(dto1);
+        }
+        return ResponseResult.ok(dtos1);
+    }
+    @Override
+    public ResponseResult updateLocation(Map<String, Object> param) {
+        Double longitude = Double.valueOf(param.get("longitude").toString());
+        Double latitude = Double.valueOf(param.get("latitude").toString());
+        String address = param.get("address").toString();
+        Boolean aBoolean = this.usersApi.updateLocation(Long.valueOf(UserThreadLocal.get().getId()),
+                longitude,
+                latitude,
+                address);
+        return (aBoolean) ? ResponseResult.ok() : ResponseResult.fail();
     }
 }

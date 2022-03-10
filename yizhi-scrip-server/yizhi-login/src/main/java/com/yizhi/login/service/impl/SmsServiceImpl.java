@@ -23,25 +23,21 @@ import java.util.Map;
 @Service
 @Slf4j
 public class SmsServiceImpl implements SmsService {
-
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
     @Autowired
     private AliyunSMSConfig aliyunSMSConfig;
-
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Autowired
     private RestTemplate restTemplate;
-
     @Override
-    public ResponseResult sendCheckCode(String phone) {
-        String redisKey = "CHECK_CODE_" + phone;
+    public ResponseResult sendCheckCode(String mobile) {
+        String redisKey = "CHECK_CODE_" + mobile;
         //判断该手机号发送过来的验证码是否失效
         if (this.redisTemplate.hasKey(redisKey)) {
             return ResponseResult.build(null, ResultCodeEnum.SEND_CHECKCODE_ERROR_2);
         }
-        // String code = this.sendSms(phone);
+        // String code = this.sendSms(mobile);
         String code = "123456";
         if (StringUtils.isEmpty(code)) {
             return ResponseResult.build(null, ResultCodeEnum.SEND_CHECKCODE_ERROR_1);
@@ -50,7 +46,6 @@ public class SmsServiceImpl implements SmsService {
         this.redisTemplate.opsForValue().set(redisKey, code, Duration.ofMinutes(5));
         return ResponseResult.ok();
     }
-
     // 云之讯
     private String sendSms(String mobile) {
         String url = "https://open.ucpaas.com/ol/sms/sendsms";

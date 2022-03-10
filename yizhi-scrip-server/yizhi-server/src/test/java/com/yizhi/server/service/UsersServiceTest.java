@@ -14,21 +14,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RecommendUserServiceTest {
+public class UsersServiceTest {
     @Autowired
     private LoginFeignClient loginFeignClient;
-
     @Autowired
-    private RecommendUserService recommendService;
-
+    private UsersService usersService;
     @Test
     public void queryTodayBest() {
     }
-
     @Test
     public void queryRecommendUser() {
     }
-
     @Test
     public void queryRecommendUserList() {
         String token = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ2NDAyODM3fQ.kdGMuUotemQM15RiIKMrxxbRw-ZFznpTS8h94W5nZBk";
@@ -39,7 +35,7 @@ public class RecommendUserServiceTest {
                 UserThreadLocal.set(user);
             }
         }
-        ResponseResult responseResult = this.recommendService.queryRecommendUserList(new RecommendUserRequest());
+        ResponseResult responseResult = this.usersService.queryRecommendUserList(new RecommendUserRequest());
         System.out.println(responseResult);
     }
 }

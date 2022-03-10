@@ -1,11 +1,13 @@
 package com.yizhi.login.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yizhi.common.client.ServerFeignClient;
 import com.yizhi.common.model.mapper.ApUserMapper;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.login.service.LoginService;
+import com.yizhi.login.service.SmsService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +39,11 @@ public class LoginServiceImpl implements LoginService {
     private RocketMQTemplate rocketMQTemplate;
     @Autowired
     private ServerFeignClient serverFeignClient;
+    @Autowired
+    private SmsService smsService;
     @Override
-    public ResponseResult login(String phone, String code) {
-        String redisKey = "CHECK_CODE_" + phone;
+    public ResponseResult login(String mobile, String code) {
+        String redisKey = "CHECK_CODE_" + mobile;
         boolean isNew = false;
         String redisData = this.redisTemplate.opsForValue().get(redisKey);
         //判断输入的验证码是否正确
@@ -54,12 +58,12 @@ public class LoginServiceImpl implements LoginService {
         this.redisTemplate.delete(redisKey);
         //判断是否是新用户
         LambdaQueryWrapper<ApUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(ApUser::getMobile, phone);
+        lambdaQueryWrapper.eq(ApUser::getMobile, mobile);
         ApUser user = this.userMapper.selectOne(lambdaQueryWrapper);
         if (null == user) {
             //为空说明是新用户则需要注册该用户
             user = new ApUser();
-            user.setMobile(phone);
+            user.setMobile(mobile);
             //对用户密码进行md5加密
             user.setPassword(DigestUtils.md5Hex("123456"));
             //是新用户
@@ -73,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
         String token = Jwts.builder()
                 .setClaims(claims) //payload，存放数据的位置，不能放置敏感数据，如：密码等
                 .signWith(SignatureAlgorithm.HS256, secret) //设置加密方法和加密盐
-                .setExpiration(new DateTime().plusHours(1000).toDate()) //设置过期时间，12小时后过期
+                .setExpiration(new DateTime().plusHours(1000).toDate()) //设置过期时间，1000小时后过期
                 .compact();
         if (isNew) {
             //注册环信用户
@@ -115,7 +119,9 @@ public class LoginServiceImpl implements LoginService {
                 ApUser u = userMapper.selectById(user.getId());
                 //不是每一次查询都要从mysql中获取,第一次查询出来后存入redis中
                 String exp = body.get("exp").toString();
-                Long expLong = Long.valueOf(exp) * 1000;
+                Long expLong = Long.valueOf(exp);
+                System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
+                        .getStackTrace()[1].getMethodName() + "方法:" + expLong + exp);
                 this.redisTemplate.opsForValue()
                         .set(redisKey, u.getMobile(), Duration.ofMillis(expLong - System.currentTimeMillis()));
                 user.setMobile(u.getMobile());
@@ -132,5 +138,26 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public ResponseResult saveUserLogo(MultipartFile file, String token) {
         return this.serverFeignClient.saveUserLogo(file, token);
+    }
+    @Override
+    public ResponseResult sendToOldMobile(String token) {
+        String mobile = this.queryUserByToken(token).getMobile();
+        return this.smsService.sendCheckCode(mobile);
+    }
+    @Override
+    public ResponseResult updateNewMobile(String token, String mobile) {
+        ApUser user = this.queryUserByToken(token);
+        if (null == user) {
+            return ResponseResult.fail();
+        }
+        QueryWrapper<ApUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mobile", mobile);
+        ApUser oldUser = this.userMapper.selectOne(queryWrapper);
+        if (null != oldUser) {
+            // 该手机号已经注册
+            return ResponseResult.fail();
+        }
+        user.setMobile(mobile);
+        return (this.userMapper.updateById(user) > 0) ? ResponseResult.ok() : ResponseResult.fail();
     }
 }

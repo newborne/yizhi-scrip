@@ -1,7 +1,9 @@
 package com.yizhi.server.controller.v1;
 
+import com.yizhi.common.model.request.RecommendUserRequest;
 import com.yizhi.common.model.vo.PicUploadResult;
 import com.yizhi.common.model.vo.ResponseResult;
+import com.yizhi.server.annotation.Cache;
 import com.yizhi.server.service.ApUserInfoService;
 import com.yizhi.server.service.HuanXinService;
 import com.yizhi.server.service.PicUploadService;
@@ -42,10 +44,6 @@ public class UsersController {
                                   @RequestParam(value = "type", defaultValue = "txt") String type) {
         return this.usersService.sendMsg(target, msg, type);
     }
-    // @PostMapping("uploadPic")
-    // public PicUploadResult uploadPic(@RequestParam("file") MultipartFile file) {
-    //     return this.usersService.uploadPic(file);
-    // }
     @PostMapping("saveUserInfo")
     public ResponseResult saveUserInfo(@RequestBody Map<String, String> param) {
         return this.usersService.saveUserInfo(param);
@@ -61,6 +59,48 @@ public class UsersController {
     @PostMapping("updateUserInfo")
     public ResponseResult updateUserInfo(@RequestBody Map<String, String> param) {
         return this.usersService.updateUserInfo(param);
+    }
+    @GetMapping("follow/counts")
+    public ResponseResult queryFollowCounts() {
+        return this.usersService.queryFollowCounts();
+    }
+    @GetMapping("follow/list/{type}")
+    public ResponseResult queryFollowList(@PathVariable("type") String type,
+                                          @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                          @RequestParam(value = "size", defaultValue = "10") Integer size) {
+        return this.usersService.queryFollowList(type, page, size);
+    }
+    @GetMapping("follow/{userId}")
+    public ResponseResult follow(@PathVariable("userId") Long userId) {
+        return this.usersService.follow(userId);
+    }
+    @GetMapping("unfollow/{userId}")
+    public ResponseResult unFollow(@PathVariable("userId") Long userId) {
+        return this.usersService.unFollow(userId);
+    }
+    @Cache
+    @GetMapping("todayBest")
+    public ResponseResult queryTodayBest() {
+        return this.usersService.queryTodayBest();
+    }
+    @Cache
+    @GetMapping("{id}")
+    public ResponseResult queryRecommendUser(@PathVariable("id") Long friendId) {
+        return this.usersService.queryRecommendUser(friendId);
+    }
+    @Cache
+    @GetMapping("recommendUserList")
+    public ResponseResult queryRecommendUserList(RecommendUserRequest param) {
+        return this.usersService.queryRecommendUserList(param);
+    }
+    @PostMapping("updateLocation")
+    public ResponseResult updateLocation(@RequestBody Map<String, Object> param) {
+        return this.usersService.updateLocation(param);
+    }
+    @GetMapping("near")
+    public ResponseResult queryNearUser(@RequestParam(value = "sex", required = false) String sex,
+                                        @RequestParam(value = "distance", defaultValue = "5000") String distance) {
+        return this.usersService.queryNearUser(sex, distance);
     }
 }
 
