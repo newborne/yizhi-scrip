@@ -23,7 +23,7 @@ public class PostController {
                                    @RequestParam(value = "location") String location,
                                    @RequestParam(value = "longitude") String longitude,
                                    @RequestParam(value = "latitude") String latitude,
-                                   @RequestParam(value = "imageContent") MultipartFile[] multipartFile) {
+                                   @RequestParam(value = "medias") MultipartFile[] multipartFile) {
         return this.postService.savePost(text,
                 location,
                 longitude,

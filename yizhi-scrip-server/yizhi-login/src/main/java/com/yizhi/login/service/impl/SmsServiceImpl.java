@@ -1,5 +1,6 @@
 package com.yizhi.login.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yizhi.common.config.aliyun.AliyunSMSConfig;
@@ -33,43 +34,45 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public ResponseResult sendCheckCode(String mobile) {
         String redisKey = "CHECK_CODE_" + mobile;
-        //判断该手机号发送过来的验证码是否失效
-        if (this.redisTemplate.hasKey(redisKey)) {
-            return ResponseResult.build(null, ResultCodeEnum.SEND_CHECKCODE_ERROR_2);
+        // 1 判断验证码是否发送过
+        if (Boolean.TRUE.equals(this.redisTemplate.hasKey(redisKey))) {
+            return ResponseResult.build(mobile, ResultCodeEnum.SEND_CHECKCODE_ERROR_2);
         }
-        // String code = this.sendSms(mobile);
+        // 2 发送验证码
         String code = "123456";
+        // String code = this.sendSms(mobile);
         if (StringUtils.isEmpty(code)) {
             return ResponseResult.build(null, ResultCodeEnum.SEND_CHECKCODE_ERROR_1);
         }
-        //短信发送成功后存入redis保存时间为5min
+        // 3 将验证码存入redis
         this.redisTemplate.opsForValue().set(redisKey, code, Duration.ofMinutes(5));
         return ResponseResult.ok();
     }
     // 云之讯
     private String sendSms(String mobile) {
+        // 1 参数设定
         String url = "https://open.ucpaas.com/ol/sms/sendsms";
         Map<String, Object> params = new HashMap<>();
-        //根据需要进行修改
         params.put("sid", "1bafadef5706824e2715386ab3ed7a6d");
         params.put("token", "5c1128d340108f9826c0015e9e112893");
         params.put("appid", "b3b0dec8f97244f28293eaa7349f6b08");
         params.put("templateid", "487656");
         params.put("mobile", mobile);
-        // 生成6位数验证
         params.put("param", RandomUtils.nextInt(100000, 999999));
+        // 2 发送请求
         ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(url, params, String.class);
         String body = responseEntity.getBody();
+        // 3 解析返回结果
+        JsonNode jsonNode = null;
         try {
-            JsonNode jsonNode = MAPPER.readTree(body);
-            //000000 表示发送成功
-            if (StringUtils.equals(jsonNode.get("code").textValue(), "000000")) {
-                return String.valueOf(params.get("param"));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            jsonNode = MAPPER.readTree(body);
+        } catch (JsonProcessingException e) {
+            System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
+                    .getStackTrace()[1].getMethodName() + "方法：" + "发送短信到云之讯失败");
         }
-        return null;
+        // 查询码 http://docs.ucpaas.com/doku.php?id=error_code
+        return (StringUtils.equals(jsonNode.get("code").textValue(),
+                "000000")) ? String.valueOf(params.get("param")) : null;
     }
 //    // 阿里云SMS
 //    private String sendSms(String mobile) {

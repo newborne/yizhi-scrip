@@ -2,14 +2,14 @@ package com.yizhi.login.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.yizhi.common.client.ServerFeignClient;
 import com.yizhi.common.model.mapper.ApUserMapper;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.login.service.LoginService;
 import com.yizhi.login.service.SmsService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,19 +23,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.time.Duration;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@Slf4j
 public class LoginServiceImpl implements LoginService {
     @Resource
-    private ApUserMapper userMapper;
+    private ApUserMapper apUserMapper;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Value("${jwt.secret}")
     private String secret;
-    @Autowired
+    @Resource
     private RocketMQTemplate rocketMQTemplate;
     @Autowired
     private ServerFeignClient serverFeignClient;
@@ -43,93 +43,80 @@ public class LoginServiceImpl implements LoginService {
     private SmsService smsService;
     @Override
     public ResponseResult login(String mobile, String code) {
+        // 1 redis中获取验证码并校验
         String redisKey = "CHECK_CODE_" + mobile;
-        boolean isNew = false;
         String redisData = this.redisTemplate.opsForValue().get(redisKey);
-        //判断输入的验证码是否正确
-        if (!StringUtils.equals(code, redisData)) {
+        if (!StringUtils.equals(code, redisData) || StringUtils.isEmpty(redisData)) {
             return null;
         }
-        //判断验证码是否过期
-        if (StringUtils.isEmpty(redisData)) {
-            return null;
-        }
-        //验证成功删除验证码
         this.redisTemplate.delete(redisKey);
-        //判断是否是新用户
-        LambdaQueryWrapper<ApUser> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(ApUser::getMobile, mobile);
-        ApUser user = this.userMapper.selectOne(lambdaQueryWrapper);
-        if (null == user) {
-            //为空说明是新用户则需要注册该用户
+        // 2 判断是否是新用户
+        boolean isNew = false;
+        ApUser user = new LambdaQueryChainWrapper<>(apUserMapper).eq(ApUser::getMobile, mobile).one();
+        if (user == null) {
             user = new ApUser();
             user.setMobile(mobile);
-            //对用户密码进行md5加密
             user.setPassword(DigestUtils.md5Hex("123456"));
-            //是新用户
+            this.apUserMapper.insert(user);
             isNew = true;
-            //注册添加新用户到数据库
-            this.userMapper.insert(user);
         }
-        //生成token
-        Map<String, Object> claims = new HashMap<String, Object>();
+        // 3 生成token
+        Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
         String token = Jwts.builder()
-                .setClaims(claims) //payload，存放数据的位置，不能放置敏感数据，如：密码等
-                .signWith(SignatureAlgorithm.HS256, secret) //设置加密方法和加密盐
-                .setExpiration(new DateTime().plusHours(1000).toDate()) //设置过期时间，1000小时后过期
+                .setClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .setExpiration(new Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis()))
                 .compact();
+        // 4 环信注册
         if (isNew) {
-            //注册环信用户
             this.serverFeignClient.register(Long.valueOf(user.getId()), token);
         }
-        //将token和是否为新用户的结果传给controller
+        // 5 发送登录成功消息
         Map<String, Object> map = new HashMap<>();
         map.put("isNew", isNew);
         map.put("token", token);
         try {
-            //发送用户登录成功消息
             Map<String, Object> msg = new HashMap<>();
             msg.put("id", user.getId());
-            msg.put("date", System.currentTimeMillis());
-            this.rocketMQTemplate.convertAndSend("login", msg);
+            msg.put("created", System.currentTimeMillis());
+            this.rocketMQTemplate.convertAndSend("YIZHI_LOGIN_TOPIC", msg);
+            System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
+                    .getStackTrace()[1].getMethodName() + "方法：" + "发送登录成功消息成功");
         } catch (Exception e) {
-            log.error("发送消息失败", e);
+            System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
+                    .getStackTrace()[1].getMethodName() + "方法：" + "发送登录成功消息失败");
         }
         return ResponseResult.ok(map);
     }
     @Override
     public ApUser queryUserByToken(String token) {
-        ApUser user = null;
         try {
-            // 通过token解析数据
+            // 1 解析token
             Map<String, Object> body = Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
-            Long id = Long.valueOf(body.get("id").toString());
-            user = new ApUser();
-            user.setId(Math.toIntExact(id));
-            //先从redis中取出手机号,如果没有的话再从mysql中获取
-            String redisKey = "USER_MOBILE_" + user.getId();
-            //判断redis中是否有
-            if (redisTemplate.hasKey(redisKey)) {
+            // 2 填充用户信息
+            ApUser user = new ApUser();
+            String id = body.get("id").toString();
+            String exp = body.get("exp").toString();
+            String redisKey = "USER_MOBILE_" + id;
+            if (Boolean.TRUE.equals(redisTemplate.hasKey(redisKey))) {
+                user.setId(Integer.valueOf(id));
                 user.setMobile(this.redisTemplate.opsForValue().get(redisKey));
             } else {
-                ApUser u = userMapper.selectById(user.getId());
-                //不是每一次查询都要从mysql中获取,第一次查询出来后存入redis中
-                String exp = body.get("exp").toString();
-                Long expLong = Long.valueOf(exp);
-                System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
-                        .getStackTrace()[1].getMethodName() + "方法:" + expLong + exp);
+                user = this.apUserMapper.selectById(id);
+                // 秒转毫秒
+                long millis = Long.parseLong(exp) * 1000 - System.currentTimeMillis();
                 this.redisTemplate.opsForValue()
-                        .set(redisKey, u.getMobile(), Duration.ofMillis(expLong - System.currentTimeMillis()));
-                user.setMobile(u.getMobile());
+                        .set(redisKey, user.getMobile(), Duration.ofMillis(millis));
             }
+            return user;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return user;
     }
     @Override
     public ResponseResult saveUserInfo(Map<String, String> param, String token) {
@@ -146,18 +133,14 @@ public class LoginServiceImpl implements LoginService {
     }
     @Override
     public ResponseResult updateNewMobile(String token, String mobile) {
-        ApUser user = this.queryUserByToken(token);
-        if (null == user) {
+        // 1 判断用户是否存在,手机号是否已经被注册
+        if (null == this.queryUserByToken(token) || null != new LambdaQueryChainWrapper<>(apUserMapper).eq(ApUser::getMobile,
+                mobile).one()) {
             return ResponseResult.fail();
         }
-        QueryWrapper<ApUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("mobile", mobile);
-        ApUser oldUser = this.userMapper.selectOne(queryWrapper);
-        if (null != oldUser) {
-            // 该手机号已经注册
-            return ResponseResult.fail();
-        }
+        // 2 更新用户信息
+        ApUser user = new ApUser();
         user.setMobile(mobile);
-        return (this.userMapper.updateById(user) > 0) ? ResponseResult.ok() : ResponseResult.fail();
+        return (this.apUserMapper.updateById(user) > 0) ? ResponseResult.ok() : ResponseResult.fail();
     }
 }

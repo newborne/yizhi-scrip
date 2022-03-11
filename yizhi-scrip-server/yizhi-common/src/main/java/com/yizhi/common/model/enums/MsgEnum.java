@@ -2,6 +2,9 @@ package com.yizhi.common.model.enums;
 
 import com.baomidou.mybatisplus.core.enums.IEnum;
 import io.swagger.annotations.ApiModel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @ApiModel
 public enum MsgEnum implements IEnum<Integer> {

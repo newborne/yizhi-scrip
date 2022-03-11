@@ -10,10 +10,8 @@
       <module fileurl="file://$PROJECT_DIR$/yizhi-gateway/yizhi-gateway.iml" filepath="$PROJECT_DIR$/yizhi-gateway/yizhi-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/yizhi-login/yizhi-login.iml" filepath="$PROJECT_DIR$/yizhi-login/yizhi-login.iml" />
       <module fileurl="file://$PROJECT_DIR$/yizhi-neo4j/yizhi-neo4j.iml" filepath="$PROJECT_DIR$/yizhi-neo4j/yizhi-neo4j.iml" />
-      <module fileurl="file://$PROJECT_DIR$/yizhi-recommend/yizhi-recommend.iml" filepath="$PROJECT_DIR$/yizhi-recommend/yizhi-recommend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/yizhi-scrip-server.iml" filepath="$PROJECT_DIR$/.idea/yizhi-scrip-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/yizhi-server/yizhi-server.iml" filepath="$PROJECT_DIR$/yizhi-server/yizhi-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/yizhi-spark/yizhi-spark.iml" filepath="$PROJECT_DIR$/yizhi-spark/yizhi-spark.iml" />
       <module fileurl="file://$PROJECT_DIR$/yizhi-temp/yizhi-temp.iml" filepath="$PROJECT_DIR$/yizhi-temp/yizhi-temp.iml" />
     </modules>
   </component>
