@@ -17,6 +17,7 @@
         <module>yizhi-neo4j</module>
         <module>yizhi-temp</module>
         <module>yizhi-login</module>
+        <module>yizhi-spark</module>
     </modules>
 
     <parent>
@@ -54,7 +55,10 @@
         <dubbo.spring.version>0.2.0</dubbo.spring.version>
         <knife4j.version>2.0.8</knife4j.version>
         <fastdfs.version>1.26.7</fastdfs.version>
-        <spark.version>3.0.1</spark.version>
+        <spark.version>2.4.3</spark.version>
+        <mongo.spark.version>2.4.1</mongo.spark.version>
+        <redis.version>3.1.0</redis.version>
+        <janino.version>3.0.8</janino.version>
     </properties>
 
     <!-- 全局依赖 -->
@@ -214,7 +218,18 @@
             <dependency>
                 <groupId>org.mongodb.spark</groupId>
                 <artifactId>mongo-spark-connector_2.12</artifactId>
-                <version>${spark.version}</version>
+                <version>${mongo.spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>${janino.version}</version>
+            </dependency>
+            <!-- 15 redis -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis.version}</version>
             </dependency>
             <!-- 弃用 -->
             <!-- swagger -->

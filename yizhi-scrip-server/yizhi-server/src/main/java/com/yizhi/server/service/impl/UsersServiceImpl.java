@@ -39,8 +39,8 @@ public class UsersServiceImpl implements UsersService {
     private ApUserInfoService apUserInfoService;
     @DubboReference(version = "1.0.0")
     private UsersApi usersApi;
-    private Long defaultRecommendUser = Long.valueOf("2");
-    private String defaultRecommendUsers = "2,3,4,5";
+    private final Long defaultRecommendUser = Long.valueOf("2");
+    private final String defaultRecommendUsers = "2,3,4,5";
     @Override
     public ResponseResult user() {
         return this.huanXinService.user();
@@ -182,7 +182,7 @@ public class UsersServiceImpl implements UsersService {
             dto.setAge(userInfo.getAge());
             dto.setCity(userInfo.getCity());
             dto.setEdu(userInfo.getEdu());
-            dto.setSimilarity(Math.round(this.usersApi.querySimilarity(Long.valueOf(user.getId()),
+            dto.setSimilarity((int) Math.round(this.usersApi.querySimilarity(Long.valueOf(user.getId()),
                     Long.valueOf(userInfo.getUserId()))));
             dtos.add(dto);
         }
@@ -214,7 +214,7 @@ public class UsersServiceImpl implements UsersService {
             dto.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
             dto.setAge(userInfo.getAge());
             dto.setTags(StringUtils.split(userInfo.getTags(), ","));
-            dto.setSimilarity(49L);
+            dto.setSimilarity(49);
         } else {
             // 获取推荐用户个人信息
             ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(recommendUser.getFriendId());
@@ -245,7 +245,7 @@ public class UsersServiceImpl implements UsersService {
         if (similarity == 0) {
             similarity = 90;
         }
-        dto.setSimilarity((long) Math.floor(similarity));
+        dto.setSimilarity((int) Math.floor(similarity));
         return ResponseResult.ok(dto);
     }
     @Override
@@ -264,7 +264,7 @@ public class UsersServiceImpl implements UsersService {
                 RecommendUser recommendUser = new RecommendUser();
                 recommendUser.setFriendId(Long.valueOf(s));
                 recommendUser.setId(ObjectId.get());
-                recommendUser.setSimilarity(RandomUtils.nextDouble(70d, 90d));
+                recommendUser.setSimilarity((int) RandomUtils.nextDouble(70d, 90d));
                 records.add(recommendUser);
             }
         }
@@ -311,7 +311,7 @@ public class UsersServiceImpl implements UsersService {
             for (RecommendUser record : records) {
                 if (record.getFriendId().longValue() == userInfo.getUserId().longValue()) {
                     double similarity = Math.floor(record.getSimilarity());
-                    dto2.setSimilarity(Double.valueOf(similarity).longValue());
+                    dto2.setSimilarity((int) similarity);
                     break;
                 }
             }

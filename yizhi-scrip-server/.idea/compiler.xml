@@ -14,6 +14,7 @@
         <module name="yizhi-neo4j" />
         <module name="yizhi-temp" />
         <module name="yizhi-login" />
+        <module name="yizhi-spark" />
         <module name="yizhi-gateway" />
         <module name="yizhi-dubbo-interface" />
       </profile>
@@ -44,7 +45,7 @@
       <module name="yizhi-login" options="-parameters" />
       <module name="yizhi-neo4j" options="-parameters" />
       <module name="yizhi-recommend" options="-parameters" />
-      <module name="yizhi-scrip-server" options="" />
+      <module name="yizhi-scrip-server" options="-parameters" />
       <module name="yizhi-server" options="-parameters" />
       <module name="yizhi-spark" options="-parameters" />
       <module name="yizhi-temp" options="-parameters" />

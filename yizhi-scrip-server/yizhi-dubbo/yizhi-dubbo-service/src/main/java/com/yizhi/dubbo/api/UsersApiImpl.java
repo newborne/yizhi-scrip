@@ -146,13 +146,13 @@ public class UsersApiImpl implements UsersApi {
         return new PageInfoDTO<>(0, page, size, recommendUserList);
     }
     @Override
-    public Double querySimilarity(Long friendId, Long userId) {
+    public Integer querySimilarity(Long friendId, Long userId) {
         Query query = Query.query(Criteria
                 .where("userId").is(userId)
                 .and("friendId").is(friendId));
         RecommendUser recommendUser = this.mongoTemplate.findOne(query, RecommendUser.class);
         if (null == recommendUser) {
-            return 0.0;
+            return 0;
         }
         return recommendUser.getSimilarity();
     }

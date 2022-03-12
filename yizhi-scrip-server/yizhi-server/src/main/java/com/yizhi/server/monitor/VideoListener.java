@@ -10,6 +10,7 @@ import com.yizhi.dubbo.api.VideoApi;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,6 @@ public class VideoListener implements RocketMQListener<String> {
     public void onMessage(String s) {
         try {
             // 1 读取消息
-            System.out.println("video:" + s);
             JsonNode jsonNode = MAPPER.readTree(s);
             Long userId = jsonNode.get("userId").asLong();
             MsgEnum type = MsgEnum.values()[jsonNode.get("type").asInt()];
@@ -61,7 +61,7 @@ public class VideoListener implements RocketMQListener<String> {
             videoListenerMsg.setCreated(created);
             videoListenerMsg.setVideoRid(videoRid);
             // 3 存储数据
-            this.mongoTemplate.save(videoListenerMsg, "video_listener_msg_" + System.currentTimeMillis());
+            this.mongoTemplate.save(videoListenerMsg, "video_listener_msg");
         } catch (JsonProcessingException e) {
             // e.printStackTrace();
             System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()

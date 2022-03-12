@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ApiModel
 public class RecommendUser implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
-    private ObjectId id; // 主键id
-    private Long friendId; // 推荐的用户id
-    private Long userId; // 用户id
-    private Double similarity; // 相似度
-    private String date; // 推荐日期
+    private ObjectId id;
+    private Long friendId;
+    private Long userId;
+    private Integer similarity;
+    private Long created;
 }

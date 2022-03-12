@@ -2,6 +2,7 @@ package com.yizhi.server.service.impl;
 
 import com.yizhi.common.model.dto.CommentDTO;
 import com.yizhi.common.model.dto.PageInfoDTO;
+import com.yizhi.common.model.enums.CommentEnum;
 import com.yizhi.common.model.enums.MsgEnum;
 import com.yizhi.common.model.pojo.mongodb.Comment;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
@@ -38,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     public ResponseResult likeComment(String destination, String publishId) {
         String likeUserCommentKey = "COMMENT_LIKE_USER_" + UserThreadLocal.get().getId() + "_" + publishId;
         String likeCommentKey = "COMMENT_LIKE_" + publishId;
-        Long likeCount = this.commentApi.queryCommentCount(publishId, 1);
+        Long likeCount = this.commentApi.queryCommentCount(publishId, CommentEnum.LIKE.getValue());
         //如果redis里面没有这个key，去查询dubbo，获取点赞数
         if (!redisTemplate.hasKey(likeCommentKey)) {
             //往redis里面存当前用户点赞信息
@@ -46,11 +47,14 @@ public class CommentServiceImpl implements CommentService {
         }
         if (!redisTemplate.hasKey(likeUserCommentKey)) {
             // 保存点赞
-            this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()), publishId, 1, null);
+            this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()),
+                    publishId,
+                    CommentEnum.LIKE.getValue(),
+                    null);
             // 点赞数+1
             likeCount = this.redisTemplate.opsForValue().increment(likeCommentKey);
             // 点赞记录
-            this.redisTemplate.opsForValue().set(likeUserCommentKey, "1");
+            this.redisTemplate.opsForValue().set(likeUserCommentKey, CommentEnum.LIKE.getValue().toString());
             this.mqService.sendMsg(destination,
                     MsgEnum.LIKE, publishId);
         }
@@ -58,7 +62,9 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public ResponseResult disLikeComment(String destination, String publishId) {
-        if (this.commentApi.removeComment(Long.valueOf(UserThreadLocal.get().getId()), publishId, 1)) {
+        if (this.commentApi.removeComment(Long.valueOf(UserThreadLocal.get().getId()),
+                publishId,
+                CommentEnum.LIKE.getValue())) {
             //不需要再去判断有没有对应的redisKey，因为取消就代表点过赞了
             String likeCommentKey = "COMMENT_LIKE_" + publishId;
             Long likeCount = this.redisTemplate.opsForValue().decrement(likeCommentKey);
@@ -74,14 +80,17 @@ public class CommentServiceImpl implements CommentService {
     public ResponseResult loveComment(String destination, String publishId) {
         String loveUserCommentKey = "COMMENT_LOVE_USER_" + UserThreadLocal.get().getId() + "_" + publishId;
         String loveCommentKey = "COMMENT_LOVE_" + publishId;
-        Long loveCount = this.commentApi.queryCommentCount(publishId, 3);
+        Long loveCount = this.commentApi.queryCommentCount(publishId, CommentEnum.LOVE.getValue());
         if (!redisTemplate.hasKey(loveCommentKey)) {
             this.redisTemplate.opsForValue().set(loveCommentKey, String.valueOf(loveCount));
         }
         if (!redisTemplate.hasKey(loveUserCommentKey)) {
-            this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()), publishId, 3, null);
+            this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()),
+                    publishId,
+                    CommentEnum.LOVE.getValue(),
+                    null);
             loveCount = this.redisTemplate.opsForValue().increment(loveCommentKey);
-            this.redisTemplate.opsForValue().set(loveUserCommentKey, "3");
+            this.redisTemplate.opsForValue().set(loveUserCommentKey, CommentEnum.LOVE.getValue().toString());
             this.mqService.sendMsg(destination,
                     MsgEnum.LOVE, publishId);
         }
@@ -89,7 +98,9 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public ResponseResult unLoveComment(String destination, String publishId) {
-        if (this.commentApi.removeComment(Long.valueOf(UserThreadLocal.get().getId()), publishId, 3)) {
+        if (this.commentApi.removeComment(Long.valueOf(UserThreadLocal.get().getId()),
+                publishId,
+                CommentEnum.LOVE.getValue())) {
             //不需要再去判断有没有对应的redisKey，因为取消就代表点过赞了
             String loveCommentKey = "COMMENT_LOVE_" + publishId;
             Long loveCount = this.redisTemplate.opsForValue().decrement(loveCommentKey);
@@ -105,7 +116,7 @@ public class CommentServiceImpl implements CommentService {
     public ResponseResult textComment(String destination, String publishId, String text) {
         if (this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()),
                 publishId,
-                2,
+                CommentEnum.COMMENT.getValue(),
                 text)) {
             this.mqService.sendMsg(destination,
                     MsgEnum.COMMENT, publishId);

@@ -18,13 +18,13 @@ public class UserLocationDTO implements java.io.Serializable {
     private Double longitude; //经度
     private Double latitude; //维度
     private String address; //位置描述
-    private Long created; //创建时间
+    private String created; //创建时间
     private Long updated; //更新时间
     private Long lastUpdated; //上次更新时间
     public static final UserLocationDTO format(UserLocation userLocation) {
         UserLocationDTO userLocationDTO = new UserLocationDTO();
         userLocationDTO.setAddress(userLocation.getAddress());
-        userLocationDTO.setCreated(userLocation.getCreated());
+        userLocationDTO.setCreated(String.valueOf(userLocation.getCreated()));
         userLocationDTO.setId(userLocation.getId().toHexString());
         userLocationDTO.setLastUpdated(userLocation.getLastUpdated());
         userLocationDTO.setUpdated(userLocation.getUpdated());

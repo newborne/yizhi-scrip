@@ -39,7 +39,6 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/yizhi-recommend/pom.xml" />
-        <option value="$PROJECT_DIR$/yizhi-spark/pom.xml" />
         <option value="$PROJECT_DIR$/yizhi-user/pom.xml" />
       </set>
     </option>
