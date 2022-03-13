@@ -1,15 +1,10 @@
 package com.yizhi.server.controller.v1;
 
 import com.yizhi.common.model.request.RecommendUserRequest;
-import com.yizhi.common.model.vo.PicUploadResult;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.server.annotation.Cache;
-import com.yizhi.server.service.ApUserInfoService;
-import com.yizhi.server.service.HuanXinService;
-import com.yizhi.server.service.PicUploadService;
-import com.yizhi.server.service.UsersService;
+import com.yizhi.server.service.v1.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

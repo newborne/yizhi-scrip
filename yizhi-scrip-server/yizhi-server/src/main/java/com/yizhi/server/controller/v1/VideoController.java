@@ -1,7 +1,7 @@
 package com.yizhi.server.controller.v1;
 
 import com.yizhi.common.model.vo.ResponseResult;
-import com.yizhi.server.service.VideoService;
+import com.yizhi.server.service.v1.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

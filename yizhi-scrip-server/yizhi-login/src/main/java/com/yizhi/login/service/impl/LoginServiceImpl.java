@@ -66,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
         String token = Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secret)
-                .setExpiration(new Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + Duration.ofDays(1000).toMillis()))
                 .compact();
         // 4 环信注册
         if (isNew) {

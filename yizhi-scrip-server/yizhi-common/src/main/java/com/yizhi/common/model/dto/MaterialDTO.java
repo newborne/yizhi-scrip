@@ -15,6 +15,6 @@ public class MaterialDTO implements Serializable {
     private String materialTypeName;
     private String[] tags;
     private String text;
-    private Integer likeCount;
-    private Integer hasLiked;
+    private Integer loveCount;
+    private Integer hasLoved;
 }

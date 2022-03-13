@@ -1,10 +1,8 @@
 package com.yizhi.server.controller.v1;
 
 import com.yizhi.common.model.vo.ResponseResult;
-import com.yizhi.server.annotation.NoAuthorization;
-import com.yizhi.server.service.MessageService;
+import com.yizhi.server.service.v1.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

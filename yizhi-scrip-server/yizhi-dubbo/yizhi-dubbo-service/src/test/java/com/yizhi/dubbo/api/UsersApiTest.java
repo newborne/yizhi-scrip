@@ -1,6 +1,7 @@
 package com.yizhi.dubbo.api;
 
 import com.yizhi.common.model.pojo.mongodb.RecommendUser;
+import com.yizhi.dubbo.api.v1.UsersApi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

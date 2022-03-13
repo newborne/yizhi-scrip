@@ -1,17 +1,15 @@
 package com.yizhi.dubbo.api;
 
 import com.google.common.collect.Lists;
+import com.yizhi.dubbo.api.v1.PostApi;
 import org.bson.types.ObjectId;
 import com.yizhi.common.model.pojo.mongodb.Post;
-import com.yizhi.common.model.pojo.mongodb.RecommendUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest

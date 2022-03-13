@@ -18,6 +18,7 @@
         <module>yizhi-temp</module>
         <module>yizhi-login</module>
         <module>yizhi-spark</module>
+        <module>yizhi-crawler</module>
     </modules>
 
     <parent>
