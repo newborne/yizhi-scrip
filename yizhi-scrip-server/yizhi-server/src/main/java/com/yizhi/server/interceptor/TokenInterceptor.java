@@ -21,7 +21,9 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Autowired
     private LoginFeignClient loginFeignClient;
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             NoAuthorization noAnnotation = handlerMethod.getMethod().getAnnotation(NoAuthorization.class);

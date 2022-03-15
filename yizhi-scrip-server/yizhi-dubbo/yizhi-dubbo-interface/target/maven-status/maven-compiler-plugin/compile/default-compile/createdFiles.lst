@@ -1,0 +1,7 @@
+com\yizhi\dubbo\api\v1\CommentApi.class
+com\yizhi\dubbo\api\v1\ArticleApi.class
+com\yizhi\dubbo\api\v1\MaterialApi.class
+com\yizhi\dubbo\api\v1\UsersApi.class
+com\yizhi\dubbo\api\v1\VideoApi.class
+com\yizhi\dubbo\api\v1\LogApi.class
+com\yizhi\dubbo\api\v1\PostApi.class

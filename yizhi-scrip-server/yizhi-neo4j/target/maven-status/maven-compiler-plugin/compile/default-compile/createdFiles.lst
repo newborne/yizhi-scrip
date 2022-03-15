@@ -1,0 +1,9 @@
+com\yizhi\neo4j\config\SwaggerConfiguration.class
+com\yizhi\neo4j\service\ArticleService.class
+com\yizhi\neo4j\service\impl\UserServiceImpl.class
+com\yizhi\neo4j\service\impl\ArticleServiceImpl.class
+com\yizhi\neo4j\service\impl\MaterialServiceImpl.class
+com\yizhi\neo4j\controller\v1\Neo4jController.class
+com\yizhi\neo4j\Neo4jApplication.class
+com\yizhi\neo4j\service\MaterialService.class
+com\yizhi\neo4j\service\UserService.class

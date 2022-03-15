@@ -1,0 +1,10 @@
+com\yizhi\dubbo\DubboApplication.class
+com\yizhi\dubbo\api\v1\UsersApiImpl.class
+com\yizhi\dubbo\api\v2\ArticleApiImplV2.class
+com\yizhi\dubbo\api\v1\CommentApiImpl.class
+com\yizhi\dubbo\api\v1\ArticleApiImpl.class
+com\yizhi\dubbo\api\v1\VideoApiImpl.class
+com\yizhi\dubbo\api\v2\MaterialApiImplV2.class
+com\yizhi\dubbo\api\v1\PostApiImpl.class
+com\yizhi\dubbo\api\v1\MaterialApiImpl.class
+com\yizhi\dubbo\api\v1\LogApiImpl.class

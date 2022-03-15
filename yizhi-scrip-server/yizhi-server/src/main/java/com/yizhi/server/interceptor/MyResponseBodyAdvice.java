@@ -33,8 +33,12 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
                 && returnType.hasMethodAnnotation(Cache.class);
     }
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body,
+                                  MethodParameter returnType,
+                                  MediaType selectedContentType,
+                                  Class selectedConverterType,
+                                  ServerHttpRequest request,
+                                  ServerHttpResponse response) {
         if (null == body) {
             return null;
         }

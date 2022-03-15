@@ -1,0 +1,33 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://centos:27017/yizhi
+      username: root
+      password: Bujidao0
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://centos:3306/yizhi_scrip?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false
+    username: root
+    password: Bujidao0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: centos:8848
+  redis:
+    jedis:
+      pool:
+        max-wait: 5000ms
+        max-Idle: 100
+        min-Idle: 10
+    timeout: 10s
+    cluster:
+      nodes: centos:7001,centos:7002,centos:7003,centos:7004,centos:7005,centos:7006
+      max-redirects: 5
+    password: Bujidao0
+mybatis-plus:
+  type-enums-package: com.yizhi.common.model.enums
+  global-config:
+    db-config:
+      id-type: auto
+rocketmq:
+  name-server: centos:9876

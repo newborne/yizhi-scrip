@@ -1,0 +1,4 @@
+com\yizhi\gateway\config\SwaggerResourceConfig.class
+com\yizhi\gateway\GatewayApplication.class
+com\yizhi\gateway\config\SwaggerHeaderFilter.class
+com\yizhi\gateway\handler\SwaggerHandler.class
