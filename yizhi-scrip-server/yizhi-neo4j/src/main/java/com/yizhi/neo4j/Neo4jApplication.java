@@ -9,6 +9,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
+/**
+ * The type Neo 4 j application.
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableNeo4jRepositories("com.yizhi.common.model.repository")
@@ -17,6 +20,11 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 @ComponentScan("com.yizhi")
 @EnableFeignClients("com.yizhi.common.client")
 public class Neo4jApplication {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(Neo4jApplication.class, args);
     }

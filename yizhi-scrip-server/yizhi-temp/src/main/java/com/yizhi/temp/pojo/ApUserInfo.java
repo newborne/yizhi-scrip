@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author newborne
- * @since 2022-03-01
+ * @since 2022 -03-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

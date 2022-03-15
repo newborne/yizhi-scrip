@@ -3,10 +3,22 @@ package com.yizhi.common.model.enums;
 import com.baomidou.mybatisplus.core.enums.IEnum;
 import io.swagger.annotations.ApiModel;
 
+/**
+ * The enum Comment enum.
+ */
 @ApiModel
 public enum CommentEnum implements IEnum<Integer> {
+    /**
+     * Like comment enum.
+     */
     LIKE(1, "点赞"),
+    /**
+     * Comment comment enum.
+     */
     COMMENT(3, "评论"),
+    /**
+     * Love comment enum.
+     */
     LOVE(4, "喜欢");
     private final int type;
     private final String desc;

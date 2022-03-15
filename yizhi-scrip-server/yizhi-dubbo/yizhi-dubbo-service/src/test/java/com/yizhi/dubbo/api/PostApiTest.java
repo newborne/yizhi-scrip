@@ -1,9 +1,9 @@
 package com.yizhi.dubbo.api;
 
 import com.google.common.collect.Lists;
+import com.yizhi.common.model.pojo.mongodb.Post;
 import com.yizhi.dubbo.api.v1.PostApi;
 import org.bson.types.ObjectId;
-import com.yizhi.common.model.pojo.mongodb.Post;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The type Post api test.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class PostApiTest {
@@ -18,6 +21,9 @@ public class PostApiTest {
     private PostApi postApi;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
+    /**
+     * Save post.
+     */
     @Test
     public void savePost() {
         System.out.println("测试");
@@ -52,19 +58,31 @@ public class PostApiTest {
         post.setLocation("上海市");
         System.out.println(this.postApi.savePost(post));
     }
+    /**
+     * Query post by id.
+     */
     @Test
     public void queryPostById() {
         System.out.println("测试");
         System.out.println(this.postApi.queryPostById("6224d2cc56bc6a09208d6ab4"));
     }
+    /**
+     * Query friend post list.
+     */
     @Test
     public void queryFriendPostList() {
         System.out.println(this.postApi.queryFriendPostList(2L, 1, 3));
     }
+    /**
+     * Query user post list.
+     */
     @Test
     public void queryUserPostList() {
         System.out.println(this.postApi.queryUserPostList(1L, 1, 3));
     }
+    /**
+     * Query recommend post list.
+     */
     @Test
     public void queryRecommendPostList() {
         this.redisTemplate.opsForValue().set("RECOMMEND_POST_1", "3,4,5");

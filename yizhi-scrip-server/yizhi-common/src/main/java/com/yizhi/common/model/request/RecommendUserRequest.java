@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The type Recommend user request.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

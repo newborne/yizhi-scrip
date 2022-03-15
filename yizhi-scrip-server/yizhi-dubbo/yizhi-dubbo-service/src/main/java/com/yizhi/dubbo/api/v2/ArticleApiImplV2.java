@@ -3,8 +3,6 @@ package com.yizhi.dubbo.api.v2;
 import com.yizhi.common.client.Neo4jFeignClient;
 import com.yizhi.common.model.pojo.mongodb.Article;
 import com.yizhi.common.model.pojo.neo4j.node.ArticleNode;
-import com.yizhi.common.model.repository.ArticleRepository;
-import com.yizhi.common.util.IdGenerator;
 import com.yizhi.dubbo.api.v1.ArticleApi;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.bson.types.ObjectId;
@@ -12,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Article api impl v 2.
+ */
 @DubboService(version = "2.0.0")
 public class ArticleApiImplV2 implements ArticleApi {
     @Autowired

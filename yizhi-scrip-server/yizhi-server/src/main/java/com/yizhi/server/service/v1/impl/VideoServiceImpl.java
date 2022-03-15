@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Video service.
+ */
 @Service
 public class VideoServiceImpl implements VideoService {
     @DubboReference(version = "1.0.0")
@@ -40,6 +43,9 @@ public class VideoServiceImpl implements VideoService {
     private PicUploadService picUploadService;
     @Autowired
     private MqService mqService;
+    /**
+     * The Storage client.
+     */
     @Autowired
     protected FastFileStorageClient storageClient;
     @Autowired

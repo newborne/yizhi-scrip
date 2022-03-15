@@ -21,6 +21,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Face engine service.
+ */
 @Service
 public class FaceEngineServiceImpl implements FaceEngineService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FaceEngineServiceImpl.class);
@@ -31,6 +34,9 @@ public class FaceEngineServiceImpl implements FaceEngineService {
     @Value("${arcsoft.libPath}")
     private String libPath;
     private FaceEngine faceEngine;
+    /**
+     * Init.
+     */
     @PostConstruct
     public void init() {
         // 激活并且初始化引擎

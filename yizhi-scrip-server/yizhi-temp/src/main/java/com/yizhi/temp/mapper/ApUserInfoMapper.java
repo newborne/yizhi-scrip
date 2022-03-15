@@ -9,7 +9,7 @@ import com.yizhi.temp.pojo.ApUserInfo;
  * </p>
  *
  * @author newborne
- * @since 2022-03-01
+ * @since 2022 -03-01
  */
 public interface ApUserInfoMapper extends BaseMapper<ApUserInfo> {
 

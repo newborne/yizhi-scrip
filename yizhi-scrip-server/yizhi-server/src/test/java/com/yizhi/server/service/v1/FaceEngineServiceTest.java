@@ -1,6 +1,5 @@
 package com.yizhi.server.service.v1;
 
-import com.yizhi.server.service.v1.FaceEngineService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 
+/**
+ * The type Face engine service test.
+ */
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 public class FaceEngineServiceTest {
     @Autowired
     private FaceEngineService faceEngineService;
+    /**
+     * Check is portrait.
+     */
     @Test
     public void checkIsPortrait() {
         File file = new File(

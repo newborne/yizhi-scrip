@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * The type Aliyun config.
+ */
 @Configuration
 @PropertySource("classpath:aliyun.properties")
 @ConfigurationProperties(prefix = "aliyun")
@@ -17,6 +20,11 @@ public class AliyunConfig {
     private String accessKeySecret;
     private String bucketName;
     private String urlPrefix;
+    /**
+     * O ss client oss client.
+     *
+     * @return the oss client
+     */
     @Bean
     public OSSClient oSSClient() {
         return new OSSClient(endpoint, accessKeyId, accessKeySecret);

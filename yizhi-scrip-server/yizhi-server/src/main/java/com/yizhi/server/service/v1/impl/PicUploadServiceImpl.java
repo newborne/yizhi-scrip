@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 
+/**
+ * The type Pic upload service.
+ */
 @Service
 public class PicUploadServiceImpl implements PicUploadService {
     // 允许上传的格式

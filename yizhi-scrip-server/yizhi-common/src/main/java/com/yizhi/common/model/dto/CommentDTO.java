@@ -4,10 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
+/**
+ * The type Comment dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentDTO {
+public class CommentDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id; //评论id
     private String logo; //头像
     private String nickName; //昵称

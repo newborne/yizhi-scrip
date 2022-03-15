@@ -9,6 +9,11 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Page info dto.
+ *
+ * @param <T> the type parameter
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

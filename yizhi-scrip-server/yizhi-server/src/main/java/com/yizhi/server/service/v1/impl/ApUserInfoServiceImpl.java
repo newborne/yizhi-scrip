@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Ap user info service.
+ */
 @Service
 public class ApUserInfoServiceImpl implements ApUserInfoService {
     @Resource

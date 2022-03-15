@@ -23,6 +23,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Comment service.
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
     @DubboReference(version = "1.0.0")

@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Video listener.
+ */
 @Component
 @RocketMQMessageListener(topic = "YIZHI_VIDEO_TOPIC", consumerGroup = "VIDEO_CONSUMER_GROUP")
 public class VideoListener implements RocketMQListener<String> {

@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User location dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +24,12 @@ public class UserLocationDTO implements java.io.Serializable {
     private String created; //创建时间
     private Long updated; //更新时间
     private Long lastUpdated; //上次更新时间
+    /**
+     * Format user location dto.
+     *
+     * @param userLocation the user location
+     * @return the user location dto
+     */
     public static final UserLocationDTO format(UserLocation userLocation) {
         UserLocationDTO userLocationDTO = new UserLocationDTO();
         userLocationDTO.setAddress(userLocation.getAddress());
@@ -33,6 +42,12 @@ public class UserLocationDTO implements java.io.Serializable {
         userLocationDTO.setLatitude(userLocation.getLocation().getY());
         return userLocationDTO;
     }
+    /**
+     * Format to list list.
+     *
+     * @param userLocations the user locations
+     * @return the list
+     */
     public static final List<UserLocationDTO> formatToList(List<UserLocation> userLocations) {
         List<UserLocationDTO> list = new ArrayList<>();
         for (UserLocation userLocation : userLocations) {

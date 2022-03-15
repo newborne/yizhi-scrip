@@ -5,28 +5,24 @@ import com.yizhi.common.model.mapper.ApUserInfoMapper;
 import com.yizhi.common.model.pojo.mongodb.RecommendUser;
 import com.yizhi.common.model.pojo.mysql.ApUserInfo;
 import com.yizhi.common.model.pojo.neo4j.node.UserNode;
-import com.yizhi.common.model.pojo.neo4j.relationship.ArticleRecommendRelationship;
 import com.yizhi.common.model.pojo.neo4j.relationship.UserRecommendRelationship;
-import com.yizhi.common.model.repository.ArticleRecommendRelationshipRepository;
-import com.yizhi.common.model.repository.ArticleRepository;
 import com.yizhi.common.model.repository.UserRecommendRelationshipRepository;
 import com.yizhi.common.model.repository.UserRepository;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.neo4j.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired

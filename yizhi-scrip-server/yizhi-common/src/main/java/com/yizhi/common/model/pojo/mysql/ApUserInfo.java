@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * The type Ap user info.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -18,6 +18,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
+/**
+ * The type Huan xin service.
+ */
 @Service
 public class HuanXinServiceImpl implements HuanXinService {
     private static final ObjectMapper MAPPER = new ObjectMapper();

@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Message service.
+ */
 @Service
 public class MessageServiceImpl implements MessageService {
     @DubboReference(version = "1.0.0")

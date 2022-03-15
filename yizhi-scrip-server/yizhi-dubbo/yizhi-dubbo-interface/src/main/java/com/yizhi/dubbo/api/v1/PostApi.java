@@ -4,15 +4,54 @@ import com.yizhi.common.model.pojo.mongodb.Post;
 
 import java.util.List;
 
+/**
+ * The interface Post api.
+ */
 public interface PostApi {
-    // 发帖
+    /**
+     * Save post string.
+     *
+     * @param post the post
+     * @return the string
+     */
+// 发帖
     String savePost(Post post);
-    // 查询帖子
+    /**
+     * Query post by id post.
+     *
+     * @param id the id
+     * @return the post
+     */
+// 查询帖子
     Post queryPostById(String id);
-    // 查好友帖子-时间线
+    /**
+     * Query friend post list list.
+     *
+     * @param userId the user id
+     * @param page   the page
+     * @param size   the size
+     * @return the list
+     */
+// 查好友帖子-时间线
     List<Post> queryFriendPostList(Long userId, Integer page, Integer size);
-    // 查自己帖子列表
+    /**
+     * Query user post list list.
+     *
+     * @param userId the user id
+     * @param page   the page
+     * @param size   the size
+     * @return the list
+     */
+// 查自己帖子列表
     List<Post> queryUserPostList(Long userId, Integer page, Integer size);
-    // 查推荐帖子列表
+    /**
+     * Query recommend post list list.
+     *
+     * @param userId the user id
+     * @param page   the page
+     * @param size   the size
+     * @return the list
+     */
+// 查推荐帖子列表
     List<Post> queryRecommendPostList(Long userId, Integer page, Integer size);
 }

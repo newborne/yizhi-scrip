@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Material service.
+ */
 @Service
 public class MaterialServiceImpl implements MaterialService {
     @DubboReference(version = "1.0.0")

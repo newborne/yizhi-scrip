@@ -8,8 +8,17 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 import java.util.List;
 
+/**
+ * The type Test rmq receive.
+ */
 public class TestRmqReceive {
-    //接收消息
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
+//接收消息
     public static void main(String[] args) throws Exception {
         //1 创建消费者,并且为其指定消费者组名
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer-test-group");

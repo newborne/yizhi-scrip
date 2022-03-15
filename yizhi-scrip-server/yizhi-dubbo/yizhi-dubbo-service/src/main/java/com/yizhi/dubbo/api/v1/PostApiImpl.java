@@ -1,8 +1,9 @@
 package com.yizhi.dubbo.api.v1;
 
-import com.yizhi.common.model.pojo.mongodb.*;
+import com.yizhi.common.model.pojo.mongodb.Post;
+import com.yizhi.common.model.pojo.mongodb.TimeLine;
+import com.yizhi.common.model.pojo.mongodb.Users;
 import com.yizhi.common.util.IdGenerator;
-import com.yizhi.dubbo.api.v1.PostApi;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Post api.
+ */
 @DubboService(version = "1.0.0")
 @Slf4j
 public class PostApiImpl implements PostApi {

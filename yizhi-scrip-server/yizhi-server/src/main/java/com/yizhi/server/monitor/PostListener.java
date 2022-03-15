@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Post listener.
+ */
 @Component
 @RocketMQMessageListener(topic = "YIZHI_POST_TOPIC", consumerGroup = "POST_CONSUMER_GROUP")
 public class PostListener implements RocketMQListener<String> {

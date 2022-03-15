@@ -1,14 +1,16 @@
 package com.yizhi.common.model.pojo.mysql;
 
-import lombok.Data;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+/**
+ * The type Ap dictionary.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

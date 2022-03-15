@@ -4,8 +4,17 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 
+/**
+ * The type Test rmq send.
+ */
 public class TestRmqSend {
-    //发送消息
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
+//发送消息
     public static void main(String[] args) throws Exception {
         //1.创建消息生产者,并且设置生产组名
         DefaultMQProducer producer = new DefaultMQProducer("TEST_PRODUCER_GROUP");

@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
+/**
+ * The type Material.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

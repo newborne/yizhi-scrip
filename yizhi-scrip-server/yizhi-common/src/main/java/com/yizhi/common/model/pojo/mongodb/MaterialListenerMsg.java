@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * The type Material listener msg.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

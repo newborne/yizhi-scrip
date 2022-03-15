@@ -13,11 +13,18 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
+/**
+ * The type Swagger configuration.
+ */
 @Configuration
 @EnableSwagger2WebMvc
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
-
+    /**
+     * Group rest api docket.
+     *
+     * @return the docket
+     */
     @Bean(value = "serverApi")
     @Order(value = 1)
     public Docket groupRestApi() {
@@ -28,7 +35,6 @@ public class SwaggerConfiguration {
                 .paths(PathSelectors.any())
                 .build();
     }
-
     private ApiInfo groupApiInfo() {
         return new ApiInfoBuilder()
                 .title("服务-API文档")

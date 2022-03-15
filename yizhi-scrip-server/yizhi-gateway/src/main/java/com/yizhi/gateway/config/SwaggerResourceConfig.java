@@ -13,15 +13,16 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Swagger resource config.
+ */
 @Slf4j
 @Component
 @Primary
 @AllArgsConstructor
 public class SwaggerResourceConfig implements SwaggerResourcesProvider {
-
     private final RouteLocator routeLocator;
     private final GatewayProperties gatewayProperties;
-
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
@@ -36,7 +37,6 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         });
         return resources;
     }
-
     private SwaggerResource swaggerResource(String name, String location) {
         log.info("name:{},location:{}", name, location);
         SwaggerResource swaggerResource = new SwaggerResource();

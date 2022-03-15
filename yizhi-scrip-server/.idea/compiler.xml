@@ -13,8 +13,8 @@
         <module name="yizhi-dubbo-service" />
         <module name="yizhi-common" />
         <module name="yizhi-neo4j" />
-        <module name="yizhi-temp" />
         <module name="yizhi-login" />
+        <module name="yizhi-temp" />
         <module name="yizhi-spark" />
         <module name="yizhi-gateway" />
         <module name="yizhi-dubbo-interface" />
@@ -42,6 +42,7 @@
       <module name="yizhi-admin" options="-parameters" />
       <module name="yizhi-common" options="-parameters" />
       <module name="yizhi-crawler" options="-parameters" />
+      <module name="yizhi-dubbo" options="" />
       <module name="yizhi-dubbo-interface" options="-parameters" />
       <module name="yizhi-dubbo-service" options="-parameters" />
       <module name="yizhi-gateway" options="-parameters" />

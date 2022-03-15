@@ -2,6 +2,9 @@ package com.yizhi.server.annotation;
 
 import java.lang.annotation.*;
 
+/**
+ * The interface No authorization.
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented //标记注解

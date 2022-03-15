@@ -1,16 +1,15 @@
 package com.yizhi.common.model.pojo.neo4j.node;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-import java.io.Serializable;
-
+/**
+ * The type Material node.
+ */
 @Data
 @Builder
 @NodeEntity(label = "MaterialNode")

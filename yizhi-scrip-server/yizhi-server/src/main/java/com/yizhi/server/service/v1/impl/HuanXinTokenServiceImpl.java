@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Huan xin token service.
+ */
 @Service
 public class HuanXinTokenServiceImpl implements HuanXinTokenService {
     private static final ObjectMapper MAPPER = new ObjectMapper();

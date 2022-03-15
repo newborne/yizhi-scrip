@@ -13,16 +13,23 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import org.joda.time.DateTime;
 import scala.Tuple2;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * The type Spark user recommend.
+ */
 public class SparkUserRecommend {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         //加载外部的配置文件，spark.properties
         InputStream inputStream = SparkUserRecommend.class.getClassLoader().getResourceAsStream("spark.properties");

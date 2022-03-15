@@ -2,14 +2,13 @@ package com.yizhi.neo4j.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yizhi.common.model.mapper.ApDictionaryMapper;
-import com.yizhi.common.model.mapper.ApUserInfoMapper;
 import com.yizhi.common.model.pojo.mongodb.Material;
 import com.yizhi.common.model.pojo.mysql.ApDictionary;
 import com.yizhi.common.model.pojo.neo4j.node.MaterialNode;
 import com.yizhi.common.model.pojo.neo4j.node.MaterialTypeNode;
 import com.yizhi.common.model.pojo.neo4j.node.UserNode;
-import com.yizhi.common.model.pojo.neo4j.relationship.MaterialRecommendRelationship;
 import com.yizhi.common.model.pojo.neo4j.relationship.MaterialBelongRelationship;
+import com.yizhi.common.model.pojo.neo4j.relationship.MaterialRecommendRelationship;
 import com.yizhi.common.model.repository.*;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.neo4j.service.MaterialService;
@@ -23,9 +22,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Material service.
+ */
 @Service
 public class MaterialServiceImpl implements MaterialService {
     @Autowired

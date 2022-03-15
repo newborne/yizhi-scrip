@@ -1,4 +1,6 @@
+com\yizhi\spark\SparkUserRecommend.class
+com\yizhi\spark\SparkMaterialRecommend.class
 com\yizhi\spark\SparkPostRecommend.class
 com\yizhi\spark\SparkRecommendModel.class
-com\yizhi\spark\SparkUserRecommend.class
+com\yizhi\spark\SparkArticleRecommend.class
 com\yizhi\spark\SparkVideoRecommend.class

@@ -15,15 +15,23 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Redis cache interceptor.
+ */
 @Component
 public class RedisCacheInterceptor implements HandlerInterceptor {
-
     private static final ObjectMapper MAPPER = new ObjectMapper();
     @Value("${yizhi.cache.enable}")
     private boolean enable;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
+    /**
+     * Create redis key string.
+     *
+     * @param request the request
+     * @return the string
+     * @throws Exception the exception
+     */
     public static String createRedisKey(HttpServletRequest request) throws Exception {
         String url = request.getRequestURI();
         String param = MAPPER.writeValueAsString(request.getParameterMap());
@@ -31,9 +39,10 @@ public class RedisCacheInterceptor implements HandlerInterceptor {
         String data = url + "_" + param + "_" + token;
         return "SERVER_CACHE_DATA_" + DigestUtils.md5Hex(data);
     }
-
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) throws Exception {
         //判断缓存全局的开关是否打开
         if (!enable) {
             return true;

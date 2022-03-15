@@ -13,10 +13,18 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
+/**
+ * The type Swagger configuration.
+ */
 @Configuration
 @EnableSwagger2WebMvc
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfiguration {
+    /**
+     * Group rest api docket.
+     *
+     * @return the docket
+     */
     @Bean(value = "neo4jApi")
     @Order(value = 1)
     public Docket groupRestApi() {

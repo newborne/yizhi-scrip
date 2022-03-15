@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="root@ubuntu:222" type="ssh/sftp" uuid="8b6b16cb-cf59-48d8-81c3-6e7aa26681d9">
+        <config>
+          <option name="projectRootOnTarget" value="/root/yizhi-scrip-server" />
+          <option name="serverName" value="root@ubuntu:22 password" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/usr/local/btjdk/jdk8" />
+            <option name="javaVersionString" value="1.8.0_312" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

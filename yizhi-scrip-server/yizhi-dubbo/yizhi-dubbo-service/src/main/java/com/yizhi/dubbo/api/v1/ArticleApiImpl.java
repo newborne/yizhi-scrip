@@ -15,6 +15,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Article api.
+ */
 @DubboService(version = "1.0.0")
 public class ArticleApiImpl implements ArticleApi {
     @Autowired

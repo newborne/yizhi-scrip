@@ -246,7 +246,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.2.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: net.coobird:thumbnailator:0.4.8" level="project" />
     <orderEntry type="module" module-name="yizhi-dubbo-interface" />
-    <orderEntry type="library" name="Maven: com.arcsoft.face:arcsoft-sdk-face:2.2.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.2.6.RELEASE" level="project" />
@@ -305,6 +304,15 @@
     <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.48.Final" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-jaxrs2:9.7.0" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-jaxrs:10.10.1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.arcsoft.face:arcsoft-sdk-face:2.2.0.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/arcsoft-sdk-face-2.2.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.8" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-models:1.5.21" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.3" level="project" />

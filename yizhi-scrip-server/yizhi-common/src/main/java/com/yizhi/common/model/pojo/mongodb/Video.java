@@ -9,6 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * The type Video.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

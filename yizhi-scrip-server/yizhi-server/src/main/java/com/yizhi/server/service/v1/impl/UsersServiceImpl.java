@@ -28,6 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The type Users service.
+ */
 @Service
 public class UsersServiceImpl implements UsersService {
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -191,12 +194,20 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public ResponseResult follow(Long friendId) {
         ApUser user = UserThreadLocal.get();
-        return null;
+        if (this.usersApi.followUser(Long.valueOf(user.getId()),
+                friendId) != null) {
+            if (this.usersApi.isMutualFollow(Long.valueOf(user.getId()), friendId)) {
+                this.addUsers(friendId);
+            }
+            return ResponseResult.ok();
+        }
+        return ResponseResult.fail();
     }
     @Override
     public ResponseResult unFollow(Long friendId) {
         ApUser user = UserThreadLocal.get();
-        return null;
+        return (this.usersApi.deleteFollowUser(Long.valueOf(user.getId()),
+                friendId) != null) ? ResponseResult.ok() : ResponseResult.fail();
     }
     @Override
     public ResponseResult queryTodayBest() {

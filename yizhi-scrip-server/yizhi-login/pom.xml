@@ -6,6 +6,7 @@
         <artifactId>yizhi-scrip-server</artifactId>
         <groupId>com.yizhi</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,7 +17,15 @@
         <dependency>
             <groupId>com.yizhi</groupId>
             <artifactId>yizhi-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

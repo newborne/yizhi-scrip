@@ -13,12 +13,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Token interceptor.
+ */
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
-
     @Autowired
     private LoginFeignClient loginFeignClient;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {

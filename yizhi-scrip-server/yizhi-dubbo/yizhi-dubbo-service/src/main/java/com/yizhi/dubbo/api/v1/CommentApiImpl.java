@@ -4,7 +4,6 @@ import com.mongodb.client.result.DeleteResult;
 import com.yizhi.common.model.pojo.mongodb.Comment;
 import com.yizhi.common.model.pojo.mongodb.Post;
 import com.yizhi.common.model.pojo.mongodb.Video;
-import com.yizhi.dubbo.api.v1.CommentApi;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.bson.types.ObjectId;
@@ -17,6 +16,9 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 
+/**
+ * The type Comment api.
+ */
 @DubboService(version = "1.0.0")
 @Slf4j
 public class CommentApiImpl implements CommentApi {

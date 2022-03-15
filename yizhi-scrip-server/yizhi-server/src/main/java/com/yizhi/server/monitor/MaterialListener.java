@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Material listener.
+ */
 @Component
 @RocketMQMessageListener(topic = "YIZHI_MATERIAL_TOPIC", consumerGroup = "MATERIAL_CONSUMER_GROUP")
 public class MaterialListener implements RocketMQListener<String> {

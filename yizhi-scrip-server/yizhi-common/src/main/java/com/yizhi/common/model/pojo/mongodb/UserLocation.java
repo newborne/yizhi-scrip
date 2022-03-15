@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * The type User location.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

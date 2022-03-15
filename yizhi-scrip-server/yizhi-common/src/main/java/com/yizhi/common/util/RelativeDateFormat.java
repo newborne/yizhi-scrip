@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Relative date format.
+ */
 public class RelativeDateFormat {
     private static final FastDateFormat TIMESTAMP_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd HH:m:s");
     private static final long ONE_MINUTE = 60000L;
@@ -18,11 +21,23 @@ public class RelativeDateFormat {
     private static final String ONE_DAY_AGO = "天前";
     private static final String ONE_MONTH_AGO = "月前";
     private static final String ONE_YEAR_AGO = "年前";
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws ParseException the parse exception
+     */
     public static void main(String[] args) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:m:s");
         Date date = format.parse("2011-11-11 11:11:11");
         System.out.println(format(date));
     }
+    /**
+     * Format string.
+     *
+     * @param date the date
+     * @return the string
+     */
     public static String format(Date date) {
         long delta = System.currentTimeMillis() - date.getTime();
         if (delta < 1L * ONE_MINUTE) {

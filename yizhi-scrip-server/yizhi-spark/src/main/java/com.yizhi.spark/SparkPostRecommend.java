@@ -18,7 +18,16 @@ import scala.Tuple2;
 import java.io.InputStream;
 import java.util.*;
 
+/**
+ * The type Spark post recommend.
+ */
 public class SparkPostRecommend {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         //加载外部的配置文件，spark.properties
         InputStream inputStream = SparkPostRecommend.class.getClassLoader().getResourceAsStream("spark.properties");

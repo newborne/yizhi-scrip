@@ -1,14 +1,11 @@
 package com.yizhi.dubbo.api.v2;
 
-import com.yizhi.common.model.pojo.mongodb.Article;
 import com.yizhi.common.model.pojo.mongodb.Material;
 import com.yizhi.common.util.IdGenerator;
 import com.yizhi.dubbo.api.v1.MaterialApi;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -17,6 +14,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Material api impl v 2.
+ */
 @DubboService(version = "2.0.0")
 public class MaterialApiImplV2 implements MaterialApi {
     @Autowired

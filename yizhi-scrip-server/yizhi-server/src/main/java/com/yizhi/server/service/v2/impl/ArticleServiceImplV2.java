@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Article service impl v 2.
+ */
 @Service
 public class ArticleServiceImplV2 implements ArticleServiceV2 {
     @DubboReference(version = "2.0.0")

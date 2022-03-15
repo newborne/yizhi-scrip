@@ -1,7 +1,5 @@
 package com.yizhi.login.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.yizhi.common.client.ServerFeignClient;
 import com.yizhi.common.model.mapper.ApUserMapper;
@@ -9,12 +7,11 @@ import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.model.vo.ResponseResult;
 import com.yizhi.login.service.LoginService;
 import com.yizhi.login.service.SmsService;
-import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,6 +24,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Login service.
+ */
 @Service
 public class LoginServiceImpl implements LoginService {
     @Resource

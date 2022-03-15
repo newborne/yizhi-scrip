@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
+/**
+ * The type Operator interceptor.
+ */
 @Component
 public class OperatorInterceptor implements HandlerInterceptor {
     @DubboReference(version = "1.0.0")

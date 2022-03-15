@@ -1,11 +1,13 @@
 package com.yizhi.dubbo.api.v1;
 
 import com.yizhi.common.model.pojo.mongodb.Log;
-import com.yizhi.dubbo.api.v1.LogApi;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+/**
+ * The type Log api.
+ */
 @DubboService(version = "1.0.0")
 public class LogApiImpl implements LogApi {
     @Autowired

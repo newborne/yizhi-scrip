@@ -21,6 +21,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Mq service.
+ */
 @Service
 @Slf4j
 public class MqServiceImpl implements MqService {

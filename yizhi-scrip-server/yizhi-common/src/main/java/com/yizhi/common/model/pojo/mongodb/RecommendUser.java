@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * The type Recommend user.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

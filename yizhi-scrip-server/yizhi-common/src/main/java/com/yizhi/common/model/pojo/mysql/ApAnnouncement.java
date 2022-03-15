@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * The type Ap announcement.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

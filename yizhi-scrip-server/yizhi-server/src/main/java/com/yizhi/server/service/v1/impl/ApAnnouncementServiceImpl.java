@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * The type Ap announcement service.
+ */
 @Service
 public class ApAnnouncementServiceImpl implements ApAnnouncementService {
     @Resource

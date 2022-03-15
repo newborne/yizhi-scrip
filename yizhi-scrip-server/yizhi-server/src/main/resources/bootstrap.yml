@@ -6,8 +6,10 @@ spring:
       config:
         server-addr: centos:8848 # nacos的服务端地址
         file-extension: yaml
-        shared-dataids: all-service.yaml # 配置要引入的配置
-        refreshable-dataids: all-service.yaml # 配置要实现动态配置刷新的配置
+        shared-configs[0]:
+          data-id: all-service.yaml # 配置文件的id
+          group: DEFAULT_GROUP # 配置文件的分组
+          refresh: true # 是否开启自动刷新
   profiles:
     active: dev # 环境标识
 dubbo:

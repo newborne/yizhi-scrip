@@ -5,10 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Id generator.
+ */
 @Service
 public class IdGenerator {
     @Autowired
     private RedisTemplate redisTemplate;
+    /**
+     * Create id long.
+     *
+     * @param type     the type
+     * @param objectId the object id
+     * @return the long
+     */
     public Long createId(String type, String objectId) {
         type = StringUtils.upperCase(type);
         String hashKey = "ID_HASH_" + type;

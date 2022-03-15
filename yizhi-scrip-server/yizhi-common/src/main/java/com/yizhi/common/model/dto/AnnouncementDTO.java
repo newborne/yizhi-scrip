@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The type Announcement dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

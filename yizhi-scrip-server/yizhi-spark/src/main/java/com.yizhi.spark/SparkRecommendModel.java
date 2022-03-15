@@ -7,7 +7,16 @@ import org.apache.spark.mllib.recommendation.MatrixFactorizationModel;
 import org.apache.spark.mllib.recommendation.Rating;
 import scala.Tuple2;
 
+/**
+ * The type Spark recommend model.
+ */
 public class SparkRecommendModel {
+    /**
+     * Model matrix factorization model.
+     *
+     * @param ratings the ratings
+     * @return the matrix factorization model
+     */
     public MatrixFactorizationModel model(JavaPairRDD<Long, Rating> ratings) {
         // 用户数量,动态数量,评分数目
         Long numUsers = ratings.map(v1 -> (v1._2()).user()).distinct().count();
@@ -78,6 +87,14 @@ public class SparkRecommendModel {
         bestModel = ALS.train(ratings.values().rdd(), bestRank, bestNumIter, bestLambda);
         return bestModel;
     }
+    /**
+     * Compute rmse double.
+     *
+     * @param model the model
+     * @param data  the data
+     * @param n     the n
+     * @return the double
+     */
     public Double computeRmse(MatrixFactorizationModel model, JavaRDD<Rating> data, Long n) {
         // 进行预测
         JavaRDD<Rating> predictions = model.predict(data.mapToPair(v -> new Tuple2<>(v.user(), v.product())));

@@ -11,11 +11,15 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * The type Redis config.
+ */
 @Configuration
 public class RedisConfig {
-
     /****
      * 序列化设置
+     * @param redissonConnectionFactory the redisson connection factory
+     * @return the redis template
      */
     @Bean("redisTemplate")
     public RedisTemplate getRedisTemplate(RedisConnectionFactory redissonConnectionFactory) {
@@ -27,12 +31,20 @@ public class RedisConfig {
         redisTemplate.setHashValueSerializer(valueSerializer());
         return redisTemplate;
     }
-
+    /**
+     * Key serializer string redis serializer.
+     *
+     * @return the string redis serializer
+     */
     @Bean
     public StringRedisSerializer keySerializer() {
         return new StringRedisSerializer();
     }
-
+    /**
+     * Value serializer redis serializer.
+     *
+     * @return the redis serializer
+     */
     @Bean
     public RedisSerializer valueSerializer() {
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);

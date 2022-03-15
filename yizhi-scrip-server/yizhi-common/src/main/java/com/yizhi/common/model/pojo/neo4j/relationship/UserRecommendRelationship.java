@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import org.neo4j.ogm.annotation.*;
 
+/**
+ * The type User recommend relationship.
+ */
 @Data
 @Builder
 @RelationshipEntity(type = "user_recommend")

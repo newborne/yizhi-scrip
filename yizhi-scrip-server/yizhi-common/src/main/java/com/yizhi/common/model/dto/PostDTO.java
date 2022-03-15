@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * The type Post dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

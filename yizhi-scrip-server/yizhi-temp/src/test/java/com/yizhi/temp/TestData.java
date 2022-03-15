@@ -8,13 +8,18 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Test data.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestData {
-    //生成数据代码
+    /**
+     * Test mongo db data.
+     */
+//生成数据代码
     @Test
     public void testMongoDBData() {
         for (int i = 2; i < 100; i++) {
@@ -22,6 +27,9 @@ public class TestData {
             System.out.println("db.recommend_user.insert({\"friendId\":" + i + " ,\"userId\":1,\"similarity\":" + similarity + " ,\"created\":\"2021/5/4\"})");
         }
     }
+    /**
+     * Test in users.
+     */
     @Test
     public void testInUsers() {
         for (int i = 2; i < 11; i++) {
@@ -30,6 +38,9 @@ public class TestData {
                     .getStackTrace()[1].getMethodName() + "方法:" + userId + "  " + DigestUtils.md5Hex(userId + "_newborne_yizhi"));
         }
     }
+    /**
+     * Time.
+     */
     @Test
     public void time() {
         System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()

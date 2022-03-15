@@ -3,10 +3,12 @@ package com.yizhi.common.model.vo;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
+/**
+ * The type Pic upload result.
+ */
 @Data
 @ApiModel
 public class PicUploadResult {
-
     // 文件唯一标识
     private String uid;
     // 文件名

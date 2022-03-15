@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * The type Huan xin user dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

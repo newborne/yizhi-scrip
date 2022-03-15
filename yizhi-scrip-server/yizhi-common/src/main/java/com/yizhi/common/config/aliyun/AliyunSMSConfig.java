@@ -5,6 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * The type Aliyun sms config.
+ */
 @Configuration
 @PropertySource("classpath:aliyun.properties")
 @ConfigurationProperties(prefix = "aliyun.sms")

@@ -28,6 +28,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The type Post service.
+ */
 @Service
 public class PostServiceImpl implements PostService {
     @DubboReference(version = "1.0.0")

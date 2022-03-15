@@ -12,7 +12,10 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.geo.*;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,6 +26,9 @@ import org.springframework.data.mongodb.core.query.Update;
 import java.text.DecimalFormat;
 import java.util.List;
 
+/**
+ * The type Users api.
+ */
 @DubboService(version = "1.0.0")
 public class UsersApiImpl implements UsersApi {
     @Autowired
@@ -57,7 +63,8 @@ public class UsersApiImpl implements UsersApi {
     @Override
     public String followUser(Long userId, Long friendId) {
         Query query = Query.query(Criteria.where("userId").is(userId).and("friendId").is(friendId));
-        if (this.mongoTemplate.count(query, Users.class) == 0) {
+        if (this.mongoTemplate.count(query, FollowUser.class) == 0 && this.mongoTemplate.count(query,
+                Users.class) == 0) {
             FollowUser followUser = new FollowUser();
             followUser.setId(ObjectId.get());
             followUser.setUserId(userId);
@@ -77,6 +84,9 @@ public class UsersApiImpl implements UsersApi {
     @Override
     public Boolean deleteFollowUser(Long userId, Long friendId) {
         Query query = Query.query(Criteria.where("userId").is(userId).and("friendId").is(friendId));
+        if (this.mongoTemplate.count(query, Users.class) != 0) {
+            this.mongoTemplate.remove(query, Users.class);
+        }
         return this.mongoTemplate.remove(query, FollowUser.class).getDeletedCount() > 0;
     }
     @Override

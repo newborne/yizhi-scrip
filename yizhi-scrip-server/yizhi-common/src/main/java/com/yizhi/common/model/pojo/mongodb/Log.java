@@ -1,12 +1,14 @@
 package com.yizhi.common.model.pojo.mongodb;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * The type Log.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

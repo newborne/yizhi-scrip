@@ -15,6 +15,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Material api.
+ */
 @DubboService(version = "1.0.0")
 public class MaterialApiImpl implements MaterialApi {
     @Autowired

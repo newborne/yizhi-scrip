@@ -5,9 +5,16 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+/**
+ * The interface User repository.
+ */
 @Repository
 public interface UserRepository extends Neo4jRepository<UserNode, Long> {
+    /**
+     * Find by user id user node.
+     *
+     * @param userId the user id
+     * @return the user node
+     */
     UserNode findByUserId(@Param("user_id") Integer userId);
 }

@@ -16,6 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type My response body advice.
+ */
 @ControllerAdvice
 public class MyResponseBodyAdvice implements ResponseBodyAdvice {
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -23,14 +26,12 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
     private Boolean enable;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
         // 开关处于开启状态  是get请求  包含了@Cache注解
         return enable && returnType.hasMethodAnnotation(GetMapping.class)
                 && returnType.hasMethodAnnotation(Cache.class);
     }
-
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType,
                                   ServerHttpRequest request, ServerHttpResponse response) {
