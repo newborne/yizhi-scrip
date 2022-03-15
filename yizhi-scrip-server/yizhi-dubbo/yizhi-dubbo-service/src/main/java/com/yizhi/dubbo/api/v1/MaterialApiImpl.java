@@ -59,6 +59,11 @@ public class MaterialApiImpl implements MaterialApi {
         return this.mongoTemplate.findById(id, Material.class);
     }
     @Override
+    public Material queryMaterialByMaterialRid(Long materialRid) {
+        Query query = Query.query(Criteria.where("materialRid").is(Long.valueOf(materialRid)));
+        return this.mongoTemplate.findOne(query, Material.class);
+    }
+    @Override
     public List<Material> queryMaterialList(Integer materialType, Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Query query = Query.query(Criteria.where("materialType").is(materialType)).with(pageRequest);

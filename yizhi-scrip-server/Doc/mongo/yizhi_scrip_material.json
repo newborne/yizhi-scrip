@@ -1,0 +1,10 @@
+[
+  {
+    "_id": {"$oid": "622cafc43bdf8863a3f0b560"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.Material",
+    "materialRid": 1,
+    "materialType": 20001,
+    "tags": ["爱国"],
+    "text": "捐躯赴国难，视死忽如归。 曹植 《白马篇》"
+  }
+]

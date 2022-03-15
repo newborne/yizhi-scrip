@@ -17,6 +17,6 @@ public class RecommendUser implements java.io.Serializable {
     private ObjectId id;
     private Long friendId;
     private Long userId;
-    private Integer similarity;
+    private Double similarity;
     private Long created;
 }

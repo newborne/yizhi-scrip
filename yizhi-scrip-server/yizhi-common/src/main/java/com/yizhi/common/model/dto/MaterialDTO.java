@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class MaterialDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
-    private String materialTypeName;
+    private String materialRid;
     private String[] tags;
     private String text;
     private Integer loveCount;

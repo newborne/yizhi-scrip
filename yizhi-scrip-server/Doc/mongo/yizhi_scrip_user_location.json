@@ -1,0 +1,132 @@
+[
+  {
+    "_id": {"$oid": "622990d1220b974e55df8bc6"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "上海市浦东新区金海路2360号(近杉达学院)",
+    "created": 1646891217328,
+    "lastUpdated": 1647171292497,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.658149, 31.270235]
+    },
+    "updated": 1647171379832,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622dcc0f7c84e8540c1dc996"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "日新路与行远路交叉口北100米",
+    "created": 1647168527737,
+    "lastUpdated": 1647168527737,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.659127, 31.267587]
+    },
+    "updated": 1647168527737,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622dcc497c84e8540c1dc998"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "浦东新区曹路镇金海路2360号上海二工大网球中心",
+    "created": 1647168585196,
+    "lastUpdated": 1647168585196,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.661515, 31.264574]
+    },
+    "updated": 1647168585196,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622dcc747c84e8540c1dc99a"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "浦东新区曹路镇金海路2360号上海二工大网球中心",
+    "created": 1647168628606,
+    "lastUpdated": 1647168628606,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.661515, 31.264574]
+    },
+    "updated": 1647168628606,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622dcca27c84e8540c1dc99c"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "上海市浦东新区9号线地铁站顾唐路站顾唐路站B1",
+    "created": 1647168674997,
+    "lastUpdated": 1647168674997,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.662694, 31.271828]
+    },
+    "updated": 1647168674997,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622dccc77c84e8540c1dc99e"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "上海市浦东新区金海路2505号",
+    "created": 1647168711296,
+    "lastUpdated": 1647168711296,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.660211, 31.27262]
+    },
+    "updated": 1647168711296,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622dcceb7c84e8540c1dc9a0"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "上海市浦东新区民民路380弄",
+    "created": 1647168747664,
+    "lastUpdated": 1647168747664,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.657766, 31.273203]
+    },
+    "updated": 1647168747664,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622dcd167c84e8540c1dc9a2"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "顾唐路276号",
+    "created": 1647168790167,
+    "lastUpdated": 1647168790167,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.664214, 31.267489]
+    },
+    "updated": 1647168790167,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622dcd3d7c84e8540c1dc9a4"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "上海市浦东新区曹路镇顾唐路398",
+    "created": 1647168829215,
+    "lastUpdated": 1647168829215,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.666062, 31.262725]
+    },
+    "updated": 1647168829215,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622dcd607c84e8540c1dc9a6"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.UserLocation",
+    "address": "上海市浦东新区创新西路",
+    "created": 1647168864797,
+    "lastUpdated": 1647170859195,
+    "location": {
+      "type": "Point",
+      "coordinates": [121.67475, 31.215519]
+    },
+    "updated": 1647171246991,
+    "userId": 10
+  }
+]

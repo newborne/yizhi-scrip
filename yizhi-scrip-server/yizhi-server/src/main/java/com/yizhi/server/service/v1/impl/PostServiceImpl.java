@@ -11,6 +11,7 @@ import com.yizhi.common.util.RelativeDateFormat;
 import com.yizhi.common.util.UserThreadLocal;
 import com.yizhi.dubbo.api.v1.CommentApi;
 import com.yizhi.dubbo.api.v1.PostApi;
+import com.yizhi.dubbo.api.v1.UsersApi;
 import com.yizhi.server.service.v1.ApUserInfoService;
 import com.yizhi.server.service.v1.MqService;
 import com.yizhi.server.service.v1.PicUploadService;
@@ -41,6 +42,8 @@ public class PostServiceImpl implements PostService {
     private ApUserInfoService userService;
     @DubboReference(version = "1.0.0")
     private CommentApi commentApi;
+    @DubboReference(version = "1.0.0")
+    private UsersApi usersApi;
     @Override
     public ResponseResult savePost(String text,
                                    String location,
@@ -78,8 +81,7 @@ public class PostServiceImpl implements PostService {
         List<Post> postList = this.postApi.queryFriendPostList(Long.valueOf(UserThreadLocal.get().getId()), page, size);
         List<PostDTO> dtos = new ArrayList<>();
         for (Post post : postList) {
-            PostDTO dto = this.fillValueToPost(post);
-            dtos.add(dto);
+            dtos.add(this.fillValueToPost(post));
         }
         return ResponseResult.ok(new PageInfoDTO<>(0, page, size, dtos));
     }
@@ -90,8 +92,7 @@ public class PostServiceImpl implements PostService {
                 size);
         List<PostDTO> dtos = new ArrayList<>();
         for (Post post : postList) {
-            PostDTO dto = this.fillValueToPost(post);
-            dtos.add(dto);
+            dtos.add(this.fillValueToPost(post));
         }
         return ResponseResult.ok(new PageInfoDTO<>(0, page, size, dtos));
     }
@@ -100,19 +101,18 @@ public class PostServiceImpl implements PostService {
         List<Post> postList = this.postApi.queryUserPostList(userId, page, size);
         List<PostDTO> dtos = new ArrayList<>();
         for (Post post : postList) {
-            PostDTO dto = this.fillValueToPost(post);
-            dtos.add(dto);
+            ;
+            dtos.add(this.fillValueToPost(post));
         }
         return ResponseResult.ok(new PageInfoDTO<>(0, page, size, dtos));
     }
     @Override
     public ResponseResult queryPostById(String id) {
-        Post post = this.postApi.queryPostById(id);
-        PostDTO dto = this.fillValueToPost(post);
-        return ResponseResult.ok(dto);
+        return ResponseResult.ok(this.fillValueToPost(this.postApi.queryPostById(id)));
     }
     // 填充
     private PostDTO fillValueToPost(Post post) {
+        ApUser user = UserThreadLocal.get();
         // 填充参数
         PostDTO dto = new PostDTO();
         // 填充帖子内容
@@ -120,9 +120,12 @@ public class PostServiceImpl implements PostService {
         dto.setMedias(post.getMedias().toArray(new String[]{}));
         dto.setText(post.getText());
         dto.setCreated(RelativeDateFormat.format(new Date(post.getCreated())));
-        dto.setDistance("0.9公里");//TODO 距离
+        // 填充距离
+        String distance = this.usersApi.queryDistance(Long.valueOf(user.getId()),
+                post.getLongitude(),
+                post.getLatitude());
+        dto.setDistance(distance + "km");
         // 填充评论相关
-        ApUser user = UserThreadLocal.get();
         // 是否点赞
         String likeUserCommentKey = "COMMENT_LIKE_USER_" + user.getId() + "_" + dto.getId();
         dto.setHasLiked(this.redisTemplate.hasKey(likeUserCommentKey) ? 1 : 0);

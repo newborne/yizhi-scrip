@@ -14,6 +14,6 @@ public class PostListenerMsg {
     private ObjectId id;
     private Long userId;
     private Long postRid;
-    private Long rating;
+    private Double rating;
     private Long created;
 }

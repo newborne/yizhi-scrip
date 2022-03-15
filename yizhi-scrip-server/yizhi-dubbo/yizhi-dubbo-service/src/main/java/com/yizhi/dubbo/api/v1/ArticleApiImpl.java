@@ -58,7 +58,14 @@ public class ArticleApiImpl implements ArticleApi {
                 articleList = this.mongoTemplate.find(query, Article.class);
             }
         }
+        System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
+                .getStackTrace()[1].getMethodName() + "方法：" + "通过Redis查询推荐用户" + articleList);
         return articleList;
+    }
+    @Override
+    public Article queryArticleByArticleRid(String articleRid) {
+        Query query = Query.query(Criteria.where("articleRid").is(Long.valueOf(articleRid)));
+        return this.mongoTemplate.findOne(query, Article.class);
     }
     @Override
     public Article queryArticleById(String id) {

@@ -25,9 +25,10 @@ public interface UsersApi {
     // 最佳推荐
     RecommendUser queryWithMaxSimilarity(Long userId);
     PageInfoDTO<RecommendUser> queryRecommendUserList(Long userId, Integer page, Integer size);
-    Integer querySimilarity(Long friendId, Long userId);
+    Double querySimilarity(Long friendId, Long userId);
     // 地理位置
     Boolean updateLocation(Long userId, Double longitude, Double latitude, String address);
     UserLocationDTO queryLocationByUserId(Long userId);
     List<UserLocationDTO> queryUserFromLocation(Double longitude, Double latitude, Integer range);
+    String queryDistance(Long userId, String longitude, String latitude);
 }

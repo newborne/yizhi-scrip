@@ -27,8 +27,8 @@ public class MaterialController {
                                                      @RequestParam(value = "size", defaultValue = "10") Integer size) {
         return this.materialService.queryRecommendMaterialList(page, size);
     }
-    @GetMapping("{id}")
-    public ResponseResult queryMaterialById(@PathVariable("id") String id) {
-        return this.materialService.queryMaterialById(id);
+    @GetMapping("{materialRid}")
+    public ResponseResult queryMaterialByMaterialRid(@PathVariable("materialRid") Long materialRid) {
+        return this.materialService.queryMaterialByMaterialRid(materialRid);
     }
 }

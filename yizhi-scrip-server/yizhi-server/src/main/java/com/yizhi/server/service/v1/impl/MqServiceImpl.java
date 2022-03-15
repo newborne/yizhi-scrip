@@ -1,10 +1,14 @@
 package com.yizhi.server.service.v1.impl;
 
 import com.yizhi.common.model.enums.MsgEnum;
+import com.yizhi.common.model.pojo.mongodb.Article;
+import com.yizhi.common.model.pojo.mongodb.Material;
 import com.yizhi.common.model.pojo.mongodb.Post;
 import com.yizhi.common.model.pojo.mongodb.Video;
 import com.yizhi.common.model.pojo.mysql.ApUser;
 import com.yizhi.common.util.UserThreadLocal;
+import com.yizhi.dubbo.api.v1.ArticleApi;
+import com.yizhi.dubbo.api.v1.MaterialApi;
 import com.yizhi.dubbo.api.v1.PostApi;
 import com.yizhi.dubbo.api.v1.VideoApi;
 import com.yizhi.server.service.v1.MqService;
@@ -24,6 +28,10 @@ public class MqServiceImpl implements MqService {
     private PostApi postApi;
     @DubboReference(version = "1.0.0")
     private VideoApi videoApi;
+    @DubboReference(version = "1.0.0")
+    private ArticleApi articleApi;
+    @DubboReference(version = "1.0.0")
+    private MaterialApi materialApi;
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
     @Override
@@ -39,6 +47,14 @@ public class MqServiceImpl implements MqService {
             case "video":
                 Video video = this.videoApi.queryVideoById(publishId);
                 msg.put("videoRid", video.getVideoRid());
+                break;
+            case "article":
+                Article article = this.articleApi.queryArticleById(publishId);
+                msg.put("articleRid", article.getArticleRid());
+                break;
+            case "material":
+                Material material = this.materialApi.queryMaterialById(publishId);
+                msg.put("materialRid", material.getMaterialRid());
                 break;
             default:
                 break;

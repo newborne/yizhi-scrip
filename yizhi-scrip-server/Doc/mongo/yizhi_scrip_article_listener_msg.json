@@ -1,0 +1,18 @@
+[
+  {
+    "_id": {"$oid": "622db06c34d9f32f9d4295c7"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.ArticleListenerMsg",
+    "articleRid": 1,
+    "created": 1647161452035,
+    "rating": 10,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622db0c934d9f32f9d4295cd"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.ArticleListenerMsg",
+    "articleRid": 1,
+    "created": 1647161545268,
+    "rating": -10,
+    "userId": 1
+  }
+]

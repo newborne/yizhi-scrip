@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yizhi.common.model.enums.MsgEnum;
 import com.yizhi.common.model.pojo.mongodb.VideoListenerMsg;
-import com.yizhi.dubbo.api.v1.VideoApi;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RocketMQMessageListener(topic = "YIZHI_VIDEO_TOPIC", consumerGroup = "VIDEO_CONSUMER_GROUP")
 public class VideoListener implements RocketMQListener<String> {
-    @DubboReference(version = "1.0.0")
-    private VideoApi videoApi;
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
     private MongoTemplate mongoTemplate;
-    private static final ObjectMapper MAPPER = new ObjectMapper();
     @Override
     public void onMessage(String s) {
         try {
@@ -32,7 +28,7 @@ public class VideoListener implements RocketMQListener<String> {
             Long videoRid = jsonNode.get("videoRid").asLong();
             // 2 填充数据
             VideoListenerMsg videoListenerMsg = new VideoListenerMsg();
-            int rating = 0;
+            double rating = 0;
             // 2.1 填充rating
             switch (type) {
                 case SAVE:
@@ -53,7 +49,7 @@ public class VideoListener implements RocketMQListener<String> {
                 default:
                     break;
             }
-            videoListenerMsg.setRating((long) rating);
+            videoListenerMsg.setRating(rating);
             // 2.2 填充其他字段
             videoListenerMsg.setUserId(userId);
             videoListenerMsg.setCreated(created);
@@ -61,9 +57,7 @@ public class VideoListener implements RocketMQListener<String> {
             // 3 存储数据
             this.mongoTemplate.save(videoListenerMsg, "video_listener_msg");
         } catch (JsonProcessingException e) {
-            // e.printStackTrace();
-            System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
-                    .getStackTrace()[1].getMethodName() + "方法：" + "video消息解析失败");
+            e.printStackTrace();
         }
     }
 }

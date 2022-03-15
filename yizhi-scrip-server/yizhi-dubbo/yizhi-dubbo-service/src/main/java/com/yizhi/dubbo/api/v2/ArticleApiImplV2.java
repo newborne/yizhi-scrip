@@ -1,13 +1,14 @@
 package com.yizhi.dubbo.api.v2;
 
+import com.yizhi.common.client.Neo4jFeignClient;
 import com.yizhi.common.model.pojo.mongodb.Article;
+import com.yizhi.common.model.pojo.neo4j.node.ArticleNode;
+import com.yizhi.common.model.repository.ArticleRepository;
 import com.yizhi.common.util.IdGenerator;
 import com.yizhi.dubbo.api.v1.ArticleApi;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -21,45 +22,37 @@ public class ArticleApiImplV2 implements ArticleApi {
     @Autowired
     private MongoTemplate mongoTemplate;
     @Autowired
-    private IdGenerator idGenerator;
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private Neo4jFeignClient neo4jFeignClient;
     @Override
     public String saveArticle(Article article) {
-        article.setId(ObjectId.get());
-        article.setArticleRid(this.idGenerator.createId("article", article.getId().toHexString()));
-        return this.mongoTemplate.save(article).getId().toHexString();
+        return null;
     }
     @Override
     public List<Article> queryArticleList(Integer articleType, Integer page, Integer size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
-        Query query = Query.query(Criteria.where("articleType").is(articleType)).with(pageRequest);
-        return this.mongoTemplate.find(query, Article.class);
+        return null;
     }
     @Override
     public List<Article> queryRecommendArticleList(Long userId, Integer page, Integer size) {
-        // redis命中Rid,mongodb查Article
-        String key = "RECOMMEND_ARTICLE_" + userId;
-        String value = this.redisTemplate.opsForValue().get(key);
-        List<Article> articleList = null;
-        if (StringUtils.isNotEmpty(value)) {
-            //命中了数据
-            String[] articleRids = StringUtils.split(value, ",");
-            int startIndex = (page - 1) * size;
-            if (startIndex < articleRids.length) {
-                int endIndex = startIndex + size - 1;
-                if (endIndex >= articleRids.length) {
-                    endIndex = articleRids.length - 1;
-                }
-                List<Long> articleRidList = new ArrayList<>();
-                for (int i = startIndex; i <= endIndex; i++) {
-                    articleRidList.add(Long.valueOf(articleRids[i]));
-                }
-                Query query = Query.query(Criteria.where("articleRid").in(articleRidList));
-                articleList = this.mongoTemplate.find(query, Article.class);
-            }
+        List<Article> articleList = new ArrayList<>();
+        List<ArticleNode> articleNodeList = this.neo4jFeignClient.queryRecommendArticleList(Math.toIntExact(userId),
+                page,
+                size);
+        for (ArticleNode articleNode : articleNodeList) {
+            Article article = new Article();
+            article.setId(ObjectId.get());
+            article.setArticleRid(articleNode.getArticleRid());
+            article.setTitle(articleNode.getTitle());
+            article.setArticleType(articleNode.getArticleType());
+            article.setTags(articleNode.getTags());
+            article.setText(articleNode.getText());
+            articleList.add(article);
         }
         return articleList;
+    }
+    @Override
+    public Article queryArticleByArticleRid(String articleRid) {
+        Query query = Query.query(Criteria.where("articleRid").is(Long.valueOf(articleRid)));
+        return this.mongoTemplate.findOne(query, Article.class);
     }
     @Override
     public Article queryArticleById(String id) {

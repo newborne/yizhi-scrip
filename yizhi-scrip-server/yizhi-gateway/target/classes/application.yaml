@@ -28,5 +28,11 @@ spring:
             - Path=/yizhi-server/**
           filters:
             - StripPrefix=1
+        - id: yizhi-neo4j
+          uri: lb://yizhi-neo4j # lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略
+          predicates:
+            - Path=/yizhi-neo4j/**
+          filters:
+            - StripPrefix=1
   profiles:
     active: dev # 环境标识

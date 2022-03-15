@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class ArticleDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
+    private String articleRid;
     private String title;
-    private String articleTypeName;
     private String[] tags;
     private String text;
     private Integer likeCount;

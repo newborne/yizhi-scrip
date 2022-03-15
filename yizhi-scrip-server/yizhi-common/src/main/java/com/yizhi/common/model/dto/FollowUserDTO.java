@@ -15,5 +15,5 @@ public class FollowUserDTO {
     private Integer age;
     private String city;
     private String edu;
-    private Integer similarity; //匹配度
+    private Double similarity; //匹配度
 }

@@ -1,0 +1,23 @@
+package com.yizhi.common.model.pojo.neo4j.relationship;
+
+import com.yizhi.common.model.pojo.neo4j.node.ArticleNode;
+import com.yizhi.common.model.pojo.neo4j.node.ArticleTypeNode;
+import com.yizhi.common.model.pojo.neo4j.node.UserNode;
+import lombok.Builder;
+import lombok.Data;
+import org.neo4j.ogm.annotation.*;
+
+@Data
+@Builder
+@RelationshipEntity(type = "article_recommend")
+public class ArticleRecommendRelationship {
+    @Id
+    @GeneratedValue
+    private Long id;
+    @StartNode
+    private ArticleNode start;
+    @EndNode
+    private UserNode end;
+    // 备注
+    private String description;
+}

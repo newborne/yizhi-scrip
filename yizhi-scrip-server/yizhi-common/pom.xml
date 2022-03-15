@@ -41,6 +41,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+        <!-- spring-boot-starter-data-neo4j -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-neo4j</artifactId>
+        </dependency>
         <!-- redis依赖commons-pool 这个依赖一定要添加 -->
         <dependency>
             <groupId>org.apache.commons</groupId>

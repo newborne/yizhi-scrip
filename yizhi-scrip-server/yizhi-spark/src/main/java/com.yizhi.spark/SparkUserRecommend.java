@@ -108,12 +108,10 @@ public class SparkUserRecommend {
             JavaRDD<Document> documentJavaRDD = jsc.parallelize(Arrays.asList(ratings)).map(v1 -> {
                 Document document = new Document();
                 document.put("_id", ObjectId.get());
-                document.put("frienId", v1.product());
+                document.put("friendId", v1.product());
                 document.put("userId", v1.user());
-                //得分，保留2位小数
-                double similarity = new BigDecimal(v1.rating()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
-                document.put("similarity", similarity);
-                document.put("created", new DateTime().toString("yyyy/MM/dd"));
+                document.put("similarity", v1.rating());
+                document.put("created", System.currentTimeMillis());
                 return document;
             });
             MongoSpark.save(documentJavaRDD);

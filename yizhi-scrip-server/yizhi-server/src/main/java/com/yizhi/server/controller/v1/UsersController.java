@@ -65,13 +65,13 @@ public class UsersController {
                                           @RequestParam(value = "size", defaultValue = "10") Integer size) {
         return this.usersService.queryFollowList(type, page, size);
     }
-    @GetMapping("follow/{userId}")
-    public ResponseResult follow(@PathVariable("userId") Long userId) {
-        return this.usersService.follow(userId);
+    @GetMapping("follow/{friendId}")
+    public ResponseResult follow(@PathVariable("friendId") Long friendId) {
+        return this.usersService.follow(friendId);
     }
-    @GetMapping("unfollow/{userId}")
-    public ResponseResult unFollow(@PathVariable("userId") Long userId) {
-        return this.usersService.unFollow(userId);
+    @GetMapping("unfollow/{friendId}")
+    public ResponseResult unFollow(@PathVariable("friendId") Long friendId) {
+        return this.usersService.unFollow(friendId);
     }
     @Cache
     @GetMapping("todayBest")

@@ -33,8 +33,6 @@ public class SparkPostRecommend {
         JavaSparkContext jsc = new JavaSparkContext(sparkConf);
         //加载MongoDB中的数据
         JavaMongoRDD<Document> rdd = MongoSpark.load(jsc);
-        //打印测试数据
-//        rdd.foreach(document -> System.out.println(document.toJson()));
         //在数据中会存在，同一个用户对不同的动态（相同动态）进行操作，需要合并操作
         JavaRDD<Document> values = rdd.mapToPair(document -> {
             Long userId = document.getLong("userId");
@@ -47,13 +45,13 @@ public class SparkPostRecommend {
         }).values();
         //用户列表
         List<Long> userIdList = rdd.map(v1 -> v1.getLong("userId")).distinct().collect();
-        //数据的打印，测试
-//        values.foreach(document -> System.out.println(document.toJson()));
         JavaPairRDD<Long, Rating> ratings = values.mapToPair(document -> {
             Long created = document.getLong("created");
             int userId = document.getLong("userId").intValue();
             int postRid = document.getLong("postRid").intValue();
             Double rating = document.getDouble("rating");
+            System.out.println(Thread.currentThread()
+                    .getStackTrace()[1].getMethodName() + "方法：" + "created:" + created + "userId:" + userId + "postRid:" + postRid + "rating:" + rating);
             Rating r = new Rating(userId, postRid, rating);
             return new Tuple2<>(created % 10, r);
         });
@@ -65,7 +63,7 @@ public class SparkPostRecommend {
         Set<HostAndPort> nodes = new HashSet<>();
         for (String nodesStr : redisNodesStrs) {
             String[] ss = StringUtils.split(nodesStr, ':');
-            nodes.add(new HostAndPort(ss[0], Integer.valueOf(ss[1])));
+            nodes.add(new HostAndPort(ss[0], Integer.parseInt(ss[1])));
         }
         String redisPassword = properties.getProperty("redis.cluster.password");
         JedisPoolConfig config = new JedisPoolConfig();
@@ -74,7 +72,8 @@ public class SparkPostRecommend {
         config.setMinIdle(10);
         JedisCluster jedisCluster = new JedisCluster(nodes, 5000, 5000, 5, redisPassword, config);
         for (Long userId : userIdList) {
-            Rating[] recommendProducts = bestModel.recommendProducts(userId.intValue(), 20);
+            // 推荐num个
+            Rating[] recommendProducts = bestModel.recommendProducts(userId.intValue(), 10);
             List<Integer> products = new ArrayList<>();
             for (Rating product : recommendProducts) {
                 products.add(product.product());

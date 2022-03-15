@@ -182,18 +182,20 @@ public class UsersServiceImpl implements UsersService {
             dto.setAge(userInfo.getAge());
             dto.setCity(userInfo.getCity());
             dto.setEdu(userInfo.getEdu());
-            dto.setSimilarity((int) Math.round(this.usersApi.querySimilarity(Long.valueOf(user.getId()),
+            dto.setSimilarity((double) Math.round(this.usersApi.querySimilarity(Long.valueOf(user.getId()),
                     Long.valueOf(userInfo.getUserId()))));
             dtos.add(dto);
         }
         return ResponseResult.ok(new PageInfoDTO<>(0, page, size, dtos));
     }
     @Override
-    public ResponseResult follow(Long userId) {
+    public ResponseResult follow(Long friendId) {
+        ApUser user = UserThreadLocal.get();
         return null;
     }
     @Override
-    public ResponseResult unFollow(Long userId) {
+    public ResponseResult unFollow(Long friendId) {
+        ApUser user = UserThreadLocal.get();
         return null;
     }
     @Override
@@ -214,7 +216,7 @@ public class UsersServiceImpl implements UsersService {
             dto.setSex(userInfo.getSex().getValue() == 1 ? "man" : "woman");
             dto.setAge(userInfo.getAge());
             dto.setTags(StringUtils.split(userInfo.getTags(), ","));
-            dto.setSimilarity(49);
+            dto.setSimilarity(Double.valueOf(49));
         } else {
             // 获取推荐用户个人信息
             ApUserInfo userInfo = this.apUserInfoService.queryUserInfoByUserId(recommendUser.getFriendId());
@@ -226,7 +228,7 @@ public class UsersServiceImpl implements UsersService {
             dto.setAge(userInfo.getAge());
             dto.setTags(StringUtils.split(userInfo.getTags(), ","));
             // 获得相似度 取整
-            dto.setSimilarity(Math.round(recommendUser.getSimilarity()));
+            dto.setSimilarity(Double.valueOf(Math.round(recommendUser.getSimilarity())));
         }
         return ResponseResult.ok(dto);
     }
@@ -245,7 +247,7 @@ public class UsersServiceImpl implements UsersService {
         if (similarity == 0) {
             similarity = 90;
         }
-        dto.setSimilarity((int) Math.floor(similarity));
+        dto.setSimilarity(Double.valueOf(Math.round(similarity)));
         return ResponseResult.ok(dto);
     }
     @Override
@@ -264,7 +266,7 @@ public class UsersServiceImpl implements UsersService {
                 RecommendUser recommendUser = new RecommendUser();
                 recommendUser.setFriendId(Long.valueOf(s));
                 recommendUser.setId(ObjectId.get());
-                recommendUser.setSimilarity((int) RandomUtils.nextDouble(70d, 90d));
+                recommendUser.setSimilarity(RandomUtils.nextDouble(70d, 90d));
                 records.add(recommendUser);
             }
         }
@@ -309,16 +311,16 @@ public class UsersServiceImpl implements UsersService {
             dto2.setTags(StringUtils.split(userInfo.getTags(), ","));
             //设置相似度
             for (RecommendUser record : records) {
-                if (record.getFriendId().longValue() == userInfo.getUserId().longValue()) {
-                    double similarity = Math.floor(record.getSimilarity());
-                    dto2.setSimilarity((int) similarity);
+                if (record.getFriendId() == userInfo.getUserId().longValue()) {
+                    double similarity = Math.round(record.getSimilarity());
+                    dto2.setSimilarity(similarity);
                     break;
                 }
             }
             dtos.add(dto2);
         }
         //相似度倒序排列
-        Collections.sort(dtos, (o1, o2) -> new Long(o2.getSimilarity() - o1.getSimilarity()).intValue());
+        Collections.sort(dtos, (o1, o2) -> new Long((long) (o2.getSimilarity() - o1.getSimilarity())).intValue());
         dto.setRecords(dtos);
         return ResponseResult.ok(dto);
     }
@@ -338,7 +340,8 @@ public class UsersServiceImpl implements UsersService {
         queryWrapper.in("user_id", userIds);
         if (StringUtils.equalsIgnoreCase(sex, "man")) {
             queryWrapper.eq("sex", SexEnum.MAN);
-        } else {
+        }
+        if (StringUtils.equalsIgnoreCase(sex, "woman")) {
             queryWrapper.eq("sex", SexEnum.WOMAN);
         }
         List<ApUserInfo> userInfoList = this.apUserInfoService.queryUserInfoList(queryWrapper);

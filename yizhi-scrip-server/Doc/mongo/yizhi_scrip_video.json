@@ -1,0 +1,12 @@
+[
+  {
+    "_id": {"$oid": "622b390bc70a0d567e478ec2"},
+    "_class": "com.yizhi.common.model.pojo.mongodb.Video",
+    "created": 1646999819315,
+    "seeType": 1,
+    "text": "视频测试",
+    "userId": 1,
+    "videoRid": 1,
+    "videoUrl": "centos:8888/group1/M00/00/00/wKhvgGIrOQuACO3yAGFXKqItf0Q225.mp4"
+  }
+]

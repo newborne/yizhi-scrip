@@ -28,8 +28,8 @@ public class ArticleController {
                                                     @RequestParam(value = "size", defaultValue = "10") Integer size) {
         return this.articleService.queryRecommendArticleList(page, size);
     }
-    @GetMapping("{id}")
-    public ResponseResult queryArticleById(@PathVariable("id") String id) {
-        return this.articleService.queryArticleById(id);
+    @GetMapping("{articleRid}")
+    public ResponseResult queryArticleByArticleRid(@PathVariable("articleRid") String articleRid) {
+        return this.articleService.queryArticleByArticleRid(articleRid);
     }
 }

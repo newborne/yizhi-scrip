@@ -1,0 +1,83 @@
+package com.yizhi.neo4j.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.yizhi.common.model.mapper.ApUserInfoMapper;
+import com.yizhi.common.model.pojo.mongodb.RecommendUser;
+import com.yizhi.common.model.pojo.mysql.ApUserInfo;
+import com.yizhi.common.model.pojo.neo4j.node.UserNode;
+import com.yizhi.common.model.pojo.neo4j.relationship.ArticleRecommendRelationship;
+import com.yizhi.common.model.pojo.neo4j.relationship.UserRecommendRelationship;
+import com.yizhi.common.model.repository.ArticleRecommendRelationshipRepository;
+import com.yizhi.common.model.repository.ArticleRepository;
+import com.yizhi.common.model.repository.UserRecommendRelationshipRepository;
+import com.yizhi.common.model.repository.UserRepository;
+import com.yizhi.common.model.vo.ResponseResult;
+import com.yizhi.neo4j.service.UserService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserRecommendRelationshipRepository userRecommendRelationshipRepository;
+    @Autowired
+    private MongoTemplate mongoTemplate;
+    @Resource
+    private ApUserInfoMapper apUserInfoMapper;
+    @Override
+    public ResponseResult saveUser() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("status", 1);
+        List<ApUserInfo> apUserInfoList = this.apUserInfoMapper.selectList(queryWrapper);
+        for (ApUserInfo apUserInfo : apUserInfoList) {
+            UserNode userNode = UserNode.builder()
+                    .userId(apUserInfo.getUserId())
+                    .nickName(apUserInfo.getNickName())
+                    .logo(apUserInfo.getLogo())
+                    .tags(apUserInfo.getTags())
+                    .sex(apUserInfo.getSex().getValue())
+                    .age(apUserInfo.getAge())
+                    .edu(apUserInfo.getEdu())
+                    .city(apUserInfo.getCity())
+                    .birthday(apUserInfo.getBirthday())
+                    .coverPic(apUserInfo.getCoverPic())
+                    .industry(apUserInfo.getIndustry())
+                    .build();
+            this.userRepository.save(userNode);
+        }
+        return ResponseResult.ok();
+    }
+    @Override
+    public ResponseResult saveUserRecommendRelationship() {
+        Iterable<UserNode> userNodes = userRepository.findAll();
+        for (UserNode userNode : userNodes) {
+            Query query = Query.query(Criteria.where("userId").is(userNode.getUserId()).and("similarity").gt(70))
+                    .with(Sort.by(Sort.Order.desc("similarity")))
+                    .limit(3);
+            List<RecommendUser> recommendUserList = mongoTemplate.find(query, RecommendUser.class);
+            for (RecommendUser recommendUser : recommendUserList) {
+                UserRecommendRelationship userRecommendRelationship = UserRecommendRelationship.builder()
+                        .start(userRepository.findByUserId(Math.toIntExact(recommendUser.getFriendId())))
+                        .end(userNode)
+                        .similarity(recommendUser.getSimilarity()).
+                        description("相似")
+                        .build();
+                userRecommendRelationshipRepository.save(userRecommendRelationship);
+            }
+        }
+        return ResponseResult.ok();
+    }
+}

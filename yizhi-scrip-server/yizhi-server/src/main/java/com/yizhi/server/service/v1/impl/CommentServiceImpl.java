@@ -41,11 +41,11 @@ public class CommentServiceImpl implements CommentService {
         String likeCommentKey = "COMMENT_LIKE_" + publishId;
         Long likeCount = this.commentApi.queryCommentCount(publishId, CommentEnum.LIKE.getValue());
         //如果redis里面没有这个key，去查询dubbo，获取点赞数
-        if (!redisTemplate.hasKey(likeCommentKey)) {
+        if (Boolean.FALSE.equals(redisTemplate.hasKey(likeCommentKey))) {
             //往redis里面存当前用户点赞信息
             this.redisTemplate.opsForValue().set(likeCommentKey, String.valueOf(likeCount));
         }
-        if (!redisTemplate.hasKey(likeUserCommentKey)) {
+        if (Boolean.FALSE.equals(redisTemplate.hasKey(likeUserCommentKey))) {
             // 保存点赞
             this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()),
                     publishId,
@@ -81,10 +81,10 @@ public class CommentServiceImpl implements CommentService {
         String loveUserCommentKey = "COMMENT_LOVE_USER_" + UserThreadLocal.get().getId() + "_" + publishId;
         String loveCommentKey = "COMMENT_LOVE_" + publishId;
         Long loveCount = this.commentApi.queryCommentCount(publishId, CommentEnum.LOVE.getValue());
-        if (!redisTemplate.hasKey(loveCommentKey)) {
+        if (Boolean.FALSE.equals(redisTemplate.hasKey(loveCommentKey))) {
             this.redisTemplate.opsForValue().set(loveCommentKey, String.valueOf(loveCount));
         }
-        if (!redisTemplate.hasKey(loveUserCommentKey)) {
+        if (Boolean.FALSE.equals(redisTemplate.hasKey(loveUserCommentKey))) {
             this.commentApi.saveComment(Long.valueOf(UserThreadLocal.get().getId()),
                     publishId,
                     CommentEnum.LOVE.getValue(),
@@ -140,7 +140,7 @@ public class CommentServiceImpl implements CommentService {
             dto.setNickName(userInfo.getNickName());
             // 填充点赞
             String likeUserCommentKey = "COMMENT_LIKE_USER_" + comment.getUserId() + "_" + comment.getId();
-            dto.setHasLiked(this.redisTemplate.hasKey(likeUserCommentKey) ? 1 : 0);
+            dto.setHasLiked(Boolean.TRUE.equals(this.redisTemplate.hasKey(likeUserCommentKey)) ? 1 : 0);
             String likeCommentKey = "COMMENT_LIKE_" + comment.getId();
             String value = this.redisTemplate.opsForValue().get(likeCommentKey);
             if (StringUtils.isNotEmpty(value)) {

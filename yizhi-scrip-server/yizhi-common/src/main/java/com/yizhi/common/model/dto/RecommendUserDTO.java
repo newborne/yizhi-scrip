@@ -19,7 +19,7 @@ public class RecommendUserDTO implements Serializable {
     private String sex; //性别 man woman
     private Integer age;
     private String[] tags;
-    private Integer similarity; //相似度
+    private Double similarity; //相似度
 }
 
 

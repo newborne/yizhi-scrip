@@ -1,7 +1,6 @@
 package com.yizhi.server.controller.v2;
 
 import com.yizhi.common.model.vo.ResponseResult;
-import com.yizhi.server.service.v1.MaterialService;
 import com.yizhi.server.service.v2.MaterialServiceV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +10,9 @@ import org.springframework.web.bind.annotation.*;
 public class MaterialControllerV2 {
     @Autowired
     private MaterialServiceV2 materialService;
-    @PostMapping("save")
-    public ResponseResult saveMaterial(@RequestParam(value = "text") String text,
-                                       @RequestParam(value = "tags") String[] tags,
-                                       @RequestParam(value = "materialType") Integer materialType) {
-        return this.materialService.saveMaterial(text, tags, materialType);
+    @GetMapping("{materialRid}")
+    public ResponseResult queryMaterialByMaterialRid(@PathVariable("materialRid") Long materialRid) {
+        return this.materialService.queryMaterialByMaterialRid(materialRid);
     }
     @GetMapping("recommend")
     public ResponseResult queryRecommendMaterialList(@RequestParam(value = "page", defaultValue = "1") Integer page,

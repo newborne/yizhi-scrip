@@ -35,7 +35,7 @@ public class PostListener implements RocketMQListener<String> {
             // 2 填充数据
             PostListenerMsg postListenerMsg = new PostListenerMsg();
             Post post = this.postApi.queryPostById(publishId);
-            int rating = 0;
+            double rating = 0;
             int length = post.getText().length();
             int size = post.getMedias().size();
             // 2.1 填充rating
@@ -65,7 +65,7 @@ public class PostListener implements RocketMQListener<String> {
                 default:
                     break;
             }
-            postListenerMsg.setRating((long) rating);
+            postListenerMsg.setRating(rating);
             // 2.2 填充其他字段
             postListenerMsg.setUserId(userId);
             postListenerMsg.setCreated(created);
@@ -73,9 +73,7 @@ public class PostListener implements RocketMQListener<String> {
             // 3 存储数据
             this.mongoTemplate.save(postListenerMsg, "post_listener_msg");
         } catch (JsonProcessingException e) {
-            // e.printStackTrace();
-            System.out.println("类" + this.getClass().getName() + "中" + Thread.currentThread()
-                    .getStackTrace()[1].getMethodName() + "方法：" + "video消息解析失败");
+            e.printStackTrace();
         }
     }
 }

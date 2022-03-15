@@ -14,6 +14,6 @@ public class VideoListenerMsg {
     private ObjectId id;
     private Long userId;
     private Long videoRid;
-    private Long rating;
+    private Double rating;
     private Long created;
 }

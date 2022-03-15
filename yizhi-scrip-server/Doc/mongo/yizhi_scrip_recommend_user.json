@@ -1,0 +1,702 @@
+[
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ea6"},
+    "created": 1647173373098,
+    "friendId": 4,
+    "similarity": 39.99988423392455,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eaa"},
+    "created": 1647173373098,
+    "friendId": 2,
+    "similarity": 30.005952059021144,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eab"},
+    "created": 1647173373098,
+    "friendId": 1,
+    "similarity": -0.0022938845944224795,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ea5"},
+    "created": 1647173373098,
+    "friendId": 5,
+    "similarity": 79.99405733478082,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ea8"},
+    "created": 1647173373098,
+    "friendId": 6,
+    "similarity": 79.99336835481412,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ea7"},
+    "created": 1647173373098,
+    "friendId": 3,
+    "similarity": 49.99951705382969,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ea9"},
+    "created": 1647173373098,
+    "friendId": 8,
+    "similarity": 40.001888027181636,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ea4"},
+    "created": 1647173373098,
+    "friendId": 7,
+    "similarity": 59.99950082097166,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eac"},
+    "created": 1647173373098,
+    "friendId": 9,
+    "similarity": 50.00509838007509,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ead"},
+    "created": 1647173373098,
+    "friendId": 10,
+    "similarity": 50.00324291549783,
+    "userId": 1
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb5"},
+    "created": 1647173373400,
+    "friendId": 1,
+    "similarity": 30.004356544783477,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb6"},
+    "created": 1647173373400,
+    "friendId": 5,
+    "similarity": 30.001265105277398,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb7"},
+    "created": 1647173373400,
+    "friendId": 2,
+    "similarity": -0.0015500888034942761,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb0"},
+    "created": 1647173373397,
+    "friendId": 7,
+    "similarity": 60.00256943395331,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb1"},
+    "created": 1647173373397,
+    "friendId": 8,
+    "similarity": 49.99797335133208,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb2"},
+    "created": 1647173373397,
+    "friendId": 10,
+    "similarity": 49.99273601380334,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eae"},
+    "created": 1647173373397,
+    "friendId": 9,
+    "similarity": 79.99198473970388,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eaf"},
+    "created": 1647173373397,
+    "friendId": 6,
+    "similarity": 60.006682115062446,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb3"},
+    "created": 1647173373400,
+    "friendId": 4,
+    "similarity": 40.00105731695409,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb4"},
+    "created": 1647173373400,
+    "friendId": 3,
+    "similarity": 40.00052355664358,
+    "userId": 2
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ebd"},
+    "created": 1647173373486,
+    "friendId": 10,
+    "similarity": 40.00230933762016,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ebe"},
+    "created": 1647173373486,
+    "friendId": 5,
+    "similarity": 40.000521075044546,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ebf"},
+    "created": 1647173373486,
+    "friendId": 7,
+    "similarity": 59.99621701973528,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec0"},
+    "created": 1647173373486,
+    "friendId": 9,
+    "similarity": 50.00104913177309,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec1"},
+    "created": 1647173373486,
+    "friendId": 1,
+    "similarity": 50.000220431926635,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ebb"},
+    "created": 1647173373486,
+    "friendId": 8,
+    "similarity": 79.99905912270975,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ebc"},
+    "created": 1647173373486,
+    "friendId": 6,
+    "similarity": 60.00013386763805,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb8"},
+    "created": 1647173373485,
+    "friendId": 2,
+    "similarity": 39.99981901752872,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eb9"},
+    "created": 1647173373485,
+    "friendId": 4,
+    "similarity": 39.995337999710245,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eba"},
+    "created": 1647173373485,
+    "friendId": 3,
+    "similarity": 0.00452278007847795,
+    "userId": 3
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec9"},
+    "created": 1647173373568,
+    "friendId": 6,
+    "similarity": 49.99821423144746,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eca"},
+    "created": 1647173373568,
+    "friendId": 9,
+    "similarity": 40.00668982558285,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ecb"},
+    "created": 1647173373568,
+    "friendId": 10,
+    "similarity": 40.006474920847765,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec7"},
+    "created": 1647173373568,
+    "friendId": 7,
+    "similarity": 79.99692078988936,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec8"},
+    "created": 1647173373568,
+    "friendId": 8,
+    "similarity": 69.99303057234573,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec4"},
+    "created": 1647173373568,
+    "friendId": 1,
+    "similarity": 39.999442195208616,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec5"},
+    "created": 1647173373568,
+    "friendId": 3,
+    "similarity": 39.992872232761954,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec6"},
+    "created": 1647173373568,
+    "friendId": 4,
+    "similarity": -0.00008815541478313094,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec2"},
+    "created": 1647173373568,
+    "friendId": 2,
+    "similarity": 40.00467827932244,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ec3"},
+    "created": 1647173373568,
+    "friendId": 5,
+    "similarity": 40.00190644157077,
+    "userId": 4
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed3"},
+    "created": 1647173373646,
+    "friendId": 9,
+    "similarity": 59.99987407943814,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed4"},
+    "created": 1647173373646,
+    "friendId": 10,
+    "similarity": 59.99897935786262,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed5"},
+    "created": 1647173373646,
+    "friendId": 7,
+    "similarity": 50.00206572627417,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed1"},
+    "created": 1647173373646,
+    "friendId": 8,
+    "similarity": 40.004119452401255,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed2"},
+    "created": 1647173373646,
+    "friendId": 4,
+    "similarity": 40.00336231995553,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ece"},
+    "created": 1647173373645,
+    "friendId": 3,
+    "similarity": 40.00178922863489,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ecf"},
+    "created": 1647173373645,
+    "friendId": 2,
+    "similarity": 29.999979846114144,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed0"},
+    "created": 1647173373645,
+    "friendId": 5,
+    "similarity": -0.0012612511174125984,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ecc"},
+    "created": 1647173373645,
+    "friendId": 6,
+    "similarity": 79.99548345272726,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ecd"},
+    "created": 1647173373645,
+    "friendId": 1,
+    "similarity": 79.99546589521205,
+    "userId": 5
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ede"},
+    "created": 1647173373699,
+    "friendId": 5,
+    "similarity": 79.99550553962231,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019edf"},
+    "created": 1647173373699,
+    "friendId": 1,
+    "similarity": 79.99472828362367,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019edb"},
+    "created": 1647173373698,
+    "friendId": 2,
+    "similarity": 60.0074565275504,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019edc"},
+    "created": 1647173373698,
+    "friendId": 3,
+    "similarity": 59.998825505843996,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019edd"},
+    "created": 1647173373698,
+    "friendId": 4,
+    "similarity": 49.99907244449355,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed9"},
+    "created": 1647173373698,
+    "friendId": 8,
+    "similarity": 39.99975276098997,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eda"},
+    "created": 1647173373698,
+    "friendId": 7,
+    "similarity": 39.99771369975814,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed6"},
+    "created": 1647173373698,
+    "friendId": 9,
+    "similarity": 30.00558370644285,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed7"},
+    "created": 1647173373698,
+    "friendId": 10,
+    "similarity": 30.002536886122485,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ed8"},
+    "created": 1647173373698,
+    "friendId": 6,
+    "similarity": -0.0007105081532898794,
+    "userId": 6
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee5"},
+    "created": 1647173373793,
+    "friendId": 1,
+    "similarity": 60.0001335220571,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee6"},
+    "created": 1647173373793,
+    "friendId": 3,
+    "similarity": 59.99448128278085,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee7"},
+    "created": 1647173373793,
+    "friendId": 5,
+    "similarity": 50.0016551857169,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee8"},
+    "created": 1647173373794,
+    "friendId": 9,
+    "similarity": 40.00555535314098,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee9"},
+    "created": 1647173373794,
+    "friendId": 6,
+    "similarity": 39.997327821140914,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee3"},
+    "created": 1647173373792,
+    "friendId": 4,
+    "similarity": 79.99661233971143,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee4"},
+    "created": 1647173373792,
+    "friendId": 2,
+    "similarity": 60.00434925299115,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee0"},
+    "created": 1647173373792,
+    "friendId": 8,
+    "similarity": 39.993239262106286,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee1"},
+    "created": 1647173373792,
+    "friendId": 10,
+    "similarity": 30.003364885437875,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ee2"},
+    "created": 1647173373792,
+    "friendId": 7,
+    "similarity": 0.0030627745812950025,
+    "userId": 7
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef2"},
+    "created": 1647173373847,
+    "friendId": 9,
+    "similarity": 40.00278628067906,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef3"},
+    "created": 1647173373847,
+    "friendId": 1,
+    "similarity": 40.00174769778074,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef0"},
+    "created": 1647173373846,
+    "friendId": 3,
+    "similarity": 79.99878511859478,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef1"},
+    "created": 1647173373846,
+    "friendId": 4,
+    "similarity": 69.99382616343543,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eed"},
+    "created": 1647173373845,
+    "friendId": 2,
+    "similarity": 49.99897134851834,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eee"},
+    "created": 1647173373845,
+    "friendId": 10,
+    "similarity": 40.00482812301239,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eef"},
+    "created": 1647173373845,
+    "friendId": 5,
+    "similarity": 40.00329542724482,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eea"},
+    "created": 1647173373845,
+    "friendId": 6,
+    "similarity": 39.99948202865407,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eeb"},
+    "created": 1647173373845,
+    "friendId": 7,
+    "similarity": 39.993349190569575,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eec"},
+    "created": 1647173373845,
+    "friendId": 8,
+    "similarity": 0.002639850859342374,
+    "userId": 8
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef4"},
+    "created": 1647173373904,
+    "friendId": 4,
+    "similarity": 40.00657242623003,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef7"},
+    "created": 1647173373904,
+    "friendId": 7,
+    "similarity": 40.00532520860057,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef9"},
+    "created": 1647173373904,
+    "friendId": 8,
+    "similarity": 40.004372618046816,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019efa"},
+    "created": 1647173373904,
+    "friendId": 6,
+    "similarity": 30.005408738602576,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019efb"},
+    "created": 1647173373904,
+    "friendId": 9,
+    "similarity": -0.010453804815270473,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019efc"},
+    "created": 1647173373906,
+    "friendId": 2,
+    "similarity": 79.98904902732195,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019efd"},
+    "created": 1647173373906,
+    "friendId": 5,
+    "similarity": 60.00021722533191,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef5"},
+    "created": 1647173373904,
+    "friendId": 10,
+    "similarity": 59.98849821437751,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef6"},
+    "created": 1647173373904,
+    "friendId": 3,
+    "similarity": 50.00493852870477,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019ef8"},
+    "created": 1647173373904,
+    "friendId": 1,
+    "similarity": 50.00352656572152,
+    "userId": 9
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019efe"},
+    "created": 1647173373973,
+    "friendId": 1,
+    "similarity": 50.00204858159742,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019eff"},
+    "created": 1647173373973,
+    "friendId": 2,
+    "similarity": 49.98916876585026,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f00"},
+    "created": 1647173373973,
+    "friendId": 8,
+    "similarity": 40.00643490725423,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f02"},
+    "created": 1647173373975,
+    "friendId": 5,
+    "similarity": 59.99883937919201,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f03"},
+    "created": 1647173373975,
+    "friendId": 9,
+    "similarity": 59.98754143299041,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f06"},
+    "created": 1647173373976,
+    "friendId": 4,
+    "similarity": 40.00612857650404,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f07"},
+    "created": 1647173373976,
+    "friendId": 3,
+    "similarity": 40.00610530558774,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f01"},
+    "created": 1647173373975,
+    "friendId": 7,
+    "similarity": 30.002551367868378,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f04"},
+    "created": 1647173373975,
+    "friendId": 6,
+    "similarity": 30.002494203772926,
+    "userId": 10
+  },
+  {
+    "_id": {"$oid": "622ddefd8effc26777019f05"},
+    "created": 1647173373975,
+    "friendId": 10,
+    "similarity": -0.0029935086862593607,
+    "userId": 10
+  }
+]

@@ -20,8 +20,8 @@ public interface UsersService {
     ResponseResult queryUsersList(Integer page, Integer size, String keyword);
     ResponseResult queryFollowCounts();
     ResponseResult queryFollowList(String type, Integer page, Integer size);
-    ResponseResult follow(Long userId);
-    ResponseResult unFollow(Long userId);
+    ResponseResult follow(Long friendId);
+    ResponseResult unFollow(Long friendId);
     ResponseResult queryTodayBest();
     ResponseResult queryRecommendUser(Long friendId);
     ResponseResult queryRecommendUserList(RecommendUserRequest param);

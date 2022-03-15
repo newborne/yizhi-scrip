@@ -11,4 +11,18 @@
 
     <artifactId>yizhi-neo4j</artifactId>
 
+    <dependencies>
+        <!-- yizhi-common -->
+        <dependency>
+            <groupId>com.yizhi</groupId>
+            <artifactId>yizhi-common</artifactId>
+        </dependency>
+        <!-- spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>

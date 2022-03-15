@@ -7,21 +7,20 @@ import com.yizhi.common.model.pojo.mongodb.FollowUser;
 import com.yizhi.common.model.pojo.mongodb.RecommendUser;
 import com.yizhi.common.model.pojo.mongodb.UserLocation;
 import com.yizhi.common.model.pojo.mongodb.Users;
-import com.yizhi.dubbo.api.v1.UsersApi;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.geo.Circle;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 @DubboService(version = "1.0.0")
@@ -138,22 +137,19 @@ public class UsersApiImpl implements UsersApi {
     }
     @Override
     public PageInfoDTO<RecommendUser> queryRecommendUserList(Long userId, Integer page, Integer size) {
-        //先进行分页
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Order.desc("similarity")));
-        //查询到最高分然后倒序
         Query query = Query.query(Criteria.where("userId").is(userId)).with(pageRequest);
         List<RecommendUser> recommendUserList = mongoTemplate.find(query, RecommendUser.class);
-        //暂时不提供总数
         return new PageInfoDTO<>(0, page, size, recommendUserList);
     }
     @Override
-    public Integer querySimilarity(Long friendId, Long userId) {
+    public Double querySimilarity(Long friendId, Long userId) {
         Query query = Query.query(Criteria
                 .where("userId").is(userId)
                 .and("friendId").is(friendId));
         RecommendUser recommendUser = this.mongoTemplate.findOne(query, RecommendUser.class);
         if (null == recommendUser) {
-            return 0;
+            return Double.valueOf(0);
         }
         return recommendUser.getSimilarity();
     }
@@ -163,6 +159,7 @@ public class UsersApiImpl implements UsersApi {
         UserLocation userLocation = this.mongoTemplate.findOne(query, UserLocation.class);
         if (userLocation != null) {
             Update update = Update.update("location", new GeoJsonPoint(longitude, latitude))
+                    .set("address", address)
                     .set("updated", System.currentTimeMillis())
                     .set("lastUpdated", userLocation.getUpdated());
             return this.mongoTemplate.updateFirst(query,
@@ -189,9 +186,18 @@ public class UsersApiImpl implements UsersApi {
     public List<UserLocationDTO> queryUserFromLocation(Double longitude, Double latitude, Integer range) {
         GeoJsonPoint point = new GeoJsonPoint(longitude, latitude);
         // 以米为单位
-        Distance distance = new Distance(range / 1000, Metrics.KILOMETERS);
+        Distance distance = new Distance(range * 0.001, Metrics.KILOMETERS);
         Circle circle = new Circle(point, distance);
         return UserLocationDTO.formatToList(this.mongoTemplate.find(Query.query(Criteria.where("location")
                 .withinSphere(circle)), UserLocation.class));
+    }
+    @Override
+    public String queryDistance(Long userId, String longitude, String latitude) {
+        GeoJsonPoint point = new GeoJsonPoint(Double.valueOf(longitude), Double.valueOf(latitude));
+        NearQuery nearQuery = NearQuery.near((point), Metrics.KILOMETERS)
+                .query(Query.query(Criteria.where("userId").is(userId)));
+        GeoResults<UserLocation> geoResults = this.mongoTemplate.query(UserLocation.class)
+                .near(nearQuery).all();
+        return new DecimalFormat("#.##").format(geoResults.getAverageDistance().getValue()) + "";
     }
 }

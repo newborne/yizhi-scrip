@@ -1,5 +1,6 @@
 package com.yizhi.dubbo.api.v2;
 
+import com.yizhi.common.model.pojo.mongodb.Article;
 import com.yizhi.common.model.pojo.mongodb.Material;
 import com.yizhi.common.util.IdGenerator;
 import com.yizhi.dubbo.api.v1.MaterialApi;
@@ -26,9 +27,7 @@ public class MaterialApiImplV2 implements MaterialApi {
     private RedisTemplate<String, String> redisTemplate;
     @Override
     public String saveMaterial(Material material) {
-        material.setId(ObjectId.get());
-        material.setMaterialRid(this.idGenerator.createId("material", material.getId().toHexString()));
-        return this.mongoTemplate.save(material).getId().toHexString();
+        return null;
     }
     @Override
     public List<Material> queryRecommendMaterialList(Long userId, Integer page, Integer size) {
@@ -60,9 +59,12 @@ public class MaterialApiImplV2 implements MaterialApi {
         return this.mongoTemplate.findById(id, Material.class);
     }
     @Override
+    public Material queryMaterialByMaterialRid(Long materialRid) {
+        Query query = Query.query(Criteria.where("materialRid").is(Long.valueOf(materialRid)));
+        return this.mongoTemplate.findOne(query, Material.class);
+    }
+    @Override
     public List<Material> queryMaterialList(Integer materialType, Integer page, Integer size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
-        Query query = Query.query(Criteria.where("materialType").is(materialType)).with(pageRequest);
-        return this.mongoTemplate.find(query, Material.class);
+        return null;
     }
 }
