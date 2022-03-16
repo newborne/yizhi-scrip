@@ -83,6 +83,13 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+// react-native-vector-icons
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ] // Name of the font files you want to copy
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+// react-native-vector-icons
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -189,6 +196,21 @@ android {
 }
 
 dependencies {
+    // 动图
+    // 如果你需要支持Android4.0(API level 14)之前的版本
+    implementation 'com.facebook.fresco:animated-base-support:1.3.0'
+    // 如果你需要支持GIF动图
+    implementation 'com.facebook.fresco:animated-gif:2.6.0'
+    // 如果你需要支持WebP格式，包括WebP动图
+    implementation 'com.facebook.fresco:animated-webp:2.6.0'
+    implementation 'com.facebook.fresco:webpsupport:2.6.0'
+    // 如果只需要支持WebP格式而不需要动图
+    // implementation 'com.facebook.fresco:webpsupport:2.6.0'
+    // 动图
+
+    // 高德地图
+    implementation project(':react-native-amap-geolocation')
+    // 高德地图
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
