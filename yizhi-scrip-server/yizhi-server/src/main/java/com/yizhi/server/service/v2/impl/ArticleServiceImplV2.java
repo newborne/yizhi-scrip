@@ -38,7 +38,7 @@ public class ArticleServiceImplV2 implements ArticleServiceV2 {
     }
     @Override
     public ResponseResult queryArticleByArticleRid(String articleRid) {
-        return ResponseResult.ok(this.articleApi.queryArticleByArticleRid(articleRid));
+        return ResponseResult.ok(fillValueToArticle(this.articleApi.queryArticleByArticleRid(articleRid)));
     }
     private ArticleDTO fillValueToArticle(Article article) {
         ArticleDTO dto = new ArticleDTO();
