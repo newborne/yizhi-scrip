@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import IconMap from '@src/res/font/IconMap';
+import IconMap from '@src/res/font/iconMap';
 
 const Index = props => (
   <Text
