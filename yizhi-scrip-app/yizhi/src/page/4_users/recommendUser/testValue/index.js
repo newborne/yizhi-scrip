@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
+import GradientNavgation from '@src/component/GradientNavgation';
 
 class Index extends Component {
   render() {
     return (
       <View>
-        <Text>Hello</Text>
+        <GradientNavgation title={'测文值'} />
       </View>
     );
   }

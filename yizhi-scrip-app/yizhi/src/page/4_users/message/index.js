@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {pxToDp} from '@src/util/pxToDp';
 import IconFont from '@src/component/IconFont';
 import Date from '@src/util/Date';
+import TouchableScale from 'react-native-touchable-scale';
 class Index extends Component {
   state = {
     list: [
@@ -47,7 +48,7 @@ class Index extends Component {
             paddingRight: pxToDp(30),
             justifyContent: 'space-between',
           }}>
-          <TouchableOpacity style={{alignItems: 'center'}}>
+          <TouchableScale style={{alignItems: 'center'}}>
             <View
               style={{
                 width: pxToDp(60),
@@ -63,8 +64,8 @@ class Index extends Component {
               />
             </View>
             <Text style={{color: '#666'}}>公告</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignItems: 'center'}}>
+          </TouchableScale>
+          <TouchableScale style={{alignItems: 'center'}}>
             <View
               style={{
                 width: pxToDp(60),
@@ -80,8 +81,8 @@ class Index extends Component {
               />
             </View>
             <Text style={{color: '#666'}}>点赞</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignItems: 'center'}}>
+          </TouchableScale>
+          <TouchableScale style={{alignItems: 'center'}}>
             <View
               style={{
                 width: pxToDp(60),
@@ -97,8 +98,8 @@ class Index extends Component {
               />
             </View>
             <Text style={{color: '#666'}}>评论</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignItems: 'center'}}>
+          </TouchableScale>
+          <TouchableScale style={{alignItems: 'center'}}>
             <View
               style={{
                 width: pxToDp(60),
@@ -114,7 +115,7 @@ class Index extends Component {
               />
             </View>
             <Text style={{color: '#666'}}>喜欢</Text>
-          </TouchableOpacity>
+          </TouchableScale>
         </View>
         <View>
           {list.map((v, i) => (

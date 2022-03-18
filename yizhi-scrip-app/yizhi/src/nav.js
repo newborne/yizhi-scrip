@@ -10,8 +10,16 @@ import MaterialType from '@src/page/1_material/materialType';
 import News from '@src/page/1_material/news';
 import Scrip from '@src/page/1_material/scrip';
 import Near from '@src/page/4_users/recommendUser/near';
-import Visitor from '@src/page/4_users/recommendUser/visitor';
+import Sway from '@src/page/4_users/recommendUser/sway';
 import TestValue from '@src/page/4_users/recommendUser/testValue';
+import MyVideo from '@src/page/5_info/myVideo';
+import MyPost from '@src/page/5_info/myPost';
+import Setting from '@src/page/5_info/setting';
+import Feedback from '@src/page/5_info/feedback';
+import UpdateUserInfo from '@src/page/5_info/updateUserInfo';
+import Friend from '@src/page/5_info/friend';
+import Shop from '@src/page/5_info/shop';
+
 const Stack = createStackNavigator();
 @inject('RootStore')
 @observer
@@ -37,8 +45,15 @@ class Nav extends React.Component {
           <Stack.Screen name="News" component={News} />
           <Stack.Screen name="Scrip" component={Scrip} />
           <Stack.Screen name="Near" component={Near} />
-          <Stack.Screen name="Visitor" component={Visitor} />
+          <Stack.Screen name="Sway" component={Sway} />
           <Stack.Screen name="TestValue" component={TestValue} />
+          <Stack.Screen name="MyVideo" component={MyVideo} />
+          <Stack.Screen name="MyPost" component={MyPost} />
+          <Stack.Screen name="Feedback" component={Feedback} />
+          <Stack.Screen name="Setting" component={Setting} />
+          <Stack.Screen name="UpdateUserInfo" component={UpdateUserInfo} />
+          <Stack.Screen name="Friend" component={Friend} />
+          <Stack.Screen name="Shop" component={Shop} />
         </Stack.Navigator>
       </NavigationContainer>
     );

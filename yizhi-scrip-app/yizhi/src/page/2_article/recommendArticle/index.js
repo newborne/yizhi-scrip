@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import Date from '@src/util/Date';
 import {pxToDp} from '@src/util/pxToDp';
+import {NavigationContext} from '@react-navigation/native';
 
 class Index extends Component {
+  static contextType = NavigationContext;
   state = {
     list: [
       {
@@ -66,7 +68,7 @@ class Index extends Component {
     const {list} = this.state;
     return (
       <ScrollView>
-        <View>
+        <View style={{marginBottom: pxToDp(12)}}>
           {list.map((v, i) => (
             <TouchableOpacity
               // onPress={() => this.context.navigate('Chat', v.news)}

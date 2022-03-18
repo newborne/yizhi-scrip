@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import {pxToDp} from '@src/util/pxToDp';
 import {NavigationContext} from '@react-navigation/native';
 import IconFont from '../IconFont';
+import TouchableScale from 'react-native-touchable-scale';
 class Index extends Component {
   static contextType = NavigationContext;
   goPage = page => {
@@ -13,10 +14,10 @@ class Index extends Component {
       <View
         style={{
           flexDirection: 'row',
-          width: pxToDp(324),
+          width: '100%',
           justifyContent: 'space-around',
         }}>
-        <TouchableOpacity
+        <TouchableScale
           style={{alignItems: 'center'}}
           onPress={() => this.goPage('TestValue')}>
           <View
@@ -37,8 +38,8 @@ class Index extends Component {
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#666'}}>
             测文值
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
           style={{alignItems: 'center'}}
           onPress={() => this.goPage('Near')}>
           <View
@@ -59,10 +60,10 @@ class Index extends Component {
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#666'}}>
             附近的人
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
           style={{alignItems: 'center'}}
-          onPress={() => this.goPage('Visitor')}>
+          onPress={() => this.goPage('Sway')}>
           <View
             style={{
               width: pxToDp(64),
@@ -73,15 +74,15 @@ class Index extends Component {
               alignItems: 'center',
             }}>
             <IconFont
-              name="iconVisitor"
+              name="iconSway"
               style={{fontSize: pxToDp(38), color: '#fff'}}
             />
           </View>
           <Text
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#666'}}>
-            访客
+            摇一摇
           </Text>
-        </TouchableOpacity>
+        </TouchableScale>
       </View>
     );
   }

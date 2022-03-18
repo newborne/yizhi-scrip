@@ -95,7 +95,7 @@ class Index extends Component {
             }}>
             <Text style={{color: '#333', fontSize: pxToDp(24)}}>推荐</Text>
           </View>
-          <View>
+          <View style={{marginBottom: pxToDp(12)}}>
             {list.map((v, i) => (
               <TouchableOpacity
                 // onPress={() => this.context.navigate('Chat', v.news)}

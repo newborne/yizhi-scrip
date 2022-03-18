@@ -7,7 +7,7 @@ import UsersList from './usersList';
 
 export default () => {
   return (
-    <ScrollableTabView initialPage={0} renderTabBar={() => <TopTabBar />}>
+    <ScrollableTabView initialPage={1} renderTabBar={() => <TopTabBar />}>
       <RecommendUser tabLabel="发现" />
       <Message tabLabel="消息" />
       <UsersList tabLabel="列表" />

@@ -11,7 +11,7 @@ import {pxToDp} from './util/pxToDp';
 
 class Index extends Component {
   state = {
-    selectedTab: 'publish',
+    selectedTab: 'material',
     pages: [
       // 首页
       {
@@ -115,7 +115,7 @@ class Index extends Component {
     return (
       //细节
       <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <TabNavigator tabBarStyle={{height: '8%'}}>
+        <TabNavigator tabBarStyle={{height: pxToDp(64)}}>
           {pages.map((v, i) => (
             <TabNavigator.Item
               key={i}

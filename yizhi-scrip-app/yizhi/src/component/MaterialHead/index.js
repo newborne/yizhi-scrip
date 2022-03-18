@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text} from 'react-native';
 import {NavigationContext} from '@react-navigation/native';
 import {pxToDp} from '@src/util/pxToDp';
 import IconFont from '@src/component/IconFont';
+import TouchableScale from 'react-native-touchable-scale';
 class Index extends Component {
   static contextType = NavigationContext;
   render() {
@@ -14,7 +15,7 @@ class Index extends Component {
           width: pxToDp(324),
           justifyContent: 'space-around',
         }}>
-        <TouchableOpacity
+        <TouchableScale
           style={{alignItems: 'center'}}
           onPress={() => this.context.navigate('News')}>
           <View
@@ -35,8 +36,8 @@ class Index extends Component {
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#fff'}}>
             今日热点
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
           style={{alignItems: 'center', padding: pxToDp(14)}}
           onPress={() => this.context.navigate('Scrip')}>
           <View
@@ -57,8 +58,8 @@ class Index extends Component {
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#fff'}}>
             纸 条
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableScale>
+        <TouchableScale
           style={{alignItems: 'center'}}
           onPress={() => this.context.navigate('MaterialType')}>
           <View
@@ -79,7 +80,7 @@ class Index extends Component {
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#fff'}}>
             分类素材
           </Text>
-        </TouchableOpacity>
+        </TouchableScale>
       </View>
     );
   }

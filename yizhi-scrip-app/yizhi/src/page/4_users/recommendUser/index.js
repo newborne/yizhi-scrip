@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
-import {
-  View,
-  StatusBar,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {View, StatusBar, Text, Image, ScrollView} from 'react-native';
 import {pxToDp} from '@src/util/pxToDp';
 import RecommendUserHead from '@src/component/RecommendUserHead';
 import TodayBest from '@src/component/TodayBest';
 import IconFont from '@src/component/IconFont';
+import TouchableScale from 'react-native-touchable-scale';
 class Index extends Component {
   state = {
     // 接口要的数据
@@ -135,17 +129,34 @@ class Index extends Component {
         <View style={{backgroundColor: '#eee'}}>
           <View
             style={{
-              height: pxToDp(108),
+              height: pxToDp(128),
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#ffffff',
+              backgroundColor: '#fff',
             }}>
             <RecommendUserHead />
           </View>
+          {/* 2.2 标题 开始 */}
+          <View
+            style={{
+              height: pxToDp(48),
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#ffffff',
+              marginTop: pxToDp(4),
+              marginBottom: pxToDp(4),
+            }}>
+            <Text style={{color: '#333', fontSize: pxToDp(24)}}>今日最佳</Text>
+          </View>
           {/* 2.0 今日最佳推荐 开始 */}
-          <TouchableOpacity style={{padding: pxToDp(4)}}>
+          <TouchableScale
+            style={{
+              marginLeft: pxToDp(12),
+              marginRight: pxToDp(12),
+            }}>
             <TodayBest />
-          </TouchableOpacity>
+          </TouchableScale>
           {/* 2.0 今日最佳推荐 结束 */}
           {/* 2.1 推荐 开始 */}
           <View>
@@ -157,13 +168,14 @@ class Index extends Component {
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#ffffff',
+                marginTop: pxToDp(4),
                 marginBottom: pxToDp(4),
               }}>
               <Text style={{color: '#333', fontSize: pxToDp(24)}}>推荐</Text>
-              <TouchableOpacity
+              <TouchableScale
                 style={{
                   position: 'absolute',
-                  right: pxToDp(4),
+                  right: pxToDp(10),
                 }}>
                 <IconFont
                   style={{
@@ -172,13 +184,13 @@ class Index extends Component {
                   }}
                   name="iconFilter"
                 />
-              </TouchableOpacity>
+              </TouchableScale>
             </View>
             {/* 2.2 标题 结束 */}
             {/* 2.3 列表内容 开始 */}
             <View style={{paddingLeft: pxToDp(4), paddingRight: pxToDp(4)}}>
               {recommendUserInfo.map((v, i) => (
-                <TouchableOpacity
+                <TouchableScale
                   key={i}
                   // onPress={() => this.context.navigate('Detail', {id: v.id})}
                   style={{
@@ -186,8 +198,10 @@ class Index extends Component {
                     paddingTop: pxToDp(15),
                     paddingBottom: pxToDp(15),
                     backgroundColor: '#ffffff',
-                    borderRadius: pxToDp(12),
+                    borderRadius: pxToDp(18),
                     marginBottom: pxToDp(4),
+                    marginLeft: pxToDp(4),
+                    marginRight: pxToDp(4),
                   }}>
                   {/* 图片 */}
                   <View
@@ -215,7 +229,9 @@ class Index extends Component {
                           fontSize: pxToDp(18),
                           color: v.sex === 'woman' ? '#36cfc9' : '#37DC8A',
                         }}
-                        name={v.sex === 'woman' ? 'iconWoman' : 'iconMan'}
+                        name={
+                          v.sex === 'woman' ? 'iconWomanMini' : 'iconManMini'
+                        }
                       />
                       <Text style={{color: '#666'}}>{v.age}岁</Text>
                     </View>
@@ -233,18 +249,18 @@ class Index extends Component {
                     }}>
                     <IconFont
                       name="iconSimilarity"
-                      style={{color: '#37DC8A', fontSize: pxToDp(36)}}
+                      style={{color: '#37DC8A', fontSize: pxToDp(48)}}
                     />
                     <Text
                       style={{
                         position: 'absolute',
                         color: '#fff',
-                        fontSize: pxToDp(12),
+                        fontSize: pxToDp(18),
                       }}>
                       {v.similarity}
                     </Text>
                   </View>
-                </TouchableOpacity>
+                </TouchableScale>
               ))}
             </View>
             {/* 2.3 列表内容 结束 */}

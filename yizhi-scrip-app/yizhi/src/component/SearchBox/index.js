@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, TextInput} from 'react-native';
 import IconFont from '@src/component/IconFont';
 import {pxToDp} from '@src/util/pxToDp';
+import TouchableScale from 'react-native-touchable-scale';
 class Index extends Component {
   render() {
     return (
@@ -38,14 +39,16 @@ class Index extends Component {
             alignItems: 'flex-end',
             justifyContent: 'center',
           }}>
-          <IconFont
-            style={{
-              marginRight: pxToDp(15),
-              color: '#999',
-              fontSize: pxToDp(30),
-            }}
-            name="iconSort"
-          />
+          <TouchableScale>
+            <IconFont
+              style={{
+                marginRight: pxToDp(15),
+                color: '#999',
+                fontSize: pxToDp(30),
+              }}
+              name="iconSort"
+            />
+          </TouchableScale>
         </View>
       </View>
     );
