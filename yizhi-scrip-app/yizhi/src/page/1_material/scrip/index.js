@@ -39,31 +39,32 @@ class Index extends Component {
       {
         id: 8,
         header: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-        nick_name: '雾霭朦胧',
+        nick_name: '捐躯赴国难，视死忽如归。 曹植 《白马篇》',
         age: 21,
         gender: '女',
-        marry: '未婚',
-        xueli: '大专',
+        marry: '爱国',
+        xueli: '豪放',
         dist: 0,
       },
       {
         id: 8,
         header: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-        nick_name: '雾霭朦胧',
+        nick_name: '敬字工夫，乃是圣门第一义。（朱熹）',
         age: 21,
-        gender: '女',
-        marry: '未婚',
-        xueli: '大专',
+        gender: '敬字工夫，乃是圣门第一义。（朱熹）',
+        marry: '敬业',
+        xueli: '默认',
         dist: 0,
       },
       {
         id: 8,
         header: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-        nick_name: '雾霭朦胧',
+        nick_name:
+          '诚信是道路，随着开拓者的脚步延伸；诚信是智慧，随着博学者的求索积累；诚信是成功，随着奋进者的拼搏临近；诚信是财富的种子，只要你诚心种下，就能找到打开金库的钥匙。',
         age: 21,
         gender: '女',
-        marry: '未婚',
-        xueli: '大专',
+        marry: '诚信',
+        xueli: '段落',
         dist: 0,
       },
     ],
@@ -156,27 +157,11 @@ class Index extends Component {
                       <View
                         style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Text style={{color: '#555'}}>{card.nick_name}</Text>
-                        <IconFont
-                          style={{
-                            fontSize: pxToDp(18),
-                            color: card.gender === '女' ? '#b564bf' : 'red',
-                          }}
-                          name={
-                            card.gender === '女'
-                              ? 'icontanhuanv'
-                              : 'icontanhuanan'
-                          }
-                        />
-                        <Text style={{color: '#555'}}>{card.age}岁</Text>
                       </View>
                       <View style={{flexDirection: 'row'}}>
                         <Text style={{color: '#555'}}>{card.marry}</Text>
                         <Text style={{color: '#555'}}>|</Text>
                         <Text style={{color: '#555'}}>{card.xueli}</Text>
-                        <Text style={{color: '#555'}}>|</Text>
-                        <Text style={{color: '#555'}}>
-                          {card.agediff < 10 ? '年龄相仿' : '有点代沟'}
-                        </Text>
                       </View>
                     </View>
                   </View>

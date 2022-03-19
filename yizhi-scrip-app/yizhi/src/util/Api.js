@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.137.1:7000';
+export const BASE_URL = 'http://192.168.3.3:7000';
 // login
 export const LOGIN_SEND = 'yizhi-login/api/v1/login/send';
 export const LOGIN_LOGIN = 'yizhi-login/api/v1/login/login';

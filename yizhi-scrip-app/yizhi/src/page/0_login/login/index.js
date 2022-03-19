@@ -139,7 +139,7 @@ class Index extends Component {
       this.props.navigation.navigate('UserInfo');
     } else {
       //  老用户
-      alert('老用户');
+      alert('已登录');
       this.props.navigation.navigate('Tabbar');
     }
   };
