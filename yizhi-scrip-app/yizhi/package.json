@@ -44,7 +44,7 @@
     "react-native-top-tab-view": "^1.0.1",
     "react-native-touchable-scale": "^2.1.2",
     "react-native-vector-icons": "^9.1.0",
-    "teaset": "file:src/node_modules_plus/teaset"
+    "teaset": "https://github.com/newborne/teaset"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
