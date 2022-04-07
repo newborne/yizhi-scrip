@@ -6,10 +6,10 @@ Introduction:
 ArcSoft FaceEngine SDK provides the universal interfaces to detect the face information of face, like face detection, age estimation, gender estimation,face angle detection,face recognition.
 
 Publish date:
-2021-04-16
+2022-04-02
 
 Expire date:
-2022-04-16
+2023-04-02
 
 Version:
 2.2.3902020101.1
