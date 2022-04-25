@@ -36,7 +36,7 @@ class Nav extends React.Component {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName={'Login'}>
+          initialRouteName={'UserInfo'}>
           <Stack.Screen name="Demo" component={Demo} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserInfo" component={UserInfo} />

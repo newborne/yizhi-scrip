@@ -43,7 +43,7 @@ public class SparkUserRecommend {
         //加载mysql数据
         SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
         String url = properties.getProperty("jdbc.url");
-        // 设置数据库连接信息
+        //设置数据库连接信息
         Properties connectionProperties = new Properties();
         connectionProperties.put("driver", properties.getProperty("jdbc.driver-class-name"));
         connectionProperties.put("user", properties.getProperty("jdbc.username"));
@@ -52,7 +52,7 @@ public class SparkUserRecommend {
         //用户列表
         List<Long> userIds = userInfoRdd.map(v -> v.getLong(1)).collect();
         int count = (int) userInfoRdd.count();
-        //计算出这张表数据的 笛卡尔积
+        //计算出这张表数据的笛卡尔积
         JavaPairRDD<Row, Row> cartesian = userInfoRdd.cartesian(userInfoRdd);
         //计算用户的相似度
         JavaPairRDD<Long, Rating> javaPairRDD = cartesian.mapToPair(row -> {
