@@ -78,7 +78,10 @@ class Index extends Component {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <IconFont name="iconMan" style={{fontSize: pxToDp(36)}} />
+              <IconFont
+                name="iconMan"
+                style={{fontSize: pxToDp(36), color: '#fff'}}
+              />
             </TouchableOpacity>
             <Text style={{color: '#666', marginTop: pxToDp(4)}}>男</Text>
           </View>
@@ -94,7 +97,10 @@ class Index extends Component {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <IconFont name="iconMan" style={{fontSize: pxToDp(36)}} />
+              <IconFont
+                name="iconWoman"
+                style={{fontSize: pxToDp(36), color: '#fff'}}
+              />
             </TouchableOpacity>
             <Text style={{color: '#666', marginTop: pxToDp(4)}}>女</Text>
           </View>

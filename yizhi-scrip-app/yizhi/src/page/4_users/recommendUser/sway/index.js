@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {WebView} from 'react-native-webview';
 import GradientNavgation from '@src/component/GradientNavgation';
+import {Image, View, Text, StatusBar} from 'react-native';
 
 class Index extends Component {
   render() {
     return (
-      <View>
+      <>
         <GradientNavgation title={'摇一摇'} />
-      </View>
+        <Text>待开发……</Text>
+      </>
     );
   }
 }

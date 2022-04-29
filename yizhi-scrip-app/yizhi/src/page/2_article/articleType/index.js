@@ -13,13 +13,20 @@ import GradientNavgation from '@src/component/GradientNavgation';
 import SearchBox from '@src/component/SearchBox';
 import TouchableScale from 'react-native-touchable-scale';
 import Date from '@src/util/Date';
+import {USERS_LIST, ARTICLE_TYPE} from '@src/util/Api';
+import {NavigationContext} from '@react-navigation/native';
+import Request from '@src/util/Request';
 class Index extends Component {
+  static contextType = NavigationContext;
   state = {
+    articleType: '10001',
+    txt: '',
     list1: [
       {
         courseSort: {
           logo: 'https://z3.ax1x.com/2021/06/09/2y5BlV.png',
           title: '记叙文',
+          articleType: '10001',
           content: '/积累经典短句\n/表达深刻主题',
         },
       },
@@ -27,6 +34,7 @@ class Index extends Component {
         courseSort: {
           logo: 'https://z3.ax1x.com/2021/06/09/2y5BlV.png',
           title: '议论文',
+          articleType: '10002',
           content: '/解读海内外时事热点\n/丰富议论文论据',
         },
       },
@@ -34,6 +42,7 @@ class Index extends Component {
         courseSort: {
           logo: 'https://z3.ax1x.com/2021/06/09/2y5BlV.png',
           title: '散文',
+          articleType: '10004',
           content: '/解读各领域优秀人物\n/丰富议论文依据',
         },
       },
@@ -41,123 +50,28 @@ class Index extends Component {
         courseSort: {
           logo: 'https://z3.ax1x.com/2021/06/09/2y5BlV.png',
           title: '诗歌',
+          articleType: '10003',
           content: '/解读文学、影视经典\n/拓展视野',
         },
       },
     ],
-    list2: [
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-    ],
+    list2: [],
+  };
+  componentDidMount() {
+    this.getlist(this.state.articleType);
+  }
+  getlist = async articleType => {
+    const url2 = ARTICLE_TYPE.replace(':articleType', articleType);
+    const res2 = await Request.privateGet(url2);
+    if (res2.ok) {
+      const list2 = res2.data.records;
+      this.setState({list2});
+    }
+    console.log(res2);
   };
   render() {
-    const {list1, list2} = this.state;
+    const {list1, list2, txt} = this.state;
+    const list3 = list2.filter(v => v.text.includes(txt));
     return (
       <>
         <View style={{paddingTop: pxToDp(10), backgroundColor: '#f7f7f7'}}>
@@ -167,7 +81,7 @@ class Index extends Component {
           />
         </View>
         <ScrollView
-          style={{height: pxToDp(150), backgroundColor: '#f7f7f7'}}
+          style={{height: pxToDp(180), backgroundColor: '#f7f7f7'}}
           // pagingEnabled={true} //是否分页，默认不分页，水平滑动时候会一下跳动很多页过去，加上true则一页一页滚动
           horizontal={true} //水平滚动开启
           showsHorizontalScrollIndicator={false} //是否显示滚动条
@@ -198,6 +112,7 @@ class Index extends Component {
                   },
                 }}>
                 <TouchableScale
+                  onPress={() => this.getlist(v.courseSort.articleType)}
                   key={i}
                   style={{
                     height: pxToDp(80),
@@ -244,22 +159,39 @@ class Index extends Component {
           </View>
         </ScrollView>
 
-        <ScrollView>
-          <View style={{marginBottom: pxToDp(12)}}>
-            {list2.map((v, i) => (
-              <TouchableOpacity
-                // onPress={() => this.context.navigate('Chat', v.news)}
+        <ScrollView minHeight={pxToDp(550)}>
+          <View
+            style={{
+              marginBottom: pxToDp(12),
+              paddingLeft: pxToDp(4),
+              paddingRight: pxToDp(4),
+              paddingTop: pxToDp(8),
+              backgroundColor: '#eee',
+            }}>
+            {list3.map((v, i) => (
+              <TouchableScale
+                friction={90} //
+                tension={124} // These props are passed to the parent component (here TouchableScale)
+                activeScale={0.95} //
+                onPress={() =>
+                  this.context.navigate('ArticleDetail', {
+                    articleRid: v.articleRid,
+                  })
+                }
                 key={i}
                 style={{
-                  height: pxToDp(200),
                   flexDirection: 'row',
-                  borderBottomWidth: pxToDp(1),
-                  borderBottomColor: '#ccc',
+                  padding: pxToDp(12),
+                  backgroundColor: '#ffffff',
+                  borderRadius: pxToDp(18),
+                  marginBottom: pxToDp(4),
+                  marginLeft: pxToDp(4),
+                  marginRight: pxToDp(4),
                 }}>
                 <View
                   style={{
                     padding: pxToDp(15),
-                    width: '88%',
+                    width: '93%',
                   }}>
                   <Text
                     style={{
@@ -267,25 +199,42 @@ class Index extends Component {
                       fontWeight: 'bold',
                       alignSelf: 'center',
                     }}>
-                    {v.news.title}
+                    {v.title}
                   </Text>
                   <Text numberOfLines={7} style={{color: '#666'}}>
-                    {v.news.content}
+                    {v.text}
                   </Text>
                 </View>
                 <View
                   style={{
-                    padding: pxToDp(15),
-                    width: '12%',
-                    alignItems: 'flex-end',
+                    width: pxToDp(24),
+                    backgroundColor: '#36cfc9',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    borderRadius: pxToDp(12),
                   }}>
-                  <View>
-                    <Text style={{color: '#666', fontWeight: 'bold'}}>
-                      {v.news.type}
-                    </Text>
-                  </View>
+                  <Text
+                    style={{
+                      marginTop: pxToDp(12),
+                      marginBottom: pxToDp(12),
+                      color: '#fff',
+                      fontSize: pxToDp(12),
+                      textAlign: 'center',
+                    }}>
+                    {v.tags[0] + '\n--\n' + v.tags[1] + '\n--\n' + v.tags[2]}
+                  </Text>
                 </View>
-              </TouchableOpacity>
+                <Image
+                  source={{uri: 'https://z3.ax1x.com/2021/06/09/2y5BlV.png'}}
+                  style={{
+                    width: pxToDp(36),
+                    height: pxToDp(36),
+                    position: 'absolute',
+                    left: pxToDp(2),
+                    top: pxToDp(2),
+                  }}
+                />
+              </TouchableScale>
             ))}
           </View>
         </ScrollView>

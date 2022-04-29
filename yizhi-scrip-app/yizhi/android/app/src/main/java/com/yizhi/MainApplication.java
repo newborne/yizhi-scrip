@@ -13,6 +13,9 @@ import java.util.List;
 // 高德地图
 import cn.qiuxiang.react.geolocation.AMapGeolocationPackage;
 // 高德地图
+// react-native-video
+import com.brentvatne.react.ReactVideoPackage;
+// react-native-video
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -32,6 +35,9 @@ public class MainApplication extends Application implements ReactApplication {
           // 高德地图
           packages.add(new AMapGeolocationPackage());
           // 高德地图
+          // react-native-video
+          packages.add(new ReactVideoPackage());
+          // react-native-video
           return packages;
         }
 

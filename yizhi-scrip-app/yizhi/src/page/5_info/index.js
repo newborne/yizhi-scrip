@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   ImageBackground,
+  RefreshControl,
 } from 'react-native';
 import {NavigationContext} from '@react-navigation/native';
 import {ListItem, Avatar} from 'react-native-elements';
@@ -15,6 +16,9 @@ import TouchableScale from 'react-native-touchable-scale';
 import IconFont from '@src/component/IconFont';
 import {pxToDp} from '@src/util/pxToDp';
 import {BoxShadow} from 'react-native-shadow';
+import Geo from '@src/util/Geo';
+import {BASE_URI, USERS_FOLLOW_COUNTS} from '@src/util/Api';
+import Request from '@src/util/Request';
 import {ListItemBase} from 'react-native-elements/dist/list/ListItemBase';
 class Index extends Component {
   static contextType = NavigationContext;
@@ -25,22 +29,52 @@ class Index extends Component {
       logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
       userName: '奋斗的少年',
     },
-    city: '上海市',
+    city: '',
     // 粉丝的数量
-    fanCount: 9,
+    fanCount: 0,
     // 喜欢的数量
-    followCount: 8,
+    followCount: 0,
     // 相互关注的数量
-    mutualFollowCount: 5,
+    mutualFollowCount: 0,
     // 控制 加载中的组件的切换显示
     refreshing: false,
+  };
+  componentDidMount() {
+    this.getCityByLocation();
+    this.getList();
+  }
+  getCityByLocation = async () => {
+    const res = await Geo.getCityByLocation();
+    this.setState({city: res.regeocode.addressComponent.city});
+  };
+  getList = async () => {
+    const res = await Request.privateGet(USERS_FOLLOW_COUNTS);
+    console.log(res);
+    const mutualFollowCount = res.data.mutualFollowCount;
+    const followCount = res.data.followCount;
+    const fanCount = res.data.fanCount;
+    this.setState({mutualFollowCount, followCount, fanCount});
+
+    return Promise.resolve();
+  };
+  // 下拉刷新事件
+  onRefresh = async () => {
+    this.setState({refreshing: true});
+    await this.getList();
+    this.setState({refreshing: false});
   };
   render() {
     const {user, city, fanCount, followCount, mutualFollowCount, refreshing} =
       this.state;
     return (
       <View style={{flex: 1, backgroundColor: '#f7f7f7'}}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }>
           <ImageBackground
             source={require('@src/res/image/material_head.png')}
             style={{height: pxToDp(340), position: 'relative'}}>
@@ -70,7 +104,7 @@ class Index extends Component {
                 alignSelf: 'center',
                 alignItems: 'center',
                 width: '50%',
-                height: pxToDp(240),
+                height: pxToDp(180),
               }}>
               {/* 图片 */}
               <View style={{padding: pxToDp(15)}}>
@@ -536,7 +570,11 @@ class Index extends Component {
               </ListItem.Content>
               <ListItem.Chevron color="#39dbd5" />
             </ListItem>
-            <TouchableScale>
+            <TouchableScale
+              friction={90} //
+              tension={124} // These props are passed to the parent component (here TouchableScale)
+              activeScale={0.95} //
+            >
               <IconFont
                 name="iconLogo"
                 style={{

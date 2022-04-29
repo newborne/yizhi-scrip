@@ -13,7 +13,9 @@ import IconFont from '@src/component/IconFont';
 import {Overlay} from 'teaset';
 import FilterPanel from '@src/component/FilterPanel';
 import Request from '@src/util/Request';
+import {NavigationContext} from '@react-navigation/native';
 class Index extends Component {
+  static contextType = NavigationContext;
   params = {
     sex: 'man',
     distance: 8000,
@@ -66,7 +68,7 @@ class Index extends Component {
     ],
   };
   componentDidMount() {
-    // this.getList();
+    this.getList();
   }
 
   WHMap = {
@@ -102,7 +104,7 @@ class Index extends Component {
   getList = async () => {
     const res = await Request.privateGet(USERS_NEAR, this.params);
     console.log(res);
-    this.setState({list: res});
+    this.setState({list: res.data});
   };
 
   // 点击筛选按钮
@@ -181,12 +183,15 @@ class Index extends Component {
         </TouchableOpacity>
         {list.map((v, i) => {
           const whMap = this.WHMap[this.getWidthHeight(distance)];
-          const tx = Math.random() * (screenWidth - whMap.width);
+          const tx =
+            Math.random() * (screenWidth / 2 - whMap.width) + pxToDp(100);
           const ty =
-            Math.random() * (screenHeight - whMap.height - pxToDp(108)) +
-            pxToDp(108);
+            Math.random() * (screenHeight / 2 - whMap.height) + pxToDp(200);
           return (
             <TouchableOpacity
+              onPress={() =>
+                this.context.navigate('UserDetail', {id: v.userId})
+              }
               key={i}
               style={{position: 'absolute', left: tx, top: ty}}>
               <ImageBackground
@@ -208,7 +213,7 @@ class Index extends Component {
                     fontSize: pxToDp(12),
                     top: -pxToDp(15),
                   }}>
-                  {v.userName}
+                  {v.nickName}
                 </Text>
                 <Image
                   style={{

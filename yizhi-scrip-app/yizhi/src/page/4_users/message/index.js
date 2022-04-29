@@ -4,35 +4,43 @@ import {pxToDp} from '@src/util/pxToDp';
 import IconFont from '@src/component/IconFont';
 import Date from '@src/util/Date';
 import TouchableScale from 'react-native-touchable-scale';
+import {
+  BASE_URI,
+  MESSAGE_ANNOUNCEMENT,
+  MESSAGE_COMMENT_TYPE,
+} from '@src/util/Api';
+import Request from '@src/util/Request';
 class Index extends Component {
   state = {
     list: [
       {
-        user: {
-          logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-          userName: '孤独的小王子',
-        },
-        latestMessage: {
-          text: '最好的年华',
-          createTime: '2021-05-13T15:50:58.000Z',
-        },
-        unreadCount: 5,
+        // "id": "1",
+        // "title": "公告1",
+        // "description": "公告测试",
+        // "created": "2022-03-09 18:54:53"
       },
     ],
   };
-  // componentDidMount() {
-  //   this.getConversations();
-  // }
+  componentDidMount() {
+    this.getConversations();
+  }
 
-  // getConversations = async () => {
-  //   const res = await JMessage.getConversations();
-  //   if (res.length) {
-  //     const idArr = res.map(v => v.target.username);
-  //     const url = FRIENDS_PERSONALINFO_GUID.replace(':ids', idArr.join(','));
-  //     const users = await request.privateGet(url);
-  //     this.setState({list: res.map((v, i) => ({...v, user: users.data[i]}))});
-  //   }
-  // };
+  getConversations = async () => {
+    const res1 = await Request.privateGet(MESSAGE_ANNOUNCEMENT);
+    if (res1.ok) {
+      const list = res1.data.records;
+      this.setState({list});
+    }
+  };
+
+  getMessage = async type => {
+    const url1 = MESSAGE_COMMENT_TYPE.replace(':commentType', type);
+    const res1 = await Request.privateGet(url1);
+    if (res1.ok) {
+      const list = res1.data.records;
+      this.setState({list});
+    }
+  };
 
   render() {
     const {list} = this.state;
@@ -48,7 +56,9 @@ class Index extends Component {
             paddingRight: pxToDp(30),
             justifyContent: 'space-between',
           }}>
-          <TouchableScale style={{alignItems: 'center'}}>
+          <TouchableScale
+            style={{alignItems: 'center'}}
+            onPress={this.getConversations}>
             <View
               style={{
                 width: pxToDp(60),
@@ -65,7 +75,9 @@ class Index extends Component {
             </View>
             <Text style={{color: '#666'}}>公告</Text>
           </TouchableScale>
-          <TouchableScale style={{alignItems: 'center'}}>
+          <TouchableScale
+            style={{alignItems: 'center'}}
+            onPress={() => this.getMessage('1')}>
             <View
               style={{
                 width: pxToDp(60),
@@ -82,7 +94,9 @@ class Index extends Component {
             </View>
             <Text style={{color: '#666'}}>点赞</Text>
           </TouchableScale>
-          <TouchableScale style={{alignItems: 'center'}}>
+          <TouchableScale
+            style={{alignItems: 'center'}}
+            onPress={() => this.getMessage('3')}>
             <View
               style={{
                 width: pxToDp(60),
@@ -99,7 +113,9 @@ class Index extends Component {
             </View>
             <Text style={{color: '#666'}}>评论</Text>
           </TouchableScale>
-          <TouchableScale style={{alignItems: 'center'}}>
+          <TouchableScale
+            style={{alignItems: 'center'}}
+            onPress={() => this.getMessage('4')}>
             <View
               style={{
                 width: pxToDp(60),
@@ -124,12 +140,12 @@ class Index extends Component {
               style={{
                 padding: pxToDp(15),
                 flexDirection: 'row',
-                borderBottomWidth: pxToDp(1),
+                borderBottomWidth: pxToDp(0.5),
                 borderBottomColor: '#ccc',
               }}>
               <View>
                 <Image
-                  source={{uri: v.user.logo}}
+                  source={{uri: v.title}}
                   style={{
                     width: pxToDp(54),
                     height: pxToDp(54),
@@ -142,8 +158,8 @@ class Index extends Component {
                   justifyContent: 'space-evenly',
                   paddingLeft: pxToDp(15),
                 }}>
-                <Text style={{color: '#666'}}>{v.user.userName}</Text>
-                <Text style={{color: '#666'}}>{v.latestMessage.text}</Text>
+                <Text style={{color: '#666'}}>{v.title}</Text>
+                <Text style={{color: '#666'}}>{v.description}</Text>
               </View>
               <View
                 style={{
@@ -151,9 +167,7 @@ class Index extends Component {
                   flex: 1,
                   alignItems: 'flex-end',
                 }}>
-                <Text style={{color: '#666'}}>
-                  {Date(v.latestMessage.createTime).fromNow()}
-                </Text>
+                <Text style={{color: '#666'}}>{Date(v.created).fromNow()}</Text>
                 <View
                   style={{
                     width: pxToDp(20),
@@ -163,7 +177,7 @@ class Index extends Component {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text style={{color: '#f7f7f7'}}>{v.unreadCount}</Text>
+                  <Text style={{color: '#f7f7f7'}}>{v.title}</Text>
                 </View>
               </View>
             </TouchableOpacity>

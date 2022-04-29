@@ -134,7 +134,7 @@ class Index extends Component {
     // }
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <GradientNavgation title="易知纸条" />
+        <GradientNavgation title="精选纸条" />
         <View style={{height: '60%', marginTop: '20%'}}>
           {cards[currentIndex] ? (
             <Swiper
@@ -233,6 +233,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#eee',
     backgroundColor: '#fff',
+    paddingLeft: pxToDp(12),
+    paddingRight: pxToDp(12),
+    paddingBottom: pxToDp(24),
   },
   text: {
     textAlign: 'center',

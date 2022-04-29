@@ -62,7 +62,7 @@ public class ApUserInfoServiceImpl implements ApUserInfoService {
 //        }
         ApUserInfo userInfo = new ApUserInfo();
 //        userInfo.setLogo(result.getName());
-        userInfo.setLogo("https://z3.ax1x.com/2021/05/22/gqLnWq.png");
+        userInfo.setLogo("https://z3.ax1x.com/2021/05/26/2SOHRU.jpg");
         //更新图片地址到userinfo
         LambdaQueryWrapper<ApUserInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ApUserInfo::getUserId, user.getId());

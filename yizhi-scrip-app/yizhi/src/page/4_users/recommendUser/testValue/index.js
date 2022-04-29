@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {WebView} from 'react-native-webview';
 import GradientNavgation from '@src/component/GradientNavgation';
 
 class Index extends Component {
+  state = {
+    uri: 'https://www.d1xz.net/test/quwei/art509528.aspx',
+  };
   render() {
+    const {uri} = this.state;
     return (
-      <View>
+      <>
         <GradientNavgation title={'测文值'} />
-      </View>
+        <WebView
+          originWhitelist={['*']}
+          source={{
+            uri: uri,
+          }}
+        />
+      </>
     );
   }
 }

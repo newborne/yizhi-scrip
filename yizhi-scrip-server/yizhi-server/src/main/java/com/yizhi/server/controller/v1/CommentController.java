@@ -5,6 +5,8 @@ import com.yizhi.server.service.v1.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * The type Comment controller.
  */
@@ -72,8 +74,8 @@ public class CommentController {
     @PostMapping("{destination}/{publishId}/text")
     public ResponseResult textComment(@PathVariable("publishId") String publishId,
                                       @PathVariable("destination") String destination,
-                                      @RequestParam(value = "text") String text) {
-        return this.commentService.textComment(destination, publishId, text);
+                                      @RequestBody Map<String, String> param) {
+        return this.commentService.textComment(destination, publishId, param.get("text"));
     }
     /**
      * Query text comment list response result.

@@ -22,20 +22,13 @@ import TouchableScale from 'react-native-touchable-scale';
 
 class Index extends Component {
   state = {
-    textContent: '',
+    text: '',
     // 经度
     longitude: '',
     // 纬度
     latitude: '',
     // 详细地址
     location: '',
-    // imageContent: [
-    //   {
-    //     "headImgShortPath": "/upload/album/18665711978/1576633170560_0.9746430185850421.jpg"
-    //   }
-    // ],
-    // 临时图片数组
-    tmpImgList: [],
     showEmotion: false,
   };
   constructor() {
@@ -64,99 +57,92 @@ class Index extends Component {
     });
   };
 
-  // 选择图片 拍摄或者选择相册中
-  handleSelectImage = () => {
-    const options = {
-      title: '选择图片',
-      cancelButtonTitle: '取消',
-      takePhotoButtonTitle: '拍照',
-      chooseFromLibraryButtonTitle: '相册',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
+  // // 选择图片 拍摄或者选择相册中
+  // handleSelectImage = () => {
+  //   const options = {
+  //     title: '选择图片',
+  //     cancelButtonTitle: '取消',
+  //     takePhotoButtonTitle: '拍照',
+  //     chooseFromLibraryButtonTitle: '相册',
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //   };
 
-    ImagePicker.launchImageLibrary(options, response => {
-      console.log('===============');
-      // console.log(response);
-      const {data, ...others} = response;
-      console.log(others);
-      console.log('===============');
+  //   ImagePicker.launchImageLibrary(options, response => {
+  //     console.log('===============');
+  //     // console.log(response);
+  //     const {data, ...others} = response;
+  //     console.log(others);
+  //     console.log('===============');
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        // 图片的数量不能超过9
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //     } else if (response.error) {
+  //       console.log('ImagePicker Error: ', response.error);
+  //     } else if (response.customButton) {
+  //       console.log('User tapped custom button: ', response.customButton);
+  //     } else {
+  //       // 图片的数量不能超过9
 
-        const {tmpImgList} = this.state;
-        if (tmpImgList.length >= 9) {
-          Toast.message('图片的数量不能超过9');
-          return;
-        }
-        tmpImgList.push(response);
-        this.setState({tmpImgList});
-      }
-    });
-  };
+  //       const {tmpImgList} = this.state;
+  //       if (tmpImgList.length >= 9) {
+  //         Toast.message('图片的数量不能超过9');
+  //         return;
+  //       }
+  //       tmpImgList.push(response);
+  //       this.setState({tmpImgList});
+  //     }
+  //   });
+  // };
 
-  // 点击图片 进行删除
-  handleImageRemove = i => {
-    const imgDelete = () => {
-      const {tmpImgList} = this.state;
-      tmpImgList.splice(i, 1);
-      this.setState({tmpImgList});
-      Toast.smile('删除成功');
-    };
-    const opts = [{title: '删除', onPress: imgDelete}];
+  // // 点击图片 进行删除
+  // handleImageRemove = i => {
+  //   const imgDelete = () => {
+  //     const {tmpImgList} = this.state;
+  //     tmpImgList.splice(i, 1);
+  //     this.setState({tmpImgList});
+  //     Toast.smile('删除成功');
+  //   };
+  //   const opts = [{title: '删除', onPress: imgDelete}];
 
-    ActionSheet.show(opts, {title: '取消'});
-  };
+  //   ActionSheet.show(opts, {title: '取消'});
+  // };
 
-  // 发动态
+  // 发创作
   submitTrend = async () => {
     /*
     1 获取用户的输入 文本内容,图片,当前位置.. 校验
     2 先将 选择到图片 上传到对应的接口 返回 图片的在线的地址
-    3 将上面的数据 结合 图片 一并提交到后台 完成 动态的发布
+    3 将上面的数据 结合 图片 一并提交到后台 完成 创作的发布
     4 返回上一个页面  推荐页面
      */
-    const {textContent, location, longitude, latitude, tmpImgList} = this.state;
-    if (
-      !textContent ||
-      !location ||
-      !longitude ||
-      !latitude ||
-      !tmpImgList.length
-    ) {
+    const {text, location, longitude, latitude, tmpImgList} = this.state;
+    if (!text || !location || !longitude || !latitude) {
       Toast.message('输入不合法');
       return;
     }
-    // 图片上传的代码
-    // const imageContent = await this.uploadImage();
-    const imageContent = '';
 
-    const params = {textContent, location, longitude, latitude, imageContent};
+    const params = {text, location, longitude, latitude};
 
     const res = await Request.privatePost(POST_PUBLISH, params);
 
     // console.log(res);
-    Toast.smile('发布动态成功');
+    if (res.ok) {
+      Toast.smile('发布创作成功');
+    }
 
-    setTimeout(() => {
-      // navigate 或者 goBack 都错误
-      // 1 tabbar -> friend -> 圈子group -> 发动态  组件内部 生命周期 componentsDidMount
-      // 2 返回上一个页面 => group-推荐  不会触发 componentsDidMount
-      // 3 返回上一个页面 没有办法在推荐页面 看到最新的动态!!
+    // setTimeout(() => {
+    //   // navigate 或者 goBack 都错误
+    //   // 1 tabbar -> friend -> 圈子group -> 发创作  组件内部 生命周期 componentsDidMount
+    //   // 2 返回上一个页面 => group-推荐  不会触发 componentsDidMount
+    //   // 3 返回上一个页面 没有办法在推荐页面 看到最新的创作!!
 
-      this.props.navigation.reset({
-        routes: [{name: 'Tabbar', params: {pagename: 'group'}}],
-      });
-    }, 2000);
+    //   this.props.navigation.reset({
+    //     routes: [{name: 'Tabbar', params: {pagename: 'group'}}],
+    //   });
+    // }, 2000);
   };
 
   // 上传图片
@@ -224,7 +210,7 @@ class Index extends Component {
           textAlignVertical="top"
         />
         {/*相册*/}
-        <View style={{paddingTop: pxToDp(5), paddingBottom: pxToDp(5)}}>
+        {/* <View style={{paddingTop: pxToDp(5), paddingBottom: pxToDp(5)}}>
           <ScrollView horizontal>
             {tmpImgList.map((v, i) => (
               <TouchableOpacity
@@ -238,7 +224,7 @@ class Index extends Component {
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </View>
+        </View> */}
         {/*工具栏*/}
         <View
           style={{
@@ -260,12 +246,12 @@ class Index extends Component {
                 fontSize: pxToDp(16),
                 color: '#aaa',
                 marginLeft: pxToDp(5),
-                marginRight: pxToDp(5),
+                marginRight: pxToDp(40),
               }}>
               {location || '位置'}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={this.handleSelectImage}
             style={{
               marginLeft: pxToDp(40),
@@ -277,17 +263,23 @@ class Index extends Component {
               style={{fontSize: pxToDp(30), color: '#666'}}
               name="iconImage"
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         {/*发布*/}
         <View>
           <TouchableScale
+            friction={90} //
+            tension={124} // These props are passed to the parent component (here TouchableScale)
+            activeScale={0.95} //
             style={{
+              marginTop: pxToDp(20),
               marginBottom: pxToDp(30),
               marginLeft: pxToDp(20),
+              width: pxToDp(128),
+              height: pxToDp(64),
+              flexDirection: 'row',
             }}
-            // onPress={() => this.context.navigate('Publish')}
-          >
+            onPress={this.submitTrend}>
             <LinearGradient
               colors={['#39DBD5', '#37DC8A']}
               start={{x: 0, y: 0}}
@@ -304,6 +296,15 @@ class Index extends Component {
                 name="iconLogo"
               />
             </LinearGradient>
+            <View style={{justifyContent: 'center', marginLeft: pxToDp(12)}}>
+              <Text
+                style={{
+                  color: '#aaa',
+                  fontSize: pxToDp(16),
+                }}>
+                发布
+              </Text>
+            </View>
           </TouchableScale>
         </View>
       </InputScrollView>

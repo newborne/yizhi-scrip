@@ -16,99 +16,53 @@ import {EMOTIONS_DATA} from '@src/component/Emotion/datasource';
 import Date from '@src/util/Date';
 import {ActionSheet} from 'teaset';
 import {pxToDp} from '@src/util/pxToDp';
+import Toast from '@src/util/Toast';
+import {
+  USERS_LIST,
+  MATERIAL_TYPE,
+  POST_FRIEND,
+  POST_ID_LIKE,
+  POST_ID_LOVE,
+} from '@src/util/Api';
+import {NavigationContext} from '@react-navigation/native';
+import Request from '@src/util/Request';
 class Index extends Component {
+  static contextType = NavigationContext;
   params = {
     page: 1,
     pagesize: 3,
   };
+  totalPages = 2;
   state = {
     list: [
-      {
-        age: 12,
-        agediff: 0,
-        comment_count: 12,
-        title: '测试标题',
-        content:
-          '      人生，其实就是一次过程，很多事，很多人，失败过，经历过才会懂，才会成熟。当失败来临的时候，不要伤悲，而应该看作是一次成长的机会，一次锻炼的机会。冲过去，会更美好、更灿烂的生活等着你，更会有一番成就感；如果退而不前，那只能迎来更多的失败，更多人生的遗憾/{weixiao}',
-        create_time: '2021-05-13T15:50:58.000Z',
-        dist: 800,
-        sex: '女',
-        guid: '151321658241620920808616',
-        logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-        images: [
-          {
-            thum_img_path: 'https://z3.ax1x.com/2021/05/26/2SOHRU.jpg',
-          },
-        ],
-        like_count: 0,
-        marry: '',
-        mobile: '15132165824',
-        userName: '孤独的小王子',
-        star_count: 4,
-        tid: 264,
-        uid: 1913,
-        edu: '六年级',
-      },
-      {
-        age: 12,
-        agediff: 0,
-        comment_count: 0,
-        title: '测试标题',
-        content:
-          '生活如酒，或芳香，或浓烈，因为诚实，它变得醇厚；生活如歌，或高昂，或低沉，因为守信，它变得悦耳；生活如画，或明丽，或素雅，因为诚信，它变得美丽。',
-        create_time: '2021-05-16T13:55:06.000Z',
-        dist: 1062,
-        sex: 'man',
-        guid: '132569874521621002050048',
-        logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-        images: [
-          {
-            thum_img_path: 'https://z3.ax1x.com/2021/05/26/2SOHRU.jpg',
-          },
-        ],
-        like_count: 0,
-        marry: '',
-        mobile: '13256987452',
-        userName: '美丽的雅马哈',
-        star_count: 0,
-        tid: 292,
-        uid: 1933,
-        edu: '六年级',
-      },
-      {
-        age: 12,
-        agediff: 0,
-        title: '测试标题',
-        comment_count: 4,
-        content:
-          '流光容易把人抛，红了樱桃，绿了芭蕉。走在自己生命路上，有时很难看清自己是否走了弯路。不妨跳出来，调准焦距，才能照出最好生活。/{ziya}/{ziya}',
-        create_time: '2021-05-14T11:37:53.000Z',
-        dist: 466,
-        sex: 'man',
-        guid: '153285668741620992107584',
-        logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-        images: [
-          {
-            thum_img_path: 'https://z3.ax1x.com/2021/05/26/2SOHRU.jpg',
-          },
-        ],
-        like_count: 1,
-        marry: '',
-        mobile: '15328566874',
-        userName: '奋斗的少年',
-        star_count: 2,
-        tid: 283,
-        uid: 1925,
-        edu: '六年级',
-      },
+      // "id": "622dcdc17c84e8540c1dc9a9",
+      // 	"userId": 2,
+      // 	"logo": "https://z3.ax1x.com/2021/05/22/gqLnWq.png",
+      // 	"nickName": "yizhi_user_02",
+      // 	"sex": "man",
+      // 	"age": 17,
+      // 	"tags": [
+      // 		"高一",
+      // 		"诗歌",
+      // 		"敬业"
+      // 	],
+      // 	"text": "用户2的创作2",
+      // 	"medias": [],
+      // 	"distance": "0.31km",
+      // 	"created": "2022-03-13 18:56:1",
+      // 	"likeCount": 1,
+      // 	"commentCount": 0,
+      // 	"loveCount": 0,
+      // 	"hasLiked": 1,
+      // 	"hasLoved": 0
     ],
     showAlbum: false,
     imgUrls: [],
     currentIndex: 0,
   };
-  // componentDidMount() {
-  //   this.getList();
-  // }
+  componentDidMount() {
+    this.getList();
+  }
   // 渲染富文本内容
   rendeRichText = text => {
     const list = Validator.renderRichText(text);
@@ -132,101 +86,75 @@ class Index extends Component {
       }
     });
   };
-  // // 获取 推荐动态的数据
-  // getList = async (isNew = false) => {
-  //   const res = await request.privateGet(QZ_TJDT, this.params);
-  //   console.log(res);
-  //   if (isNew) {
-  //     // 重置数据
-  //     this.setState({list: res.data});
-  //   } else {
-  //     this.setState({list: [...this.state.list, ...res.data]});
-  //   }
-  //   this.totalPages = res.pages;
-  //   this.isLoading = false;
-  // };
-  // 滚动条触底事件
-  // onEndReached = () => {
-  //   /*
-  // 1 判断还有没有下一页数据
-  // 2 节流阀
-  //  */
-  //   if (this.params.page >= this.totalPages || this.isLoading) {
-  //     return;
-  //   } else {
-  //     // 还有下一页数据
-  //     this.isLoading = true;
-  //     this.params.page++;
-  //     this.getList();
-  //   }
-  // };
-
-  // // 点赞
-  // handleStar = async item => {
-  //   /*
-  // 1 构造点赞参数 发送请求
-  // 2 返回值里 提示 点赞成功还是取消点赞
-  // 3 点赞成功 =>  通过极光 给发送一条消息 "xxx 点赞了你的动态"
-  // 4 重新发送请求 获取 列表数据-> 渲染
-  //  */
-  //   const url = QZ_DT_DZ.replace(':id', item.tid);
-  //   const res = await request.privateGet(url);
-  //   console.log(res);
-  //   // 点赞成功 还是 取消点赞
-  //   if (res.data.iscancelstar) {
-  //     // 取消点赞
-  //     Toast.smile('取消成功');
-  //   } else {
-  //     // 点赞成功
-  //     Toast.smile('点赞成功');
-
-  //     const text = `${this.props.UserStore.user.userName} 点赞了你的动态`;
-  //     const extras = {user: JSON.stringify(this.props.UserStore.user)};
-  //     JMessage.sendTextMessage(item.guid, text, extras);
-  //   }
-
-  //   // 重新发送请求 获取数据
-  //   // this.setState({ list: [] });
-  //   this.params.page = 1;
-  //   this.getList(true);
-  // };
-
-  // // 喜欢
-  // handleLike = async item => {
-  //   const url = QZ_DT_XH.replace(':id', item.tid);
-  //   const res = await request.privateGet(url);
-  //   // console.log(res);
-  //   if (res.data.iscancelstar) {
-  //     // 取消喜欢
-  //     Toast.smile('取消喜欢');
-  //   } else {
-  //     // 喜欢成功
-  //     Toast.smile('喜欢成功');
-  //   }
-
-  //   this.params.page = 1;
-  //   this.getList(true);
-  // };
-
-  // 点击 更多 按钮
-  handleMore = async item => {
-    const opts = [
-      {title: '举报', onPress: () => alert('举报')},
-      {title: '不感兴趣', onPress: () => alert('不感兴趣')},
-    ];
-    ActionSheet.show(opts, {title: '取消'});
+  // 获取 推荐创作的数据
+  getList = async (isNew = false) => {
+    const res = await Request.privateGet(POST_FRIEND, this.params);
+    console.log(res);
+    if (isNew) {
+      // 重置数据
+      this.setState({list: res.data.records});
+    } else {
+      this.setState({list: [...this.state.list, ...res.data.records]});
+    }
+    this.totalPages = res.pages;
+    this.isLoading = false;
+  };
+  滚动条触底事件;
+  onEndReached = () => {
+    /*
+  1 判断还有没有下一页数据
+  2 节流阀
+   */
+    if (this.params.page >= this.totalPages || this.isLoading) {
+      return;
+    } else {
+      // 还有下一页数据
+      this.isLoading = true;
+      this.params.page++;
+      this.getList();
+    }
   };
 
-  // // 不感兴趣 => 获取动态列表的时候 里面就不会出现当前用户
-  // noInterest = async item => {
-  //   const url = QZ_DT_BGXQ.replace(':id', item.tid);
-  //   const res = await request.privateGet(url);
+  // 点赞
+  handLike = async item => {
+    /*
+  1 构造点赞参数 发送请求
+  2 返回值里 提示 点赞成功还是取消点赞
+   */
+    const url = POST_ID_LIKE.replace(':id', item.id);
+    const res = await Request.privateGet(url);
+    console.log(res);
+    // 点赞成功 还是 取消点赞
+    if (!res.ok) {
+      // 取消点赞
+      Toast.smile('取消成功');
+    } else {
+      // 点赞成功
+      Toast.smile('点赞成功');
+    }
 
-  //   Toast.smile('操作成功');
+    // 重新发送请求 获取数据
+    // this.setState({ list: [] });
+    this.params.page = 1;
+    this.getList(true);
+  };
 
-  //   this.params.page = 1;
-  //   this.getList(true);
-  // };
+  // 喜欢
+  handLove = async item => {
+    const url = POST_ID_LOVE.replace(':id', item.id);
+    const res = await Request.privateGet(url);
+    // console.log(res);
+    if (!res.ok) {
+      // 取消喜欢
+      Toast.smile('取消喜欢');
+    } else {
+      // 喜欢成功
+      Toast.smile('喜欢成功');
+    }
+
+    this.params.page = 1;
+    this.getList(true);
+  };
 
   // 点击相册图片放大
   handleShowAlbum = (index, ii) => {
@@ -246,7 +174,13 @@ class Index extends Component {
     return (
       <>
         <FlatList
-          style={{backgroundColor: '#f7f7f7', marginBottom: pxToDp(12)}}
+          style={{
+            backgroundColor: '#eee',
+            marginBottom: pxToDp(12),
+            paddingLeft: pxToDp(4),
+            paddingRight: pxToDp(4),
+            paddingTop: pxToDp(8),
+          }}
           onEndReached={this.onEndReached}
           onEndReachedThreshold={0.1}
           data={list}
@@ -256,9 +190,12 @@ class Index extends Component {
               <View
                 key={index}
                 style={{
-                  padding: pxToDp(10),
-                  borderBottomColor: '#ccc',
-                  borderBottomWidth: pxToDp(1),
+                  padding: pxToDp(12),
+                  borderRadius: pxToDp(18),
+                  marginBottom: pxToDp(4),
+                  marginLeft: pxToDp(4),
+                  marginRight: pxToDp(4),
+                  backgroundColor: '#ffffff',
                 }}>
                 {/* 2.2.1 用户信息 开始 */}
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -275,7 +212,7 @@ class Index extends Component {
 
                   <View style={{flex: 2, justifyContent: 'space-around'}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <Text style={{color: '#555'}}>{item.userName}</Text>
+                      <Text style={{color: '#555'}}>{item.nickName}</Text>
                       <IconFont
                         style={{
                           marginLeft: pxToDp(5),
@@ -291,37 +228,43 @@ class Index extends Component {
                     </View>
                     <View style={{flexDirection: 'row'}}>
                       <Text style={{color: '#555', marginRight: pxToDp(5)}}>
-                        {item.edu}
+                        {item.tags[0]}
                       </Text>
                       <Text style={{color: '#555', marginRight: pxToDp(5)}}>
                         |
                       </Text>
                       <Text style={{color: '#555', marginRight: pxToDp(5)}}>
-                        {item.agediff < 10 ? '年龄相近' : '有点代沟'}
+                        {item.tags[1]}
+                      </Text>
+                      <Text style={{color: '#555', marginRight: pxToDp(5)}}>
+                        |
+                      </Text>
+                      <Text style={{color: '#555', marginRight: pxToDp(5)}}>
+                        {item.tags[2]}
                       </Text>
                     </View>
                   </View>
                   <View
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: 'column',
                       alignSelf: 'flex-end',
                       paddingTop: pxToDp(5),
                       paddingBottom: pxToDp(5),
                     }}>
                     <View>
-                      <Text style={{color: '#666'}}>距离 {item.dist} m</Text>
+                      <Text style={{color: '#999'}}>距离 {item.distance}</Text>
                     </View>
                     <View>
-                      <Text style={{color: '#666', marginLeft: pxToDp(8)}}>
-                        {Date(item.create_time).fromNow()}
+                      <Text style={{color: '#999', marginLeft: pxToDp(8)}}>
+                        {Date(item.created).fromNow()}
                       </Text>
                     </View>
                   </View>
                 </View>
                 {/* 2.2.1 用户信息 结束 */}
 
-                {/* 2.3 动态内容 开始 */}
-                <View>
+                {/* 2.3 创作内容 开始 */}
+                {/* <View>
                   <Text
                     style={{
                       alignSelf: 'center',
@@ -332,7 +275,7 @@ class Index extends Component {
                     }}>
                     {item.title}
                   </Text>
-                </View>
+                </View> */}
                 <View
                   style={{
                     marginTop: pxToDp(8),
@@ -340,9 +283,9 @@ class Index extends Component {
                     flexWrap: 'wrap',
                     alignItems: 'center',
                   }}>
-                  {this.rendeRichText(item.content)}
+                  {this.rendeRichText(item.text)}
                 </View>
-                {/* 2.3 动态内容 结束 */}
+                {/* 2.3 创作内容 结束 */}
                 {/* 2.4 相册 开始 */}
                 <View
                   style={{
@@ -351,7 +294,7 @@ class Index extends Component {
                     paddingTop: pxToDp(5),
                     paddingBottom: pxToDp(5),
                   }}>
-                  {item.images.map((vv, ii) => (
+                  {item.medias.map((vv, ii) => (
                     <TouchableOpacity
                       onPress={() => this.handleShowAlbum(index, ii)}
                       key={ii}>
@@ -361,7 +304,7 @@ class Index extends Component {
                           height: pxToDp(70),
                           marginRight: pxToDp(5),
                         }}
-                        source={{uri: vv.thum_img_path}}
+                        source={{uri: vv}}
                       />
                     </TouchableOpacity>
                   ))}
@@ -380,8 +323,7 @@ class Index extends Component {
                   }}>
                   <TouchableOpacity
                     style={{flexDirection: 'row', alignItems: 'center'}}
-                    // onPress={this.handleStar.bind(this, item)}
-                  >
+                    onPress={this.handLove.bind(this, item)}>
                     <IconFont
                       style={{
                         fontSize: pxToDp(24),
@@ -391,10 +333,10 @@ class Index extends Component {
                       }}
                       name="iconLove"
                     />
-                    <Text style={{color: '#666'}}>{item.star_count}</Text>
+                    <Text style={{color: '#666'}}>{item.loveCount}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    // onPress={this.goComment.bind(this, item)}
+                    onPress={() => this.context.navigate('Comment', item)}
                     style={{flexDirection: 'row', alignItems: 'center'}}>
                     <IconFont
                       style={{
@@ -405,10 +347,10 @@ class Index extends Component {
                       }}
                       name="iconComment"
                     />
-                    <Text style={{color: '#666'}}>{item.comment_count}</Text>
+                    <Text style={{color: '#666'}}></Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    // onPress={this.handleLike.bind(this, item)}
+                    onPress={this.handLike.bind(this, item)}
                     style={{flexDirection: 'row', alignItems: 'center'}}>
                     <IconFont
                       style={{
@@ -419,7 +361,7 @@ class Index extends Component {
                       }}
                       name="iconLike"
                     />
-                    <Text style={{color: '#666'}}>{item.like_count}</Text>
+                    <Text style={{color: '#666'}}>{item.likeCount}</Text>
                   </TouchableOpacity>
                 </View>
                 {/* 2.6 3个小图标 结束 */}

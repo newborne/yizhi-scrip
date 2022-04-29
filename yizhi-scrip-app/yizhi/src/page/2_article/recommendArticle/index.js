@@ -1,154 +1,63 @@
 import React, {Component} from 'react';
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import Date from '@src/util/Date';
+import TouchableScale from 'react-native-touchable-scale';
 import {pxToDp} from '@src/util/pxToDp';
+import {USERS_LIST, ARTICLE_RECOMMEND_V1} from '@src/util/Api';
 import {NavigationContext} from '@react-navigation/native';
+import Request from '@src/util/Request';
 
 class Index extends Component {
   static contextType = NavigationContext;
   state = {
-    list: [
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '动人的微笑',
-          content:
-            '以前，我是一个脆弱的人，经不起一点儿的困难与挫折。但是从那一幕之后，我变了，变得自信与坚强，我不会忘记，是那拨动心弦的微笑给了我无限的勇气。\n' +
-            '    那是一次竞赛失利后，我很难过。放学了，同学们都陆续地离开了，唯有我独自一人，坐在那空旷无人的操场上。校园在夕阳的映衬下显得格外凝重。树上的知了依旧不知疲倦地鸣叫，仿佛和我一样，烦闷、忧郁。\n' +
-            '    突然间，我看到了校园里那棵广玉兰。她在夕阳的映照下，分外孤寂。但她依然昂然挺\n' +
-            '立在那儿，任寒风吹拂她干燥的面颊，任暴雨击打她疲惫的身躯。她，是那么坚强；她，是那么勇敢；她，是那么倔强；她，是那么执著！\n' +
-            '    想着想着，突然发现，广玉兰树下出现了一个美丽的身影。她就是我的语文老师，她微笑着，仿佛是正在盛开的广玉兰花，如此纯洁，如此美丽。她朝我走来，牵起我，一直到广玉兰的树下，我们一同坐着广玉兰花下，细心体会着这顽强的生命。她，依旧微笑着。只是，那微笑好似三月的春风轻拂我的脸颊，好似六月的细雨滋润我干涸的内心，好似母亲的疼爱亲吻。她什么也没说，只是一直微笑着，微笑着……\n' +
-            '    顿时，我恍然大悟，这慧心的微笑是想让我明白，微笑是使广玉兰经历风雨，但依然屹\n' +
-            '立不倒的原因；是使广玉兰虽无生机，但仍用微笑承受着一切。\n' +
-            '    “黑暗过后是黎明，寒冬过后是阳春”。我终于明白，经历风雨，遭受挫折是迎接微笑的前提。她，用动人心弦的微笑告诉我：“失败是为下一次的成功奠定基础。”从那拨动心弦的微笑中，我感悟到了生命的意义。\n' +
-            '    此后，无论遇到任何事，我都坚强地面对。即使想放弃的时候，想想广玉兰树下那拨动心弦的微笑，我就会抬起头，告诉自己，不能认输。\n' +
-            '    那微笑好美，好美！',
-          type: '记叙文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '传递历史的清音',
-          content:
-            '历史的长河不息，永远传递着千古帝王的悲哀。\n' +
-            '                                                  ——题记\n' +
-            '    滚滚长江，掀起了滔天巨浪。那是历史的怒吼，是帝王家族无限的惆怅。它的每一次翻滚，都卷起一场不平凡的命运。历史的清音，携着帝王们的血泪，永恒地传递下去。\n' +
-            '    奏响悠扬的清音，延伸到凄凉的远古。\n' +
-            '荒淫，泯灭人性的乐趣\n' +
-            '    酒池肉林中，落花沾染着多少无辜生命的鲜血。\n' +
-            '    为了博红颜一笑，他甘心让自己的灵魂堕入了地狱。商纣王，一个用残暴诠释爱怜的人，他的爱，造就了无数的冤魂。上天赋予了他至高无上的权利，无人能比的才能，可他却用了一个错误的方式去回馈上苍。他的爱，害了他的臣民，同时也将一切的罪过推向了他爱的人。沧桑的历史中，妲己——红颜祸水成了不可分割的两个词。虿盆里，是怨灵们的哭诉；炮烙柱下，是厉鬼们的怒号。泱泱大商，被这个曾经的天人，拖到了历史的底层。\n' +
-            '    历史的清音，氤氲着血与泪的见证。\n' +
-            '    跨越千年的长河，这清音，传递到了另一个悲剧中。\n' +
-            '无奈，沦为傀儡的命运\n' +
-            '    幽幽汉宫中，清风吹不散束缚于身的枷锁。\n' +
-            '    西汉初年，一个群雄割据的年代。自汉高祖刘邦逝世，大汉政权被太后吕雉收人囊中，各分封国接连反抗。在吕雉的脚下，却还有一个被禁锢的帝王。汉惠帝刘盈，一个生错了年代的仁君，只有任凭母后在身上缠绕一根又一根的丝线。他的心中，只有一个愿望，那就是做一个平凡人，他不愿再看到自己的生母一次又一次的造孽。从小，他亲眼看见反抗者被制成人彘的惨剧，成人后，还要被迫迎娶自己的亲外甥女。他憎恨命运，憎恨母亲的残暴，却无法为身边的人做任何事，也许他最恨的是自己的优柔寡断。或许是上天的垂怜，使他及早地离开了这纷纷扰扰的红尘，永远闭上了只能见证悲剧的双眼。\n' +
-            '    历史的清音，散发着生与死的呼唤。\n' +
-            '    又是一个千年，这清音，缓缓飘人了华美的囚牢中。\n' +
-            '失落，浪漫悲哀的词宗\n' +
-            '    独上西楼．剪不断的似水情愁。\n' +
-            '    云没孤鸿，泪泣琵琶，回首往事尽哀愁。南唐后主李煜，抚琴奏出了千古一帝的凄凉。他，迷醉在歌舞升平的浪漫中，挥霍着无尽的潇洒风流。这是一个千年难遇的词宗，却又是一个不称职的君主。以一个诗人的浪漫融人残酷的政治，让无辜的南唐随着他一起陨命。我看到，他彷徨的背影淹没在黑暗中，奏响了在孤寂的亭台中触摸悲凉的悼曲。这是历史的错孽，让一个文化天才埋没在帝王家族中。尘埃尽，硝烟散，他的悲哀将伴随着牵记而去。\n' +
-            '    历史的清音，传递着孤与愁的迷茫。\n' +
-            '    翩翩一叶扁舟，载不动许多愁，双肩扛起的，是数不尽的忧。让那一杯酒，喝尽千古曾经的承诺。传递历史的清音，让历史的沧桑在你我心中流淌。',
-          type: '议论文',
-        },
-      },
-      {
-        news: {
-          logo: 'https://z3.ax1x.com/2021/06/09/2sf7bd.jpg',
-          title: '一种思念',
-          content:
-            '当一个人静悄悄时\n' +
-            '\n' +
-            '　　一种孤独感油然而生\n' +
-            '\n' +
-            '　　当走在寂寞的小巷里时\n' +
-            '\n' +
-            '　　一种寂寞萌发而生\n' +
-            '\n' +
-            '　　我多么想要抛弃这种纠缠人的思维\n' +
-            '\n' +
-            '　　我多么想要摆脱这种念头\n' +
-            '\n' +
-            '　　可是上帝好像用一把金锁将我的思维永远留在了寂寞中\n' +
-            '\n' +
-            '　　虽不是永世不得翻身\n' +
-            '\n' +
-            '　　可是谁又能受得了寂寞的考验\n' +
-            '\n' +
-            '　　我可以痛苦，可以悲伤\n' +
-            '\n' +
-            '　　但我不能有寂寞\n' +
-            '\n' +
-            '　　因为寂寞代表着你是没有人陪伴，没有人搭理的一只枯草\n' +
-            '\n' +
-            '　　他会因为寂寞而失去生命\n' +
-            '\n' +
-            '　　他会因为寂寞失去信心\n' +
-            '\n' +
-            '　　他会因为寂寞失去尊重\n' +
-            '\n' +
-            '　　这样的感觉\n' +
-            '\n' +
-            '　　让我感到了全身的疲乏 生活的空洞无趣\n' +
-            '\n' +
-            '　　偶然间\n' +
-            '\n' +
-            '　　我看到了一句话\n' +
-            '\n' +
-            '　　“人，是在为自己而活”\n' +
-            '\n' +
-            '　　对啊，何尝不是呢？\n' +
-            '\n' +
-            '　　人生来就是来受罪的\n' +
-            '\n' +
-            '　　如果你猜不透，摸不着生活的规律\n' +
-            '\n' +
-            '　　你当然感到空虚无意\n' +
-            '\n' +
-            '　　呆呆的\n' +
-            '\n' +
-            '　　忽然有了更深的理解\n' +
-            '\n' +
-            '　　其实我并不是孤单的\n' +
-            '\n' +
-            '　　我身体上的零件\n' +
-            '\n' +
-            '　　在跟我一起分担快乐与寂寞\n' +
-            '\n' +
-            '　　原来，只要看得开，想明白了\n' +
-            '\n' +
-            '　　生活就是由你来主宰的\n' +
-            '\n' +
-            '　　为孤独的人们\n' +
-            '\n' +
-            '　　打开一扇窗\n' +
-            '\n' +
-            '　　希望你能走进来',
-          type: '诗歌',
-        },
-      },
-    ],
+    list: [],
+  };
+  componentDidMount() {
+    this.getlist();
+  }
+  getlist = async () => {
+    const res1 = await Request.privateGet(ARTICLE_RECOMMEND_V1);
+    if (res1.ok) {
+      const list = res1.data.records;
+      this.setState({list});
+    }
+    console.log(res1);
   };
   render() {
     const {list} = this.state;
     return (
       <ScrollView>
-        <View style={{marginBottom: pxToDp(12)}}>
+        <View
+          style={{
+            marginBottom: pxToDp(12),
+            paddingLeft: pxToDp(4),
+            paddingRight: pxToDp(4),
+            paddingTop: pxToDp(8),
+            backgroundColor: '#eee',
+          }}>
           {list.map((v, i) => (
-            <TouchableOpacity
-              // onPress={() => this.context.navigate('Chat', v.news)}
+            <TouchableScale
+              friction={90} //
+              tension={124} // These props are passed to the parent component (here TouchableScale)
+              activeScale={0.95} //
+              onPress={() =>
+                this.context.navigate('ArticleDetail', {
+                  articleRid: v.articleRid,
+                })
+              }
               key={i}
               style={{
-                height: pxToDp(200),
                 flexDirection: 'row',
-                borderBottomWidth: pxToDp(1),
-                borderBottomColor: '#ccc',
+                padding: pxToDp(12),
+                backgroundColor: '#ffffff',
+                borderRadius: pxToDp(18),
+                marginBottom: pxToDp(4),
+                marginLeft: pxToDp(4),
+                marginRight: pxToDp(4),
               }}>
               <View
                 style={{
                   padding: pxToDp(15),
-                  width: '88%',
+                  width: '93%',
                 }}>
                 <Text
                   style={{
@@ -156,25 +65,42 @@ class Index extends Component {
                     fontWeight: 'bold',
                     alignSelf: 'center',
                   }}>
-                  {v.news.title}
+                  {v.title}
                 </Text>
                 <Text numberOfLines={7} style={{color: '#666'}}>
-                  {v.news.content}
+                  {v.text}
                 </Text>
               </View>
               <View
                 style={{
-                  padding: pxToDp(15),
-                  width: '12%',
-                  alignItems: 'flex-end',
+                  width: pxToDp(24),
+                  backgroundColor: '#36cfc9',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  borderRadius: pxToDp(12),
                 }}>
-                <View>
-                  <Text style={{color: '#666', fontWeight: 'bold'}}>
-                    {v.news.type}
-                  </Text>
-                </View>
+                <Text
+                  style={{
+                    marginTop: pxToDp(12),
+                    marginBottom: pxToDp(12),
+                    color: '#fff',
+                    fontSize: pxToDp(12),
+                    textAlign: 'center',
+                  }}>
+                  {v.tags[0] + '\n--\n' + v.tags[1] + '\n--\n' + v.tags[2]}
+                </Text>
               </View>
-            </TouchableOpacity>
+              <Image
+                source={{uri: 'https://z3.ax1x.com/2021/06/09/2y5BlV.png'}}
+                style={{
+                  width: pxToDp(36),
+                  height: pxToDp(36),
+                  position: 'absolute',
+                  left: pxToDp(2),
+                  top: pxToDp(2),
+                }}
+              />
+            </TouchableScale>
           ))}
         </View>
       </ScrollView>

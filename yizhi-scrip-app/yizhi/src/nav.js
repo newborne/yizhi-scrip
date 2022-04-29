@@ -19,6 +19,10 @@ import Feedback from '@src/page/5_info/feedback';
 import UpdateUserInfo from '@src/page/5_info/updateUserInfo';
 import Friend from '@src/page/5_info/friend';
 import Shop from '@src/page/5_info/shop';
+import UserDetail from '@src/page/4_users/userDetail';
+import MaterialDetail from '@src/page/1_material/materialDetail';
+import ArticleDetail from '@src/page/2_article/articleDetail';
+import Comment from '@src/page/3_publish/comment';
 
 const Stack = createStackNavigator();
 @inject('RootStore')
@@ -36,7 +40,7 @@ class Nav extends React.Component {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName={'UserInfo'}>
+          initialRouteName={'Login'}>
           <Stack.Screen name="Demo" component={Demo} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserInfo" component={UserInfo} />
@@ -54,6 +58,10 @@ class Nav extends React.Component {
           <Stack.Screen name="UpdateUserInfo" component={UpdateUserInfo} />
           <Stack.Screen name="Friend" component={Friend} />
           <Stack.Screen name="Shop" component={Shop} />
+          <Stack.Screen name="UserDetail" component={UserDetail} />
+          <Stack.Screen name="MaterialDetail" component={MaterialDetail} />
+          <Stack.Screen name="ArticleDetail" component={ArticleDetail} />
+          <Stack.Screen name="Comment" component={Comment} />
         </Stack.Navigator>
       </NavigationContainer>
     );

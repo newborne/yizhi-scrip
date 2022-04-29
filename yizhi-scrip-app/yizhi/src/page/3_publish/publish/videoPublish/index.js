@@ -5,7 +5,7 @@ class Index extends Component {
   render() {
     return (
       <View>
-        <Text>Hello</Text>
+        <Text>待开发……</Text>
       </View>
     );
   }

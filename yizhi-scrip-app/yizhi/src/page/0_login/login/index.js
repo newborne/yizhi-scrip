@@ -326,7 +326,7 @@ class Index extends Component {
                 fontWeight: 'bold',
                 alignSelf: 'center',
               }}>
-              易知
+              作文纸条
             </Text>
           </View>
         </View>

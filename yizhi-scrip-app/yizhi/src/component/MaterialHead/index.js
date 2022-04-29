@@ -56,7 +56,7 @@ class Index extends Component {
           </View>
           <Text
             style={{fontSize: pxToDp(16), marginTop: pxToDp(4), color: '#fff'}}>
-            纸 条
+            精选纸条
           </Text>
         </TouchableScale>
         <TouchableScale

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {BASE_URL} from '@src/util/Api';
 import Toast from '@src/util/Toast';
-import RootStore from '@src/store';
+import RootStore from '@src/store/rootStore';
 
 const instance = axios.create({
   baseURL: BASE_URL,

@@ -63,7 +63,7 @@ public class CommentApiImpl implements CommentApi {
     @Override
     public List<Comment> queryTextCommentList(String publishId, Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Order.desc("created")));
-        Query query = Query.query(Criteria.where("publishId").is(new ObjectId(publishId)).and("commentType").is(2))
+        Query query = Query.query(Criteria.where("publishId").is(new ObjectId(publishId)).and("commentType").is(3))
                 .with(pageRequest);
         return this.mongoTemplate.find(query, Comment.class);
     }

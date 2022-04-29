@@ -1,7 +1,7 @@
 import CityJson from '@src/res/json/citys.json';
 import Picker from 'react-native-picker';
-import DatePicker from 'react-native-datepicker';
-import Date from '@src/util/Date';
+import DatePicker from 'react-native-datepicker-2021';
+import date from '@src/util/Date';
 import React, {Component} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import GradientNavgation from '@src/component/GradientNavgation';
@@ -20,7 +20,10 @@ import IconFont from '@src/component/IconFont';
 import TouchableScale from 'react-native-touchable-scale';
 import LinearGradient from 'react-native-linear-gradient';
 import {BackgroundImage} from 'react-native-elements/dist/config';
+import {inject, observer} from 'mobx-react';
 
+@inject('UserStore')
+@observer
 class Index extends Component {
   state = {
     // 是否显示 昵称输入框
@@ -70,7 +73,7 @@ class Index extends Component {
   uploadHeadImg = image => {
     // 构造参数 发送到后台 完成 头像上传
     let formData = new FormData();
-    formData.append('headPhoto', {
+    formData.append('logo', {
       // 本地图片的地址
       uri: image.path,
       // 图片的类型
@@ -78,8 +81,6 @@ class Index extends Component {
       // 图片的名称 file:///store/com/pic/dsf/d343.jpg
       name: image.path.split('/').pop(),
     });
-    // 因为 我们打开了 调式模式  调试工具 对网络拦截处理 导致一些请求失败
-    // 不要打开任何调试工具 只使用控制台即可
     // 执行头像上传
     return Request.privatePost(USERS_SAVE_USER_LOGO, formData, {
       headers: {
@@ -162,29 +163,14 @@ class Index extends Component {
 
   render() {
     const {showUserName, showSex, user} = this.state;
+    const dateNow = new Date();
+    const currentDate = `${dateNow.getFullYear()}-${
+      dateNow.getMonth() + 1
+    }-${dateNow.getDate()}`;
     return (
       <View style={{height: '100%'}}>
         <GradientNavgation title="个人信息" />
-        <DatePicker
-          androidMode="spinner"
-          style={{
-            width: '100%',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            opacity: 0,
-          }}
-          Date={Date(user.birthday).format('YYYY-MM-DD')}
-          mode="Date"
-          placeholder="设置生日"
-          format="YYYY-MM-DD"
-          minDate="1900-01-01"
-          maxDate={Date(new Date()).format('YYYY-MM-DD')}
-          confirmBtnText="确定"
-          cancelBtnText="取消"
-          // onDateChange={this.updateBirthday}
-        />
+
         <Overlay
           visible={showUserName}
           onBackdropPress={() => this.setState({showUserName: false})}>
@@ -304,8 +290,28 @@ class Index extends Component {
                 生日
               </ListItem.Title>
               <ListItem.Title style={{color: '#000', fontWeight: 'bold'}}>
-                {Date(user.birthday).format('YYYY-MM-DD')}
+                {date(user.birthday).format('YYYY-MM-DD')}
               </ListItem.Title>
+              <DatePicker
+                androidMode="spinner"
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  height: '100%',
+                  opacity: 0,
+                }}
+                date={date(user.birthday).format('YYYY-MM-DD')}
+                mode="date"
+                placeholder="选择生日"
+                format="YYYY-MM-DD"
+                minDate="1900-01-01"
+                maxDate={currentDate}
+                confirmBtnText="确定"
+                cancelBtnText="取消"
+                onDateChange={this.birthdayUpdate}
+              />
             </ListItem.Content>
             <ListItem.Chevron color="#000" />
           </ListItem>

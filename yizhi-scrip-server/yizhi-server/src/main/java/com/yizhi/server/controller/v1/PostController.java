@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 /**
  * The type Post controller.
  */
@@ -17,24 +19,16 @@ public class PostController {
     /**
      * Save post response result.
      *
-     * @param text          the text
-     * @param location      the location
-     * @param longitude     the longitude
-     * @param latitude      the latitude
-     * @param multipartFile the multipart file
+     * @param param the param
      * @return the response result
      */
     @PostMapping("publish")
-    public ResponseResult savePost(@RequestParam(value = "text") String text,
-                                   @RequestParam(value = "location") String location,
-                                   @RequestParam(value = "longitude") String longitude,
-                                   @RequestParam(value = "latitude") String latitude,
-                                   @RequestParam(value = "medias") MultipartFile[] multipartFile) {
-        return this.postService.savePost(text,
-                location,
-                longitude,
-                latitude,
-                multipartFile);
+    public ResponseResult savePost(@RequestBody Map<String, String> param) {
+        return this.postService.savePost(param.get("text"),
+                param.get("location"),
+                param.get("longitude"),
+                param.get("latitude"),
+                null);
     }
     /**
      * Query friend post list response result.

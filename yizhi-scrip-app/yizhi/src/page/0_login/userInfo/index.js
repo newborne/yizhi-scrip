@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-datepicker-2021';
 import Picker from 'react-native-picker';
 import {inject, observer} from 'mobx-react';
 import {LOGIN_SAVE_USER_INFO, LOGIN_SAVE_USER_LOGO} from '@src/util/Api';
@@ -74,7 +74,7 @@ class Index extends Component {
     1 校验 用户的昵称 生日 当前地址 city
     2 使用图片裁剪插件
     3 将选择好的图片 上传到 后台
-      1 rn中想要显示gif动态图 需要做一些配置
+      1 rn中想要显示gif创作图 需要做一些配置
     4 用户的昵称 生日 当前地址 .. 头像的地址  提交到后台 -> 完成 信息填写
     5 成功
       1 执行 极光注册 极光的登录
@@ -226,8 +226,6 @@ class Index extends Component {
       // 图片的名称 file:///store/com/pic/dsf/d343.jpg
       name: image.path.split('/').pop(),
     });
-    // 因为 打开了 调式模式  调试工具 对网络拦截处理 导致一些请求失败
-    // 不要打开任何调试工具 只使用控制台即可
     // 执行头像上传
     return Request.privatePost(LOGIN_SAVE_USER_LOGO, formData, {
       headers: {

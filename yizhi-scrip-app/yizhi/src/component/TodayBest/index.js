@@ -2,22 +2,25 @@ import React, {Component} from 'react';
 import {View, Text, Image} from 'react-native';
 import {pxToDp} from '@src/util/pxToDp';
 import IconFont from '@src/component/IconFont';
+import Request from '@src/util/Request';
+import {USERS_RECOMMEND_USER_LIST, USERS_TODAYBEST} from '@src/util/Api';
 class Index extends Component {
   state = {
     todayBest: {
-      id: 8,
-      logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
-      userName: 'yizhiuser_8',
-      sex: 'man',
-      age: 15,
-      tags: ['六年级，年龄相近'],
-      similarity: 97,
+      // id: 8,
+      // logo: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
+      // userName: 'yizhiuser_8',
+      // sex: 'man',
+      // age: 15,
+      // tags: ['六年级，年龄相近'],
+      // similarity: 97,
     },
   };
-  // async componentDidMount() {
-  //   const res = await request.privateGet(FRIENDS_TODAYBEST);
-  //   this.setState({todayBest: res});
-  // }
+  async componentDidMount() {
+    const res = await Request.privateGet(USERS_TODAYBEST);
+    this.setState({todayBest: res.data});
+    console.log(todayBest.tags);
+  }
   render() {
     const {todayBest} = this.state;
     return (
@@ -53,7 +56,7 @@ class Index extends Component {
         <View style={{flex: 1, flexDirection: 'row', paddingLeft: pxToDp(12)}}>
           <View style={{flex: 2, justifyContent: 'space-around'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{color: '#666'}}>{todayBest.userName}</Text>
+              <Text style={{color: '#666'}}>{todayBest.nickName}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
               <IconFont
@@ -63,12 +66,19 @@ class Index extends Component {
                   marginRight: pxToDp(5),
                   color: todayBest.sex === 'woman' ? '#36cfc9' : '#37DC8A',
                 }}
-                name={todayBest.sex === 'woman' ? 'iconWoman' : 'iconMan'}
+                name={
+                  todayBest.sex === 'woman' ? 'iconWomanMini' : 'iconManMini'
+                }
               />
               <Text style={{color: '#666'}}>{todayBest.age}岁</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{color: '#999'}}>{todayBest.tags}</Text>
+              <Text>{todayBest.tags}</Text>
+              {/* {todayBest.tags((v, i) => (
+                <Text style={{color: '#555', marginRight: pxToDp(5)}} key={i}>
+                  {v} |
+                </Text>
+              ))} */}
             </View>
           </View>
           <View
