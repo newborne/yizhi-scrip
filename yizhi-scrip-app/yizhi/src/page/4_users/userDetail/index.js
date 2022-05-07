@@ -64,42 +64,6 @@ class Index extends Component {
     });
   };
 
-  // // 点击 显示相册大图
-  // handleShowAlbum = (i, ii) => {
-  //   const imgUrls = this.state.userDetail.records[i].album.map(v => ({
-  //     url: BASE_URI + v.thum_img_path,
-  //   }));
-  //   const currentIndex = ii;
-  //   const showAlbum = true;
-  //   this.setState({imgUrls, currentIndex, showAlbum});
-  // };
-
-  // // 列表滚动事件
-  // onScroll = ({nativeEvent}) => {
-  //   // 1. `nativeEvent.contentSize.height`  列表内容的高度
-  //   // 2. `nativeEvent.layoutMeasurement.height` 可视区域的高度
-  //   // 3. `nativeEvent.contentOffset.y` 滚动条距离顶部的高度
-
-  //   // console.log("列表内容的高度",nativeEvent.contentSize.height);
-  //   // console.log("可视区域的高度",nativeEvent.layoutMeasurement.height);
-  //   // console.log("滚动条距离顶部的高度",nativeEvent.contentOffset.y);
-
-  //   // console.log(nativeEvent.contentSize.height-nativeEvent.layoutMeasurement.height-nativeEvent.contentOffset.y);
-  //   // 滚动条触底
-  //   const isReachBottom =
-  //     nativeEvent.contentSize.height -
-  //       nativeEvent.layoutMeasurement.height -
-  //       nativeEvent.contentOffset.y <
-  //     10;
-  //   // 还有没有下一页数据
-  //   const hasMore = this.params.page < this.totalPages;
-  //   if (isReachBottom && hasMore && !this.isLoading) {
-  //     this.isLoading = true;
-  //     this.params.page++;
-  //     this.getDetail();
-  //   }
-  // };
-
   // 关注
   follow = async () => {
     const url = USERS_FOLLOW_FRIENDID.replace(
@@ -113,12 +77,6 @@ class Index extends Component {
       Toast.smile('已关注', 1000, 'center');
     }
   };
-
-  // // 点击跳转到聊天页面
-  // goChat = () => {
-  //   const {userDetail} = this.state;
-  //   this.props.navigation.navigate('Chat', userDetail);
-  // };
 
   render() {
     // console.log(this.props.route.params);

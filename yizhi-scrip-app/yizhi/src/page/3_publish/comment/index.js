@@ -110,12 +110,6 @@ class Index extends Component {
 
   // 完成编辑 发送评论
   handleSubmit = async () => {
-    /* 
-    1 获取评论内容 非空判断
-    2 开始构造参数 发送请求 完成 评论
-    3 把 输入框隐藏起来
-    4 重新发送请求 获取评论列表数据
-     */
     const {text} = this.state;
     if (!text.trim()) {
       Toast.smile('评论不能为空');

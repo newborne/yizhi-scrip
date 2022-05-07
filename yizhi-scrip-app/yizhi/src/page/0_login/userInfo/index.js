@@ -70,16 +70,6 @@ class Index extends Component {
    * 选择头像按钮
    */
   chooeseLogo = async () => {
-    /*
-    1 校验 用户的昵称 生日 当前地址 city
-    2 使用图片裁剪插件
-    3 将选择好的图片 上传到 后台
-      1 rn中想要显示gif创作图 需要做一些配置
-    4 用户的昵称 生日 当前地址 .. 头像的地址  提交到后台 -> 完成 信息填写
-    5 成功
-      1 执行 极光注册 极光的登录
-      2 跳转到交友-首页
-     */
     const {userName, birthday, city} = this.state;
     if (!userName) {
       Toast.sad('未输入昵称', 2400, 'center');
@@ -189,18 +179,11 @@ class Index extends Component {
       Toast.sad(res2.errMessage, 2400, 'center');
       return;
     }
-    //注册极光
-    const res3 = await this.registerJMessage(
-      this.props.RootStore.userId,
-      this.props.RootStore.mobile,
-    );
-    console.log(res3);
-    // 做什么 ??
-    // 1 关闭 审核的浮层
+
     overlayViewRef.close();
-    // 2 给出用户一个提示
+
     Toast.smile('审核通过', 2400, 'center');
-    // 3 跳转页面 交友页面  在登录页面 用户的判断 新旧用户的判断
+
     setTimeout(() => {
       // this.props.navigation.navigate("Tabbar");
       // this.props.navigation.reset({
@@ -223,7 +206,7 @@ class Index extends Component {
       uri: image.path,
       // 图片的类型
       type: image.mime,
-      // 图片的名称 file:///store/com/pic/dsf/d343.jpg
+      // 图片的名称
       name: image.path.split('/').pop(),
     });
     // 执行头像上传

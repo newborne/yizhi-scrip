@@ -132,44 +132,8 @@ class Index extends Component {
     if (res.ok) {
       Toast.smile('发布创作成功');
     }
-
-    // setTimeout(() => {
-    //   // navigate 或者 goBack 都错误
-    //   // 1 tabbar -> friend -> 圈子group -> 发创作  组件内部 生命周期 componentsDidMount
-    //   // 2 返回上一个页面 => group-推荐  不会触发 componentsDidMount
-    //   // 3 返回上一个页面 没有办法在推荐页面 看到最新的创作!!
-
-    //   this.props.navigation.reset({
-    //     routes: [{name: 'Tabbar', params: {pagename: 'group'}}],
-    //   });
-    // }, 2000);
   };
 
-  // 上传图片
-  // uploadImage = async () => {
-  //   // 1 获取用户选择了的 图片
-  //   const {tmpImgList} = this.state;
-  //   if (tmpImgList.length) {
-  //     const params = new FormData();
-  //     tmpImgList.forEach(v => {
-  //       const imgObj = {
-  //         uri: 'file://' + v.path,
-  //         name: v.fileName,
-  //         type: 'application/octet-stream',
-  //       };
-  //       params.append('images', imgObj);
-  //     });
-  //
-  //     const res = await Request.privatePost(POST_PUBLISH, params, {
-  //       headers: {'Content-type': 'multipart/form-data;charset=utf-8'},
-  //     });
-  //     return Promise.resolve(
-  //       res.data.map(v => ({headImgShortPath: v.headImgShortPath})),
-  //     );
-  //   } else {
-  //     return Promise.resolve([]);
-  //   }
-  // };
   render() {
     const {text, title, location, tmpImgList, showEmotion} = this.state;
     return (
@@ -209,22 +173,7 @@ class Index extends Component {
           multiline
           textAlignVertical="top"
         />
-        {/*相册*/}
-        {/* <View style={{paddingTop: pxToDp(5), paddingBottom: pxToDp(5)}}>
-          <ScrollView horizontal>
-            {tmpImgList.map((v, i) => (
-              <TouchableOpacity
-                key={i}
-                style={{marginLeft: pxToDp(5), marginRight: pxToDp(5)}}
-                onPress={this.handleImageRemove.bind(this, i)}>
-                <Image
-                  source={{uri: v.uri}}
-                  style={{width: pxToDp(50), height: pxToDp(50)}}
-                />
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View> */}
+
         {/*工具栏*/}
         <View
           style={{

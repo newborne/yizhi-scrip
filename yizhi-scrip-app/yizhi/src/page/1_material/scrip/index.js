@@ -31,7 +31,7 @@ class Index extends Component {
         header: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
         nick_name: '天下兴亡匹夫有责',
         age: '------',
-        gender: '议论文',
+        gender: '',
         marry: '爱国',
         xueli: '豪放',
         dist: 0,
@@ -41,7 +41,7 @@ class Index extends Component {
         header: 'https://z3.ax1x.com/2021/05/22/gqLnWq.png',
         nick_name: '捐躯赴国难，视死忽如归。 曹植 《白马篇》',
         age: 21,
-        gender: '女',
+        gender: '',
         marry: '爱国',
         xueli: '豪放',
         dist: 0,
@@ -62,7 +62,7 @@ class Index extends Component {
         nick_name:
           '诚信是道路，随着开拓者的脚步延伸；诚信是智慧，随着博学者的求索积累；诚信是成功，随着奋进者的拼搏临近；诚信是财富的种子，只要你诚心种下，就能找到打开金库的钥匙。',
         age: 21,
-        gender: '女',
+        gender: '',
         marry: '诚信',
         xueli: '段落',
         dist: 0,
@@ -74,26 +74,15 @@ class Index extends Component {
     super();
     this.swiperRef = React.createRef();
   }
-  componentDidMount() {
-    // this.getFriendsCards();
-  }
+  componentDidMount() {}
 
-  // 获取要渲染的数据
   getFriendsCards = async () => {
     const res = await Request.privateGet(MATERIAL_RECOMMEND_V2, this.params);
     this.totalPages = res.pages;
     this.setState({cards: [...this.state.cards, ...res.data]});
   };
 
-  // 设置用户喜欢或者不喜欢
   setLike = async type => {
-    /*
-    1 如何通过js的方式来swiper滑动
-      swiper的Ref 来实现 获取到swiper的ref => swipeLeft()
-    2 根据滑动方向或者 参数 来构造数据 将他们发送到后台
-      1 先知道当前被操作的数组的元素-索引
-     */
-
     //  this.swiperRef.swipeLeft();
     //  this.swiperRef.swipeRight();
     // console.log(this.state.currentIndex);
@@ -105,7 +94,6 @@ class Index extends Component {
     }
   };
 
-  // 发送喜欢或者不喜欢
   sendLike = async type => {
     const id = this.state.cards[this.state.currentIndex].id;
     const url = MATERIAL_ID_LOVE.replace(':id', id).replace(':type', type);
@@ -113,12 +101,8 @@ class Index extends Component {
     Toast.message(res.data, 1000, 'center');
   };
 
-  // 图片滑动完毕就会触发
+  // 图片滑动
   onSwipedAll = () => {
-    /*
-    1 一定有下一页的数据 ?
-    2 简单的判断即可
-     */
     if (this.params.page >= this.totalPages) {
       Toast.message('没有下一页数据', 1000, 'center');
       return;
@@ -183,7 +167,6 @@ class Index extends Component {
           )}
         </View>
 
-        {/* 两个小图标 */}
         <View
           style={{
             flexDirection: 'row',

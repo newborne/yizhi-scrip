@@ -76,12 +76,6 @@ class Index extends Component {
     }
   };
 
-  // // 点击跳转到聊天页面
-  // goChat = () => {
-  //   const {materialDetail} = this.state;
-  //   this.props.navigation.navigate('Chat', materialDetail);
-  // };
-  // 喜欢
   handLove = async materialDetail => {
     const url = MATERIAL_ID_LOVE.replace(':id', materialDetail.id);
     const res = await Request.privateGet(url);

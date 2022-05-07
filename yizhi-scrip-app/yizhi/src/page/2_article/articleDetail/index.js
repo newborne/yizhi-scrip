@@ -47,7 +47,7 @@ class Index extends Component {
     this.getDetail();
   }
 
-  // 获取朋友详情
+  // 获取详情
   getDetail = async () => {
     console.log(this.props.route.params.articleRid);
     const url1 = ARTICLE_RID.replace(
@@ -77,17 +77,8 @@ class Index extends Component {
     }
   };
 
-  // // 点击跳转到聊天页面
-  // goChat = () => {
-  //   const {articleDetail} = this.state;
-  //   this.props.navigation.navigate('Chat', articleDetail);
-  // };
   // 点赞
   handLike = async articleDetail => {
-    /*
-  1 构造点赞参数 发送请求
-  2 返回值里 提示 点赞成功还是取消点赞
-   */
     const url = ARTICLE_ID_LIKE.replace(':id', articleDetail.id);
     const res = await Request.privateGet(url);
     console.log(res);
