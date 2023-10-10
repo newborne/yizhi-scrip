@@ -1,0 +1,186 @@
+{
+  "type": "float-area",
+  "_widgets": [
+    [
+      {
+        "widget": {
+          "constructionOptions": {
+            "factoryId": "code-editor-opener",
+            "options": {
+              "kind": "navigatable",
+              "uri": "file:///n%3A/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/App.js",
+              "floatAreaId": "2dd9a556-0330-4efa-af3f-fd08845184c1"
+            }
+          },
+          "innerWidgetState": {
+            "cursorState": [
+              {
+                "inSelectionMode": false,
+                "selectionStart": {
+                  "lineNumber": 1,
+                  "column": 1
+                },
+                "position": {
+                  "lineNumber": 1,
+                  "column": 1
+                }
+              }
+            ],
+            "viewState": {
+              "scrollLeft": 0,
+              "firstPosition": {
+                "lineNumber": 11,
+                "column": 1
+              },
+              "firstPositionDeltaTop": -10
+            },
+            "contributionsState": {
+              "editor.contrib.folding": {
+                "lineCount": 35,
+                "provider": "syntax",
+                "foldedImports": false
+              },
+              "editor.contrib.wordHighlighter": false
+            }
+          }
+        },
+        "width": 600,
+        "height": 450,
+        "spacing": 0
+      },
+      {
+        "widget": {
+          "constructionOptions": {
+            "factoryId": "code-editor-opener",
+            "options": {
+              "kind": "navigatable",
+              "uri": "file:///n%3A/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+              "floatAreaId": "2dd9a556-0330-4efa-af3f-fd08845184c1"
+            }
+          },
+          "innerWidgetState": {
+            "cursorState": [
+              {
+                "inSelectionMode": false,
+                "selectionStart": {
+                  "lineNumber": 5,
+                  "column": 8
+                },
+                "position": {
+                  "lineNumber": 5,
+                  "column": 8
+                }
+              }
+            ],
+            "viewState": {
+              "scrollLeft": 0,
+              "firstPosition": {
+                "lineNumber": 1,
+                "column": 1
+              },
+              "firstPositionDeltaTop": 0
+            },
+            "contributionsState": {
+              "editor.contrib.folding": {
+                "lineCount": 99,
+                "provider": "syntax",
+                "foldedImports": false
+              },
+              "editor.contrib.wordHighlighter": false
+            }
+          }
+        },
+        "width": 600,
+        "height": 832,
+        "spacing": 0
+      }
+    ]
+  ],
+  "_widths": [
+    600
+  ],
+  "_modelData": {
+    "connections": [
+      {
+        "startWord": {
+          "uri": "/n:/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+          "lineNumber": 19,
+          "startColumn": 28,
+          "endColumn": 36,
+          "word": "IconFont",
+          "clientX": 287,
+          "clientY": 908,
+          "height": 19,
+          "width": 61
+        },
+        "endWord": {
+          "uri": "/n:/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+          "lineNumber": 4,
+          "startColumn": 8,
+          "endColumn": 16,
+          "endLineNumber": 4,
+          "word": "",
+          "clientX": 133,
+          "clientY": 623,
+          "height": 19,
+          "width": 61
+        },
+        "id": "6abf4f17-6c71-4721-85b3-9746a35f89ff"
+      },
+      {
+        "startWord": {
+          "uri": "/n:/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+          "lineNumber": 35,
+          "startColumn": 21,
+          "endColumn": 28,
+          "word": "Article",
+          "clientX": 233,
+          "clientY": 1212,
+          "height": 19,
+          "width": 54
+        },
+        "endWord": {
+          "uri": "/n:/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+          "lineNumber": 6,
+          "startColumn": 8,
+          "endColumn": 15,
+          "endLineNumber": 6,
+          "word": "",
+          "clientX": 133,
+          "clientY": 661,
+          "height": 19,
+          "width": 54
+        },
+        "id": "d3ed6467-f6a0-47f8-850c-ca2700fa0611"
+      },
+      {
+        "startWord": {
+          "uri": "/n:/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+          "lineNumber": 24,
+          "startColumn": 21,
+          "endColumn": 29,
+          "word": "Material",
+          "clientX": 233,
+          "clientY": 1003,
+          "height": 19,
+          "width": 62
+        },
+        "endWord": {
+          "uri": "/n:/Src/Doing/GitProjects/newborne/Individuals/yizhi-scrip/yizhi-scrip-app/yizhi-temp/src/tabbar.js",
+          "lineNumber": 5,
+          "startColumn": 8,
+          "endColumn": 16,
+          "endLineNumber": 5,
+          "word": "",
+          "clientX": 133,
+          "clientY": 642,
+          "height": 19,
+          "width": 61
+        },
+        "id": "a9cbe6b1-15ea-4f37-bd12-5ce7bb6afaae"
+      }
+    ],
+    "annotations": [],
+    "highlights": []
+  }
+}
