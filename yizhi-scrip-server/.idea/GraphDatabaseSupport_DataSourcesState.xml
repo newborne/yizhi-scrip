@@ -12,7 +12,7 @@
               <option name="configuration">
                 <map>
                   <entry key="host" value="neo4j-server" />
-                  <entry key="password" value="Bujidao0" />
+                  <entry key="password" value="密码" />
                   <entry key="port" value="7687" />
                   <entry key="user" value="neo4j" />
                 </map>

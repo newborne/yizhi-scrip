@@ -32,7 +32,7 @@ public class MyBatisPlusGenerater {
     /**
      * The Sql password.
      */
-    static String sqlPassword = "Bujidao0";
+    static String sqlPassword = "密码";
     /**
      * The Table.
      */

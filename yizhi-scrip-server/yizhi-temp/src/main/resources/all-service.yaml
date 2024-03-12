@@ -3,12 +3,12 @@ spring:
     mongodb:
       uri: mongodb://centos:27017/yizhi
       username: root
-      password: Bujidao0
+      password: 密码
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://centos:3306/yizhi_scrip?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false
     username: root
-    password: Bujidao0
+    password: 密码
   cloud:
     nacos:
       discovery:
@@ -23,7 +23,7 @@ spring:
     cluster:
       nodes: centos:7001,centos:7002,centos:7003,centos:7004,centos:7005,centos:7006
       max-redirects: 5
-    password: Bujidao0
+    password: 密码
 mybatis-plus:
   type-enums-package: com.yizhi.common.model.enums
   global-config:
