@@ -1,0 +1,10 @@
+server:
+  port: 8081
+config:
+  appName: yizhi-login
+spring:
+  application:
+    name: yizhi-login
+rocketmq:
+  producer:
+    group: yizhi
