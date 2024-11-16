@@ -37,6 +37,7 @@ public class MyBatisPlusGenerater {
      * The Table.
      */
     static String table = "ap_user,ap_user_info"; // 表，用逗号隔开
+
     /**
      * The entry point of application.
      *

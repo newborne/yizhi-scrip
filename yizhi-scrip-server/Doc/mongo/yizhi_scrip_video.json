@@ -1,6 +1,8 @@
 [
   {
-    "_id": {"$oid": "622b390bc70a0d567e478ec2"},
+    "_id": {
+      "$oid": "622b390bc70a0d567e478ec2"
+    },
     "_class": "com.yizhi.common.model.pojo.mongodb.Video",
     "created": 1646999819315,
     "seeType": 1,

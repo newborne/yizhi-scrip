@@ -2,24 +2,40 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "30.0.2"
         minSdkVersion = 21
         compileSdkVersion = 30
         targetSdkVersion = 30
         ndkVersion = "21.4.7075529"
     }
     repositories {
-        google()
-        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath('com.android.tools.build:gradle:4.2.2')
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+}
+
 allprojects {
+    configurations.all {
+        resolutionStrategy {
+            force "com.facebook.react:react-native:0.67.3"
+        }
+    }
     repositories {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -36,8 +52,15 @@ allprojects {
                 excludeGroup "com.facebook.react"
             }
         }
-        google()
-        maven { url 'https://www.jitpack.io' }
-        jcenter()
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'https://maven.aliyun.com/repository/google'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/jcenter'
+        }
     }
 }
