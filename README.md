@@ -1,39 +1,86 @@
-# yizhi-scrip
+# 易知作文社交平台 yizhi-scrip
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+## 项目简介
 
-#### 软件架构
-软件架构说明
+易知作文社交平台是一款面向小初高学生及作文爱好者的移动社交应用，旨在提供一个专注于作文创作与交流的平台。用户可以在此平台上学习作文知识、锻炼写作能力、分享原创作品并获得激励，同时结交志同道合的笔友。
 
+## 核心功能
 
-#### 安装教程
+- **单点登录**：统一的登录系统，支持验证码登录、个人资料补充和人脸识别功能，确保用户身份的真实性与安全性。
+- **作文相关功能**：提供热点素材推荐、分类素材、作文推荐、在线创作等功能，帮助用户提升写作能力。
+- **社交功能**：支持交友、动态分享、创作圈、短视频分享和消息交流，促进用户互动。
+- **商城**：提供作文周边购物功能，具备一般商城的功能。
+- **我的界面**：用户可编辑个人信息、查看相互关注、创作内容、访客信息，并进行系统设置。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 技术栈
 
-#### 使用说明
+- **后端**：Java
+- **数据库**：MongoDB 3.4.4、Redis 3.2.1、Neo4j 4.2.3、MySQL 5.5 及以上
+- **Web 后台**：Vue 框架
+- **移动端**：React Native 框架
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 用户群体
 
-#### 参与贡献
+- **小学生**：家长出于教育目的希望孩子通过该产品学习作文相关知识。
+- **初高中生**：对作文需求较高，有中等程度的社交需求，具有创作潜力。
+- **作文爱好者**：有强烈的作文学习和创作需求，具有分享型的社交行为。
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## 运行环境
 
+- **服务器端**：Intel 酷睿系列 i5 四核 CPU，40G 硬盘，6GB 及以上内存，Windows Server 2008 及以上、Ubuntu 16 及以上、CentOS 7 及以上。
+- **Web 后台端**：IE 浏览器版本 12.0 及以上，Chromium 内核 78 及以上。
+- **移动客户端**：5 英寸屏幕，Android 7.0 及以上，iOS 7.1 及以上。
 
-#### 特技
+## 项目结构
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+```
+yizhi-scrip/
+├── server/                # 服务器端代码
+│   ├── src/              # 源代码
+│   ├── config/           # 配置文件
+│   └── resources/        # 资源文件
+├── web/                  # Web 后台端代码
+│   ├── src/              # 源代码
+│   └── public/           # 静态资源
+├── mobile/               # 移动端代码
+│   ├── src/              # 源代码
+│   └── assets/           # 资源文件
+└── README.md             # 项目说明
+```
+
+## 快速开始
+
+1. **克隆项目**
+
+   ```bash
+   git clone https://github.com/newborne/yizhi-scrip.git
+   ```
+
+2. **配置环境**
+   - 配置数据库连接信息
+   - 配置服务器运行环境
+
+3. **构建项目**
+
+   ```bash
+   mvn clean install
+   ```
+
+4. **运行项目**
+
+   ```bash
+   mvn spring-boot:run
+   ```
+
+## 贡献指南
+
+欢迎贡献代码和建议！请参考 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与项目。
+
+## 联系方式
+
+- **邮箱**：<newborne@foxmail.com>
+- **GitHub**：<https://github.com/newborne/yizhi-scrip>
+
+## 标签
+
+# 作文社交 #智能推荐 #Java #Vue #ReactNative #MongoDB #Redis #Neo4j
