@@ -33,7 +33,7 @@ class Geo {
       params: {
         location: `${longitude},${latitude}`,
         // yizhi-web的key
-        key: '9bde218c1633a7c000747c584cc6c725',
+        key: '',
       },
     });
     return Promise.resolve(res.data);
